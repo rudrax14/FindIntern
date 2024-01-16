@@ -9,13 +9,14 @@ function Login() {
             <img
                 src={wave}
                 alt="illustration"
-                className="absolute inset-0 z-0 object-cover w-full h-full bg-opacity-50 blur-sm" // Adjust blur class for desired blur effect
+                className="absolute inset-0 z-0 object-cover w-full h-full bg-opacity-50 blur-sm"
+                style={{ opacity: 0.8 }}
             />
-            <div className="container relative z-10 h-screen w-screen grid grid-cols-2 gap-7">
-                <div className="image flex justify-end items-center">
-                    <img src={loginPng} alt="" className='w-full max-w-[500px] h-[415px]' />
+            <div className="relative z-10 h-screen flex justify-center md:grid grid-cols-2 gap-32  " >
+                <div className="md:flex justify-end items-center hidden">
+                    <img src={loginPng} alt="" className='w-full max-w-[500px] h-[415px] ' />
                 </div>
-                <div className="login justify-center items-end">
+                <div className="flex justify-start">
                     <LoginForm />
                 </div>
             </div>

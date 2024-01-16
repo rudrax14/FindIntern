@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import profile from "../assets/avatar.png"
-import { FaUser, FaLock } from "react-icons/fa";
+import { FaLock, FaEnvelope } from "react-icons/fa";
 import InputField from './InputField';
 import AuthButton from './AuthButton';
 import toast from 'react-hot-toast';
@@ -40,12 +40,13 @@ function LoginForm() {
 
     return (
         <>
-            <div className='login-content flex items-center justify-center text-center h-full'>
-                <form action="" className='text-center items-center flex flex-col gap-6 ' onSubmit={submitHandler}>
+            <div className='flex items-center'>
+                <form action="" className='items-center flex flex-col gap-6 bg-[#cdd7fe] rounded-lg p-6 px-12 bg-opacity-50 shadow-2xl' onSubmit={submitHandler}>
                     <img src={profile} alt="" className='h-[100px]' />
                     <h2 className='text-[#8a2be2] font-bold text-4xl'>WELCOME</h2>
-                    <InputField Icon={FaUser} type='email' ph='Email' name="email" data={formData.email} event={changeHandler} />
+                    <InputField Icon={FaEnvelope} type='email' ph='Email' name="email" data={formData.email} event={changeHandler} />
                     <InputField Icon={FaLock} type='password' ph='Password' name='password' data={formData.password} event={changeHandler} />
+                    <h2>Forgot Password</h2>
                     <AuthButton type='Login' event={submitHandler} />
                     <AuthButton type='Signup' event={redirectHandler} />
                 </form>
