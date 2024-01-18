@@ -35,7 +35,7 @@ const UserDetail = () => {
                             {/* <InputField Icon={FaLock} type='password' ph='Full Name' name='password' /> */}
                             <InputField Icon={FaLock} type='text' ph='Location' name='location' />
                             <InputField Icon={FaLock} type='text' ph='Education' name='education' />
-                            <InputField Icon={FaLock} type='number' ph='Experience' name='exp' />
+                            <InputField Icon={FaLock} type='number' ph='Experience' name='exp' year='Year' />
                             <InputField Icon={FaLock} type='text' ph='Skills' name='skills' />
                         </div>
                         <h2 className='text-xl cursor-pointer ml-64'>Skip</h2>

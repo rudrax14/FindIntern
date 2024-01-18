@@ -57,15 +57,15 @@ function StartupPage() {
                     <img src={wave2} alt="" />
                 </div>
             </section>
-            <section id="services" className='services h-screen flex justify-center items-center mt-6'>
+            <section id="services" className='services h-svh" flex justify-center items-center py-32'>
                 <div className="container text-center justify-center items-center">
-                    <div className='flex flex-col items-center mb-24 mt-12'>
+                    <div className='flex flex-col items-center'>
                         <div className='mb-4'>
-                            <h1 className='text-4xl font-semibold'>What We Do ?</h1>
+                            <h1 className='lg:text-4xl text-2xl font-semibold'>What We Do ?</h1>
                         </div>
                         <div className='border-b-4 w-60 border-[#8a2be2] h-1'></div>
                     </div>
-                    <div className='grid grid-cols-3 items-center gap-12 pt-12'>
+                    <div className='grid md:grid-cols-3 items-center gap-12 pt-12'>
                         <div className='flex items-center flex-col'>
                             <img src={one} alt="" className='w-[120px]' />
                             <h2>Career Exploration</h2>
@@ -120,32 +120,32 @@ function StartupPage() {
                     <button className='mt-6 text-xl py-2 px-6 rounded-full  text-white' style={{ backgroundImage: 'linear-gradient(to right, #a517ba, #5f1782)' }}> Enter</button>
                 </div>
             </section >
-            <section id="about-us" className='about-us h-screen flex justify-center items-center pt-24 bg-[#f8f8fa]'>
-                <div className='container text-center'>
-                    <div className='flex flex-col items-center mb-24 '>
+            <section id="about-us" className='about-us lg:h-screen flex justify-center py-12  bg-[#f8f8fa]'>
+                <div className='container flex flex-col h-3/4 justify-around items-center'>
+                    <div className='flex flex-col items-center'>
                         <div className='mb-4'>
-                            <h1 className='text-4xl font-semibold'>Why Choose Us ?</h1>
+                            <h1 className='lg:text-4xl text-2xl border-[#8a2be2] border-b-2  font-semibold'>Why Choose Us ?</h1>
                         </div>
-                        <div className='border-b-4 w-80 border-[#8a2be2] h-1'></div>
+                        <div className='border-b-4 lg:w-80  border-[#8a2be2] h-1'></div>
                     </div>
-                    <div className='grid grid-cols-2 gap-6 items-center ml-64'>
-                        <div className='flex flex-col gap-12 items-start w-2/3 '>
-                            <h1 className='text-4xl font-medium '>Why we're different</h1>
-                            <ul className='flex flex-col gap-3 items-start list-disc'>
+                    <div className='lg:grid grid-cols-2 gap-60'>
+                        <div className='flex flex-col lg:gap-12 gap-3 '>
+                            <h1 className='lg:text-4xl text-xl font-medium'>Why we're different</h1>
+                            <ul className='flex flex-col lg:gap-3 gap-1'>
                                 <li>It won't pay much.</li>
                                 <li>You may get the grunt work.</li>
                                 <li>You could get labeled.</li>
                                 <li>The hours can vary.</li>
                             </ul>
                         </div>
-                        <div className='flex items-center justify-center'>
+                        <div className='max-w-xs'>
                             <img src={aboutUs} alt="" />
                         </div>
                     </div>
                 </div>
             </section>
-            <section id="companies" className='companies h-screen flex flex-col items-center justify-center'>
-                <div className="container text-center justify-center">
+            <section id="companies" className='companies lg:h-screen flex flex-col items-center justify-center '>
+                <div className="container text-center justify-center py-12">
                     <div className='flex flex-col items-center mb-24'>
                         <div className='mb-4'>
                             <h1 className='text-4xl font-semibold'>Companies</h1>
@@ -154,7 +154,7 @@ function StartupPage() {
                     </div>
 
 
-                    <div className='grid grid-cols-2 gap-6 px-32'>
+                    <div className='lg:grid flex flex-col grid-cols-2 gap-6 lg:px-32 pl-3'>
                         <div className='flex flex-col items-center gap-3 border-l-[4px] border-[#7b1798]'>
                             <p className='px-20'>Google LLC is an American multinational technology company that specializes
                                 in Internet-related services and products, which include online advertising
@@ -191,7 +191,7 @@ function StartupPage() {
             </section>
             <footer id="footer" className='' style={{ backgroundImage: 'linear-gradient(to right, #a517ba, #5f1782)' }}>
                 <img src={wave1} alt="" className='' />
-                <div className='h-80 flex justify-center items-center ' style={{ backgroundImage: 'linear-gradient(to right, #a517ba, #5f1782)' }}>
+                <div className='lg:h-80 flex justify-center items-center ' style={{ backgroundImage: 'linear-gradient(to right, #a517ba, #5f1782)' }}>
                     <div className="w-1/2 flex text-white">
                         <div className='grid grid-cols-2 gap-6 '>
                             <div className='flex flex-col gap-6'>
