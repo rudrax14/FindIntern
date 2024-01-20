@@ -1,224 +1,149 @@
-import React from 'react'
-import logo from '../../public/logo.png'
-import hero from '../../public/hero.png'
-import aboutUs from '../../public/aboutUs.png'
-import wave2 from '../../public/wave2.png'
-import wave1 from '../../public/wave1.png'
-import one from '../../public/services_img/1.png'
-import google from '../../public/companies/google.png'
-import { FaPhoneAlt, FaMapMarkerAlt, FaEnvelope } from "react-icons/fa";
+import React, { useState } from 'react'
+import { FaSistrix } from "react-icons/fa";
+import { IoLocationOutline } from "react-icons/io5";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { FaTimes } from "react-icons/fa";
+import { Twirl as Hamburger } from 'hamburger-react'
 function StartupPage() {
+    const [isOpen, setOpen] = useState(false)
     return (
         <>
-            <nav className=' sticky top-0'>
-                <div className='flex text-white justify-between items-center px-6 h-12 w-full' style={{ backgroundImage: 'linear-gradient(to right, #a517ba, #5f1782)' }}>
-                    <div className='flex'>
-                        <h1 className='text-xl font-bold'>FIND-INTERN</h1>
-                    </div>
-                    <div className='flex'>
-                        <ul className='flex font-semibold text-xl gap-6'>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#top">HOME</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#services">SERVICES</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#about-us">ABOUT US</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#companies">COMPANIES</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#footer">CONTACT US</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/loginForm">LOGIN</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/signupForm">SIGNUP</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-            <section className='flex flex-col items-center pt-36 w-full' style={{ backgroundImage: 'linear-gradient(to right, #a517ba, #5f1782)' }}>
-                <div className='container grid grid-cols-2 gap-6' >
-                    <div className='desc text-white flex items-center justify-center flex-col gap-4'>
-                        <p className=' text-4xl font-medium'>FINDINTERN</p>
-                        <p className='text-xl'>Choose a job you love, and you will never have to work a day in your life.</p>
-                        <p className=''>Find jobs that fit your qualifications.</p>
-                    </div>
-                    <div className='hero_img flex justify-center items-center'>
-                        <img src={hero} alt="" />
-                    </div>
-                </div>
-                <div>
-                    <img src={wave2} alt="" />
-                </div>
-            </section>
-            <section id="services" className='services h-svh" flex justify-center items-center py-32'>
-                <div className="container text-center justify-center items-center">
-                    <div className='flex flex-col items-center'>
-                        <div className='mb-4'>
-                            <h1 className='lg:text-4xl text-2xl font-semibold'>What We Do ?</h1>
-                        </div>
-                        <div className='border-b-4 w-60 border-[#8a2be2] h-1'></div>
-                    </div>
-                    <div className='grid md:grid-cols-3 items-center gap-12 pt-12'>
-                        <div className='flex items-center flex-col'>
-                            <img src={one} alt="" className='w-[120px]' />
-                            <h2>Career Exploration</h2>
-                            <p>"Learn about a career field from the inside and decide if this is the right career field for you.
-                                Work alongside a professional in your chosen career area.
-                                Observe the workplace and see if it matches expectations."</p>
-
-                        </div>
-                        <div className='flex items-center flex-col'>
-                            <img src={one} alt="" className='w-[120px]' />
-                            <h2>Career Exploration</h2>
-                            <p>"Learn about a career field from the inside and decide if this is the right career field for you.
-                                Work alongside a professional in your chosen career area.
-                                Observe the workplace and see if it matches expectations."</p>
-
-                        </div>
-                        <div className='flex items-center flex-col'>
-                            <img src={one} alt="" className='w-[120px]' />
-                            <h2>Career Exploration</h2>
-                            <p>"Learn about a career field from the inside and decide if this is the right career field for you.
-                                Work alongside a professional in your chosen career area.
-                                Observe the workplace and see if it matches expectations."</p>
-
-                        </div>
-                        <div className='flex items-center flex-col'>
-                            <img src={one} alt="" className='w-[120px]' />
-                            <h2>Career Exploration</h2>
-                            <p>"Learn about a career field from the inside and decide if this is the right career field for you.
-                                Work alongside a professional in your chosen career area.
-                                Observe the workplace and see if it matches expectations."</p>
-
-                        </div>
-                        <div className='flex items-center flex-col'>
-                            <img src={one} alt="" className='w-[120px]' />
-                            <h2>Career Exploration</h2>
-                            <p>"Learn about a career field from the inside and decide if this is the right career field for you.
-                                Work alongside a professional in your chosen career area.
-                                Observe the workplace and see if it matches expectations."</p>
-
-                        </div>
-                        <div className='flex items-center flex-col'>
-                            <img src={one} alt="" className='w-[120px]' />
-                            <h2>Career Exploration</h2>
-                            <p>"Learn about a career field from the inside and decide if this is the right career field for you.
-                                Work alongside a professional in your chosen career area.
-                                Observe the workplace and see if it matches expectations."</p>
-
-                        </div>
-
-
-                    </div>
-                    <button className='mt-6 text-xl py-2 px-6 rounded-full  text-white' style={{ backgroundImage: 'linear-gradient(to right, #a517ba, #5f1782)' }}> Enter</button>
-                </div>
-            </section >
-            <section id="about-us" className='about-us lg:h-screen flex justify-center py-12  bg-[#f8f8fa]'>
-                <div className='container flex flex-col h-3/4 justify-around items-center'>
-                    <div className='flex flex-col items-center'>
-                        <div className='mb-4'>
-                            <h1 className='lg:text-4xl text-2xl border-[#8a2be2] border-b-2  font-semibold'>Why Choose Us ?</h1>
-                        </div>
-                        <div className='border-b-4 lg:w-80  border-[#8a2be2] h-1'></div>
-                    </div>
-                    <div className='lg:grid grid-cols-2 gap-60'>
-                        <div className='flex flex-col lg:gap-12 gap-3 '>
-                            <h1 className='lg:text-4xl text-xl font-medium'>Why we're different</h1>
-                            <ul className='flex flex-col lg:gap-3 gap-1'>
-                                <li>It won't pay much.</li>
-                                <li>You may get the grunt work.</li>
-                                <li>You could get labeled.</li>
-                                <li>The hours can vary.</li>
+            <nav className='sticky top-0 bg-white z-20'>
+                <div className="flex h-14 shadow-xl px-4">
+                    <div className="container mx-auto flex justify-between items-center">
+                        <h1 className='font-bold text-xl text-primary-200'>FINDINTERN</h1>
+                        <div className=''>
+                            <ul className='sm:flex w-60 justify-between text-lg font-medium hidden text-secondary-500'>
+                                <li>Home</li>
+                                <li>Jobs</li>
+                                <li>About Us</li>
                             </ul>
                         </div>
-                        <div className='max-w-xs'>
-                            <img src={aboutUs} alt="" />
+                        <div className=' buttons flex text-center font-medium text-lg'>
+                            <a href="" className='text-primary-200 border-primary-200 hover:bg-primary-200 hover:text-white rounded-md border px-2 py-1 mr-2'>Sign in</a>
+                            <a href="" className='bg-primary-200 text-white border-primary-200 hover:bg-primary-300 rounded-md border px-2 py-1'>Sign Up</a>
                         </div>
+                        <div className='block sm:hidden'>
+                            <Hamburger toggled={isOpen} toggle={setOpen} color='#754ffe' />
+                        </div>
+
                     </div>
                 </div>
-            </section>
-            <section id="companies" className='companies lg:h-screen flex flex-col items-center justify-center '>
-                <div className="container text-center justify-center py-12">
-                    <div className='flex flex-col items-center mb-24'>
-                        <div className='mb-4'>
-                            <h1 className='text-4xl font-semibold'>Companies</h1>
-                        </div>
-                        <div className='border-b-4 w-60 border-[#8a2be2] h-1'></div>
+                <div className={` ${isOpen ? 'mt-14 fixed top-0 w-full h-full ease-in-out duration-500 md:hidden' : 'ease-in-out duration-500 fixed left-[-100%]'}`}>
+                    <div className='bg-white py-4 border-primary-200 border transition-all'>
+                        <ul className='flex flex-col w-full justify-between text-lg font-medium px-6'>
+                            <li className='border-b-[2px] pb-1 borderS'>Home</li>
+                            <li className='border-b-[2px] pb-1 borderS'>Jobs</li>
+                            <li className='border-b-[2px] pb-1 borderS'>About Us</li>
+                        </ul>
                     </div>
-
-
-                    <div className='lg:grid flex flex-col grid-cols-2 gap-6 lg:px-32 pl-3'>
-                        <div className='flex flex-col items-center gap-3 border-l-[4px] border-[#7b1798]'>
-                            <p className='px-20'>Google LLC is an American multinational technology company that specializes
-                                in Internet-related services and products, which include online advertising
-                                technologies, a search engine, cloud computing, software, and hardware.</p>
-                            <img src={google} alt="" className='h-[80px] w-[80px]' />
-                            <p>GOOGLE</p>
-                        </div>
-                        <div className='flex flex-col items-center border-l-[4px] border-[#7b1798]'>
-                            <p className='px-20'>Google LLC is an American multinational technology company that specializes
-                                in Internet-related services and products, which include online advertising
-                                technologies, a search engine, cloud computing, software, and hardware.</p>
-                            <img src={google} alt="" className='h-[80px] w-[80px]' />
-                            <p>GOOGLE</p>
-                        </div>
-                        <div className='flex flex-col items-center border-l-[4px] border-[#7b1798]'>
-                            <p className='px-20'>Google LLC is an American multinational technology company that specializes
-                                in Internet-related services and products, which include online advertising
-                                technologies, a search engine, cloud computing, software, and hardware.</p>
-                            <img src={google} alt="" className='h-[80px] w-[80px]' />
-                            <p>GOOGLE</p>
-                        </div>
-                        <div className='flex flex-col items-center border-l-[4px] border-[#7b1798]'>
-                            <p className='px-20'>Google LLC is an American multinational technology company that specializes
-                                in Internet-related services and products, which include online advertising
-                                technologies, a search engine, cloud computing, software, and hardware.</p>
-                            <img src={google} alt="" className='h-[80px] w-[80px]' />
-                            <p>GOOGLE</p>
-                        </div>
-
-
-                    </div>
-
+                    <div className='backdrop-blur-sm h-full '></div>
                 </div>
-            </section>
-            <footer id="footer" className='' style={{ backgroundImage: 'linear-gradient(to right, #a517ba, #5f1782)' }}>
-                <img src={wave1} alt="" className='' />
-                <div className='lg:h-80 flex justify-center items-center ' style={{ backgroundImage: 'linear-gradient(to right, #a517ba, #5f1782)' }}>
-                    <div className="w-1/2 flex text-white">
-                        <div className='grid grid-cols-2 gap-6 '>
-                            <div className='flex flex-col gap-6'>
-                                <h1 className=' text-xl font-semibold'>FINDINTERN</h1>
-                                <p className=''>"Choose a job you love, and you will never have to work a day in your life.
-                                    Do something for somebody every day for which you do not get paid.
-                                    Find jobs that fit your qualifications."</p>
+
+
+
+            </nav >
+            {/* Hero section */}
+            <main main >
+                <section className='bg-secondary-100 h-dvh py-20 flex '>
+                    <div className="container xl:grid grid-cols-2 flex 2xl px-6 mx-auto">
+                        <div className='flex flex-col gap-12 sm:flex-wrap w-full text-center sm:text-start justify-center 2xl:px-20'>
+                            <div className='flex flex-col gap-6 '>
+                                <h1 className='sm:text-6xl text-4xl font-bold text-wrap text-secondary-300'>Find your dream job that you love to do.</h1>
+                                <p className='md:font-semibold font-medium md:text-xl text-lg text-secondary-200'>The largest remote work community in the world. Sign up and post a job or create your developer profile.</p>
                             </div>
-                            <div className='px-12 flex flex-col gap-3 '>
-                                <h1 className='text-xl font-semibold'>CONTACT US</h1>
-                                <div className='flex text-center items-center gap-2'>
-                                    <i>{<FaMapMarkerAlt />}</i>
-                                    <p>THANE, MAHARASHTRA</p>
+                            <div>
+                                <form action="" className='flex flex-col gap-6 py-4 px-8 items-center h-full w-full rounded-lg bg-white md:flex-row md:rounded-full md:px-4 md:h-14 md:w-min md:justify-between md:items-center '>
+                                    <div className='flex items-center py-1 border w-full md:border-none rounded-full text-secondary-200 gap-3 pl-3'>
+                                        <span className=''>{<FaSistrix />}</span>
+                                        <input type="text" placeholder='Job Title' className='placeholder:text-secondary-200 outline-none' />
+                                    </div>
+                                    <div className='flex  items-center py-1 border md:border-none w-full rounded-full text-secondary-200 gap-3 pl-3'>
+                                        <span className=''>{<IoLocationOutline />}</span>
+                                        <input type="text" placeholder='Location' className='placeholder:text-secondary-200 outline-none' />
+                                    </div>
+                                    <div className='flex w-full md:block'>
+                                        <button className='bg-primary-200 hover:bg-primary-300 w-full text-white px-12 py-2 rounded-full font-medium'>Search</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <p className='text-secondary-200'>Currently listing 30,642 jobs from 5,717 companies</p>
+                        </div>
+                        <div className='hero-image xl:flex justify-center hidden flex-shrink w-full px-12'>
+                            <div className='relative'>
+                                <img src="https://codescandy.com/geeks-bootstrap-5/assets/images/job/png/job-hero-section.png" alt="" className='w-[519px] h-[568px] shrink' />
+                                <div className='absolute top-0 mt-[3rem] -ml-[6rem] start-0'>
+                                    <img src="https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-hero-block-1.svg" alt="" />
                                 </div>
-                                <div className='flex text-center items-center gap-2'>
-                                    <i>{<FaPhoneAlt />}</i>
-                                    <p>+91 1234567890</p>
+                                <div className='absolute bottom-0 -mr-[5.5rem] mb-[15.5rem] end-0'>
+                                    <img src="https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-hero-block-2.svg" alt="" />
                                 </div>
-                                <div className='flex text-center items-center gap-2'>
-                                    <i>{<FaEnvelope />}</i>
-                                    <p>abc@gmail.com</p>
+                                <div className='absolute bottom-0 -ml-[3rem] -mb-[1.5rem] start-0'>
+                                    <img src="https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-hero-block-3.svg" alt="" />
                                 </div>
                             </div>
+
                         </div>
                     </div>
-                </div>
-            </footer >
+                </section>
+                <section className=' top-comp'>
+                    <div className="container bg-white mx-auto py-12">
+                        <div className='flex flex-row flex-wrap text-center gap-12 justify-center'>
+                            <img src="https://codescandy.com/geeks-bootstrap-5/assets/images/brand/gray-logo-airbnb.svg" alt="" />
+                            <img src="https://codescandy.com/geeks-bootstrap-5/assets/images/brand/gray-logo-discord.svg" alt="" />
+                            <img src="https://codescandy.com/geeks-bootstrap-5/assets/images/brand/gray-logo-intercom.svg" alt="" />
+                            <img src="https://codescandy.com/geeks-bootstrap-5/assets/images/brand/gray-logo-stripe.svg" alt="" />
+                            <img src="https://codescandy.com/geeks-bootstrap-5/assets/images/brand/gray-logo-netflix.svg" alt="" />
+                        </div>
+                    </div>
+                </section>
+
+                {/* companies */}
+                <section className='company-list mt-20 '>
+                    <div className="container mx-auto ">
+                        <div className='text-center'>
+                            <span className='text-primary-200 text-lg font-semibold uppercase'>Latest Job Opening</span>
+                            <h2 className='font-bold text-3xl text-secondary-300 mt-6'>Explore remote friendly, flexible job opportunities.</h2>
+                        </div>
+                        <div className='multi-cards flex flex-col items-center py-6 gap-6 px-3'>
+
+                            <div className="card-body border sm:flex  w-full max-w-3xl p-6 rounded-lg hover:shadow-2xl hover:cursor-pointer">
+                                <div className='comp-logo '>
+                                    <img src="https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-brand-logo/job-list-logo-1.svg" alt="" className='border rounded-full mr-6 mb-3' />
+                                </div>
+                                <div className='flex flex-col w-full gap-10'>
+                                    <div className='comp-description flex flex-col gap-1'>
+                                        <div className='flex items-center'>
+                                            <h3 className='font-semibold text-lg'>Software Engineer (Web3/Crypto)</h3>
+                                            <span className='text-red-600 font-normal ml-2 mt-1 bg-red-50 px-3 rounded-lg'>Featured Job</span>
+                                        </div>
+                                        <div className='text-secondary-200 flex flex-row gap-3'>
+                                            <span>at HelpDesk </span>
+                                            <span className='text-secondary-300'>4.5 ⭐</span>
+                                            <span>(131 Reviews)</span>
+                                        </div>
+                                    </div>
+                                    <div className=''>
+                                        <div className='sm:flex justify-between text-secondary-200'>
+                                            <div className='flex flex-row gap-3'>
+                                                <span>1 - 5 years</span>
+                                                <span>12k - 18k</span>
+                                                <span>Ahmedabad, Gujarat</span>
+                                            </div>
+                                            <div className=''>21 hours ago</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div className='flex items-center justify-center mb-10'>
+                            <button className='hover:bg-primary-200 hover:text-white border border-primary-200 text-primary-200 font-medium p-3 rounded-lg'>Browse All Jobs Postings</button>
+                        </div>
+                    </div>
+                </section>
+            </main >
         </>
     )
 }
