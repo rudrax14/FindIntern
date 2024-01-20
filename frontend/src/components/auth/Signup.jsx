@@ -1,21 +1,24 @@
 import React from 'react'
-import wave from '../../assets/wave.png';
 import SignupForm from '../SignupForm'
-import signupPng from '../../assets/signup.png';
+import { Link } from 'react-router-dom'
 
 function Signup() {
     return (
         <>
-            <img src={wave} alt="illustration" className="absolute inset-0 z-0 object-cover w-full h-full blur-sm" style={{ opacity: 0.8 }} />
-            <div className="relative z-10 h-screen flex justify-center w-screen md:grid grid-cols-2 gap-32  ">
-                <div className="image md:flex flex-shrink-0 w-full justify-end items-center hidden">
-                    <img src={signupPng} alt="" className='w-full max-w-[500px] h-[415px]' />
-                </div>
-                <div className="login flex justify-start">
+
+            <div className='flex items-center justify-center h-screen bg-secondary-100 p-5'>
+                <div class="max-w-[30rem] w-full rounded overflow-hidden shadow-2xl bg-white flex flex-col gap-6 px-10 py-6">
+                    <div className='flex flex-col gap-3'>
+                        <h1 className='text-primary-200 text-2xl font-bold tracking-wider'>FindIntern</h1>
+                        <h1 className='text-[2rem] font-bold text-secondary-300'>Sign in</h1>
+                        <div className='flex gap-3'>
+                            <span className='text-secondary-200'>Don't have an account? </span>
+                            <Link to="/login" className='text-primary-200'>Log in</Link>
+                        </div>
+                    </div>
                     <SignupForm />
                 </div>
             </div>
-
 
         </>
     )

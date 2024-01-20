@@ -11,12 +11,13 @@ function StartupPage() {
             <nav className='sticky top-0 bg-white z-20'>
                 <div className="flex h-14 shadow-xl px-4">
                     <div className="container mx-auto flex justify-between items-center">
-                        <h1 className='font-bold text-xl text-primary-200'>FINDINTERN</h1>
+                        <h1 className='font-bold text-xl text-primary-200 tracking-widest'>FINDINTERN</h1>
                         <div className=''>
-                            <ul className='sm:flex w-60 justify-between text-lg font-medium hidden text-secondary-500'>
-                                <li>Home</li>
-                                <li>Jobs</li>
-                                <li>About Us</li>
+                            <ul className='sm:flex w-60 justify-between text-lg font-medium hidden text-secondary-300'>
+                                <li className='hover:text-primary-200 hover:cursor-pointer'>Home</li>
+                                <li className='hover:text-primary-200 hover:cursor-pointer'>Jobs</li>
+                                <li className='hover:text-primary-200 hover:cursor-pointer'>About Us</li>
+
                             </ul>
                         </div>
                         <div className=' buttons flex text-center font-medium text-lg'>
@@ -32,9 +33,9 @@ function StartupPage() {
                 <div className={` ${isOpen ? 'mt-14 fixed top-0 w-full h-full ease-in-out duration-500 md:hidden' : 'ease-in-out duration-500 fixed left-[-100%]'}`}>
                     <div className='bg-white py-4 border-primary-200 border transition-all'>
                         <ul className='flex flex-col w-full justify-between text-lg font-medium px-6'>
-                            <li className='border-b-[2px] pb-1 borderS'>Home</li>
-                            <li className='border-b-[2px] pb-1 borderS'>Jobs</li>
-                            <li className='border-b-[2px] pb-1 borderS'>About Us</li>
+                            <li className='border-b-[2px] pb-1  hover:text-primary-200 hover:cursor-pointer'>Home</li>
+                            <li className='border-b-[2px] pb-1  hover:text-primary-200 hover:cursor-pointer'>Jobs</li>
+                            <li className='border-b-[2px] pb-1  hover:text-primary-200 hover:cursor-pointer'>About Us</li>
                         </ul>
                     </div>
                     <div className='backdrop-blur-sm h-full '></div>
@@ -43,8 +44,8 @@ function StartupPage() {
 
 
             </nav >
-            {/* Hero section */}
             <main main >
+                {/* Hero section */}
                 <section className='bg-secondary-100 h-dvh py-20 flex '>
                     <div className="container xl:grid grid-cols-2 flex 2xl px-6 mx-auto">
                         <div className='flex flex-col gap-12 sm:flex-wrap w-full text-center sm:text-start justify-center 2xl:px-20'>
@@ -86,7 +87,8 @@ function StartupPage() {
                         </div>
                     </div>
                 </section>
-                <section className=' top-comp'>
+                {/* top-comp */}
+                <section className='top-comp'>
                     <div className="container bg-white mx-auto py-12">
                         <div className='flex flex-row flex-wrap text-center gap-12 justify-center'>
                             <img src="https://codescandy.com/geeks-bootstrap-5/assets/images/brand/gray-logo-airbnb.svg" alt="" />
@@ -97,12 +99,12 @@ function StartupPage() {
                         </div>
                     </div>
                 </section>
-
                 {/* companies */}
                 <section className='company-list mt-20 '>
                     <div className="container mx-auto ">
+
                         <div className='text-center'>
-                            <span className='text-primary-200 text-lg font-semibold uppercase'>Latest Job Opening</span>
+                            <span className='text-primary-200 text-base font-semibold uppercase tracking-widest'>Latest Job Opening</span>
                             <h2 className='font-bold text-3xl text-secondary-300 mt-6'>Explore remote friendly, flexible job opportunities.</h2>
                         </div>
                         <div className='multi-cards flex flex-col items-center py-6 gap-6 px-3'>
@@ -143,6 +145,7 @@ function StartupPage() {
                         </div>
                     </div>
                 </section>
+                {/* companies */}
             </main >
         </>
     )

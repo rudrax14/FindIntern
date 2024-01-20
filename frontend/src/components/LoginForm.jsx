@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import profile from "../assets/avatar.png"
 import { FaLock, FaEnvelope } from "react-icons/fa";
 import InputField from './InputField';
 import AuthButton from './AuthButton';
@@ -40,19 +39,16 @@ function LoginForm() {
 
     return (
         <>
-            <div className='flex items-center'>
-                <form action="" className='items-center flex flex-col gap-6 bg-[#cdd7fe] rounded-lg p-6 px-12 bg-opacity-50 shadow-2xl' onSubmit={submitHandler}>
-                    <img src={profile} alt="" className='h-[100px]' />
-                    <h2 className='text-[#8a2be2] font-bold text-4xl'>WELCOME</h2>
-                    <InputField Icon={FaEnvelope} type='email' ph='Email' name="email" data={formData.email} event={changeHandler} />
-                    <InputField Icon={FaLock} type='password' ph='Password' name='password' data={formData.password} event={changeHandler} />
-                    <h2>Forgot Password</h2>
-                    <AuthButton type='Login' event={submitHandler} />
-                    <AuthButton type='Signup' event={redirectHandler} />
-                </form>
-            </div>
-
-
+            <form action="" className='flex flex-col gap-4'>
+                <InputField lable='Username or email' ph='Email address here' type='text' />
+                <InputField lable='Password' ph='**************' type='password' />
+                <div className='flex justify-end'>
+                    <a href="" className='text-primary-200'>Forgot your password?</a>
+                </div>
+                <div className=''>
+                    <button className='bg-primary-200 text-white rounded-md w-full py-2 font-medium'>Sign in</button>
+                </div>
+            </form>
         </>
     )
 }
