@@ -4,6 +4,7 @@ import { IoLocationOutline } from "react-icons/io5";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { FaTimes } from "react-icons/fa";
 import { Twirl as Hamburger } from 'hamburger-react'
+import JobsCards from '../components/JobsCards';
 function StartupPage() {
     const [isOpen, setOpen] = useState(false)
     return (
@@ -107,38 +108,8 @@ function StartupPage() {
                             <span className='text-primary-200 text-base font-semibold uppercase tracking-widest'>Latest Job Opening</span>
                             <h2 className='font-bold text-3xl text-secondary-300 mt-6'>Explore remote friendly, flexible job opportunities.</h2>
                         </div>
-                        <div className='multi-cards flex flex-col items-center py-6 gap-6 px-3'>
-
-                            <div className="card-body border sm:flex  w-full max-w-3xl p-6 rounded-lg hover:shadow-2xl hover:cursor-pointer">
-                                <div className='comp-logo '>
-                                    <img src="https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-brand-logo/job-list-logo-1.svg" alt="" className='border rounded-full mr-6 mb-3' />
-                                </div>
-                                <div className='flex flex-col w-full gap-10'>
-                                    <div className='comp-description flex flex-col gap-1'>
-                                        <div className='flex items-center'>
-                                            <h3 className='font-semibold text-lg'>Software Engineer (Web3/Crypto)</h3>
-                                            <span className='text-red-600 font-normal ml-2 mt-1 bg-red-50 px-3 rounded-lg'>Featured Job</span>
-                                        </div>
-                                        <div className='text-secondary-200 flex flex-row gap-3'>
-                                            <span>at HelpDesk </span>
-                                            <span className='text-secondary-300'>4.5 ⭐</span>
-                                            <span>(131 Reviews)</span>
-                                        </div>
-                                    </div>
-                                    <div className=''>
-                                        <div className='sm:flex justify-between text-secondary-200'>
-                                            <div className='flex flex-row gap-3'>
-                                                <span>1 - 5 years</span>
-                                                <span>12k - 18k</span>
-                                                <span>Ahmedabad, Gujarat</span>
-                                            </div>
-                                            <div className=''>21 hours ago</div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
+                        <div className='w-m'>
+                            <JobsCards />
                         </div>
                         <div className='flex items-center justify-center mb-10'>
                             <button className='hover:bg-primary-200 hover:text-white border border-primary-200 text-primary-200 font-medium p-3 rounded-lg'>Browse All Jobs Postings</button>

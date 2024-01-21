@@ -4,7 +4,7 @@ function Navbar() {
     const [isOpen, setOpen] = useState(false)
     return (
         <nav className='sticky top-0 bg-white z-20'>
-            <div className="flex h-14 shadow-xl px-4">
+            <div className="flex h-14 shadow-md px-4">
                 <div className="container mx-auto flex justify-between items-center">
                     <h1 className='font-bold text-xl text-primary-200 tracking-widest'>FINDINTERN</h1>
                     <div className=''>
