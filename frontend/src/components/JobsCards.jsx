@@ -11,7 +11,7 @@ function JobsCards() {
                     <div className='flex flex-col w-full gap-10'>
                         <div className='comp-description flex flex-col gap-1'>
                             <div className='flex items-center'>
-                                <h3 className='font-semibold text-lg'>Software Engineer (Web3/Crypto)</h3>
+                                <h3 className='font-semibold text-base'>Software Engineer (Web3/Crypto)</h3>
                                 <span className='text-red-600 font-normal ml-2 mt-1 bg-red-50 px-3 rounded-lg'>Featured Job</span>
                             </div>
                             <div className='text-secondary-200 flex flex-row gap-3'>

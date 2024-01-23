@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Twirl as Hamburger } from 'hamburger-react'
+import { Link } from 'react-router-dom'
 function Navbar() {
     const [isOpen, setOpen] = useState(false)
     return (
@@ -9,15 +10,15 @@ function Navbar() {
                     <h1 className='font-bold text-xl text-primary-200 tracking-widest'>FINDINTERN</h1>
                     <div className=''>
                         <ul className='sm:flex w-60 justify-between text-lg font-medium hidden text-secondary-300'>
-                            <li className='hover:text-primary-200 hover:cursor-pointer'>Home</li>
-                            <li className='hover:text-primary-200 hover:cursor-pointer'>Jobs</li>
-                            <li className='hover:text-primary-200 hover:cursor-pointer'>About Us</li>
+                            <Link to="/" className='hover:text-primary-200 hover:cursor-pointer'>Home</Link>
+                            <Link to="/user/jobs" className='hover:text-primary-200 hover:cursor-pointer'>Jobs</Link>
+                            <Link to="/single/jobs" className='hover:text-primary-200 hover:cursor-pointer'>Single Jobs</Link>
 
                         </ul>
                     </div>
                     <div className=' buttons flex text-center font-medium text-lg'>
-                        <a href="" className='text-primary-200 border-primary-200 hover:bg-primary-200 hover:text-white rounded-md border px-2 py-1 mr-2'>Sign in</a>
-                        <a href="" className='bg-primary-200 text-white border-primary-200 hover:bg-primary-300 rounded-md border px-2 py-1'>Sign Up</a>
+                        <Link to="/login" className='text-primary-200 border-primary-200 hover:bg-primary-200 hover:text-white rounded-md border px-2 py-1 mr-2'>Sign in</Link>
+                        <Link to="/signup" className='bg-primary-200 text-white border-primary-200 hover:bg-primary-300 rounded-md border px-2 py-1'>Sign Up</Link>
                     </div>
                     <div className='block sm:hidden'>
                         <Hamburger toggled={isOpen} toggle={setOpen} color='#754ffe' />

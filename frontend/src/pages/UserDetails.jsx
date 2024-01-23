@@ -1,37 +1,65 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import React, { useState } from 'react'
+import { useNavigate } from "react-router-dom";
 import Navbar from '../components/common/Navbar'
 import { LiaUserSolid } from "react-icons/lia";
 import InputField from '../components/InputField';
 import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
+import DetailsHeader from '../components/DetailsHeader';
 
 function UserDetails() {
+
+    const navigate = useNavigate();
+
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+    });
+
+    function changeHandler(event) {
+        setFormData((prev) => ({
+            ...prev,
+            [event.target.name]: event.target.value,
+        }));
+    }
+
+    function submitHandler(e) {
+        e.preventDefault();
+
+        // setIsLoggedIn(true);
+        toast.success('Login successful')
+        const accountData = {
+            ...formData,
+        };
+        console.log(accountData);
+
+        navigate("/dashboard");
+    }
+
+
     return (
         <>
             <Navbar />
-            <div className="container mx-auto lg:py-24 py-12 px-4">
-                <div className='flex gap-3 flex-col max-w-lg lg:pl-24 '>
-                    <h1 className='text-4xl text-secondary-300 font-bold'>Find a Job & grow your career</h1>
-                    <p className='font-semibold text-secondary-200 text-xl'>Build your profile and let recruiters find you. Get job postings delivered right to your email.</p>
-                </div>
+            <div className="container mx-auto py-8 px-4">
+                <DetailsHeader h1='Find a Job & grow your career' h2='Build your profile and let recruiters find you. Get job postings delivered right to your email.'/>
             </div>
-            <div className='lg:grid grid-cols-3 gap-6 md:flex container mx-auto py-12  md:px-24 px-6'>
-                <form action="" className=' border flex flex-col gap-3 border-gray-300 rounded-lg p-12 col-span-2'>
+            <div className='lg:grid grid-cols-3 gap-6 md:flex container mx-auto py-6 md:px-24 px-6'>
+                <form action="" onSubmit={submitHandler} className=' border flex flex-col gap-3 border-gray-300 rounded-lg p-12 col-span-2'>
                     <div className='flex flex-col gap-3'>
                         <h3 className='text-2xl font-semibold text-secondary-300'>Basic Information</h3>
                         <p>Add your personal details in the form.</p>
                     </div>
                     <div className='flex flex-col gap-6'>
-                        <InputField lable='Job Title' ph='Write the Job Title' type='text' imp='*' />
-                        <InputField lable='Location' ph='Write the Job Title' type='text' imp='*' />
-                        <InputField lable='Education' ph='Write the Job Title' type='text' imp='*' />
-                        <InputField lable='Experience' ph='Write the Job Title' type='text' imp='*' />
-                        <InputField lable='Skills' ph='Write the Job Title' type='text' imp='*' />
+                        <InputField label='Job Title' ph='Write the Job Title' type='text' imp='*' />
+                        <InputField label='Location' ph='Write the Job Title' type='text' imp='*' />
+                        <InputField label='Education' ph='Write the Job Title' type='text' imp='*' />
+                        <InputField label='Experience' ph='Write the Job Title' type='text' imp='*' />
+                        <InputField label='Skills' ph='Write the Job Title' type='text' imp='*' />
                         <div className=''>
                             <button className='bg-primary-200 text-white rounded-md lg:w-2/6 w-full py-2 font-medium'>Submit for Approval</button>
                         </div>
                     </div>
                 </form>
+                {/* compo */}
                 <div className=' bg-secondary-100 flex flex-col gap-4 h-fit p-8 w-[66%] md:w-[76%] rounded-lg md:mt-0 mt-6'>
                     <div>
                         <img src="https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-graphics.svg" alt="" />

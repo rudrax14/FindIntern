@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import Navbar from '../components/common/Navbar'
 import { FaSistrix } from "react-icons/fa";
 import { IoLocationOutline, IoFilterSharp } from "react-icons/io5";
+import JobsCards from '../components/JobsCards';
+import FilterBoxJobs from '../components/FilterBoxJobs';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
-import JobsCards from '../components/JobsCards';
 function JobsLists() {
-
     function valuetext(value) {
-        return `${value}°C`;
+        return `${value}`;
     }
     return (
         <>
@@ -38,6 +38,7 @@ function JobsLists() {
             <section className='py-7'>
                 <div className="container mx-auto max-w-[1320px]">
                     <div className='md:grid grid-cols-4 gap-3'>
+                        {/* compo todo */}
                         <div className='border rounded-lg'>
                             <div className=''>
                                 <div className="card-header flex items-center gap-2 border-b p-5">
@@ -48,18 +49,9 @@ function JobsLists() {
                                     <a href="" className='text-secondary-300 font-semibold'>Locations</a>
                                     <div className=''>
                                         <form action="" className='text-secondary-200 space-y-1'>
-                                            <div className=' flex gap-2'>
-                                                <input type="checkbox" name="" id="" className='accent-primary-200' />
-                                                <label htmlFor="">Mumbai <span>(8)</span></label>
-                                            </div>
-                                            <div className=' flex gap-2'>
-                                                <input type="checkbox" name="" id="" className='accent-primary-200' />
-                                                <label htmlFor="">Delhi <span>(4)</span></label>
-                                            </div>
-                                            <div className=' flex gap-2'>
-                                                <input type="checkbox" name="" id="" className='accent-primary-200' />
-                                                <label htmlFor="">Bangalore <span>(3)</span></label>
-                                            </div>
+                                            <FilterBoxJobs h1='Mumbai' h2='(8)' />
+                                            <FilterBoxJobs h1='Delhi' h2='(4)' />
+                                            <FilterBoxJobs h1='Bangalore' h2='(3)' />
                                         </form>
                                     </div>
                                 </div>
@@ -67,18 +59,9 @@ function JobsLists() {
                                     <a href="" className='text-secondary-300 font-semibold'>Salary</a>
                                     <div className=''>
                                         <form action="" className='text-secondary-200 space-y-1'>
-                                            <div className=' flex gap-2'>
-                                                <input type="checkbox" name="" id="" className='accent-primary-200' />
-                                                <label htmlFor="">0 - 3 Lakhs</label>
-                                            </div>
-                                            <div className=' flex gap-2'>
-                                                <input type="checkbox" name="" id="" className='accent-primary-200' />
-                                                <label htmlFor="">3 - 6 Lakhs</label>
-                                            </div>
-                                            <div className=' flex gap-2'>
-                                                <input type="checkbox" name="" id="" className='accent-primary-200' />
-                                                <label htmlFor="">6 - 10 Lakhs</label>
-                                            </div>
+                                            <FilterBoxJobs h1='0 - 3 Lakhs' />
+                                            <FilterBoxJobs h1='3 - 6 Lakhs' />
+                                            <FilterBoxJobs h1='6 - 10 Lakhs' />
                                         </form>
                                     </div>
                                 </div>
