@@ -1,0 +1,16 @@
+const { userRegister, userLogin, logout, verifyToken } = require('../controllers/authControllers');
+const { userProfile, updateUserProfile, applyJob } = require('../controllers/userControllers');
+
+const router = require('express').Router();
+
+const jobRouters = require('../routers/jobRouters');
+
+router.post('/register',userRegister);
+router.post('/login',userLogin);
+router.post('/logout',logout);
+
+router.route('/userProfile').get(verifyToken,userProfile).patch(verifyToken,updateUserProfile);
+router.route('/apply/:jobId').patch(verifyToken,applyJob);
+//  /user/:id/company/:id/job/:id
+
+module.exports = router;
