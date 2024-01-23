@@ -7,7 +7,7 @@ function Navbar() {
         <nav className='sticky top-0 bg-white z-20'>
             <div className="flex h-14 shadow-md px-4">
                 <div className="container mx-auto flex justify-between items-center">
-                    <h1 className='font-bold text-xl text-primary-200 tracking-widest'>FINDINTERN</h1>
+                    <Link to="/" className='font-bold text-xl text-primary-200 tracking-widest'>FINDINTERN</Link>
                     <div className=''>
                         <ul className='sm:flex w-60 justify-between text-lg font-medium hidden text-secondary-300'>
                             <Link to="/" className='hover:text-primary-200 hover:cursor-pointer'>Home</Link>
