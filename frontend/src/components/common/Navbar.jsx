@@ -6,7 +6,6 @@ function Navbar() {
     const [isOpen, setOpen] = useState(false)
     return (
         <>
-
             <nav className='sticky top-0 bg-white z-20' >
                 <div className="flex h-14 shadow-md px-2">
                     <div className="container mx-auto flex justify-between items-center mr-2">
@@ -39,8 +38,8 @@ function Navbar() {
                                 onMouseLeave={() => setHover(false)}
                                 className={`${!isHover ? 'hidden' : 'bg-white rounded-lg text-secondary-200 mt-1 absolute right-0 w-40 top-auto shadow-lg'}  `}>
                                 <Link className='block px-4 py-1' to="/user/profile">Profile</Link>
-                                <Link className='block px-4 py-1' to="">Account Settings</Link>
-                                <Link className='block px-4 py-1' to="">Sign Out</Link>
+                                <Link className='block px-4 py-1' to="/user/post">Account Settings</Link>
+                                <Link className='block px-4 py-1' to="/">Sign Out</Link>
                             </div>
                         </div>
                         {/* mobile device hamburger */}
