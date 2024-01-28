@@ -3,8 +3,8 @@ import InputField from './InputField'
 import UserContext from '../context/Auth/userContext';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-function ProfileDetailsForm() {
 
+function CompanyDetailsForm() {
     const [formData, setFormData] = useState({
         fullName: '',
         username: '',
@@ -22,16 +22,17 @@ function ProfileDetailsForm() {
         if (userDetails && userDetails.userProfile) {
             setFormData(prevFormData => ({
                 ...prevFormData,
-                fullName: userDetails.userProfile.fullName,
-                username: userDetails.userProfile.username,
-                email: userDetails.userProfile.email,
-                location: userDetails.userProfile.location,
-                education: userDetails.userProfile.education,
-                experience: userDetails.userProfile.experience,
-                skills: userDetails.userProfile.skills,
+                fullName: userDetails.userProfile.fullName || '',
+                username: userDetails.userProfile.username || '',
+                email: userDetails.userProfile.email || '',
+                location: userDetails.userProfile.location || '',
+                education: userDetails.userProfile.education || '',
+                experience: userDetails.userProfile.experience || '',
+                skills: userDetails.userProfile.skills || [],
             }));
         }
     }, [userDetails]);
+
 
     const changeHandler = (event) => {
         const { name, value } = event.target;
@@ -65,13 +66,13 @@ function ProfileDetailsForm() {
         })
             .then((response) => {
                 console.log(response.data);
-                // setSignupData(response.data);
+
                 toast.success("Profile updated successfully");
             })
             .catch((err) => {
                 console.log(err);
-                // const error = err.response.data.message;
-                // toast.error(error)
+                const error = err.response.data.message;
+                toast.error(error)
             })
         // console.log(accountData);
     };
@@ -119,23 +120,15 @@ function ProfileDetailsForm() {
                             <InputField data={formData.education} event={changeHandler} name='education' label='Education' ph='Education' type='text' imp='*' />
                             <InputField data={formData.experience} event={changeHandler} name='experience' label='Experience' ph='Experience' type='text' imp='*' />
                             <InputField data={formData.skills} event={changeHandler} name='skills' label='Skills' ph='Skills' type='text' imp='*' />
-                            <div className=''>
+                            <div className='' >
                                 <button type="submit" className='bg-primary-200 hover:bg-primary-400 text-white rounded-md  w-fit py-2 px-6 font-medium'>Submit</button>
                             </div>
                         </form>
                     </div>
                 </div>
-                {/* <InputField label='Job Title' ph='Write the Job Title' type='text' imp='*' />
-                        <InputField label='Location' ph='Write the Job Title' type='text' imp='*' />
-                        <InputField label='Education' ph='Write the Job Title' type='text' imp='*' />
-                        <InputField label='Experience' ph='Write the Job Title' type='text' imp='*' />
-                        <InputField label='Skills' ph='Write the Job Title' type='text' imp='*' /> */}
-
-
-
             </div>
         </>
     )
 }
 
-export default ProfileDetailsForm
+export default CompanyDetailsForm

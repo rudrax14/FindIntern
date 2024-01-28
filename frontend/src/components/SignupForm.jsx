@@ -38,10 +38,10 @@ function SignupForm() {
             return;
         }
 
-        // if (!formData.userName || !formData.email || !formData.password) {
-        //     toast.error("Enter All Details");
-        //     return;
-        // }
+        if (!formData.username || !formData.email || !formData.password) {
+            toast.error("Enter All Details");
+            return;
+        }
         formData.accountType = accountType;
         const accountData = { ...formData };
         // console.log(accountData);
@@ -76,7 +76,7 @@ function SignupForm() {
         <form className='flex flex-col gap-4' onSubmit={submitHandler}>
             <InputField name='fullName' data={formData.fullName} event={changeHandler} label='Full Name' ph='Full Name' type='text' />
             <InputField name='username' data={formData.username} event={changeHandler} label='User name' ph='User Name' type='text' />
-            <InputField name='email' data={formData.email} event={changeHandler} label='Email' ph='Email address here' type='email' />
+            <InputField type='email' data={formData.email} event={changeHandler} name='email' label='Email' ph='Email' imp='*' />
             <InputField name='password' data={formData.password} event={changeHandler} label='Password' ph='**************' type='password' />
             <InputField name='cPassword' data={formData.cPassword} event={changeHandler} label='Confirm Password' ph='**************' type='password' />
             <div className='flex gap-2 text-secondary-200'>
@@ -86,7 +86,7 @@ function SignupForm() {
                 }} />
                 <span>Check if you want to register a company.</span>
             </div>
-            <div className='' onClick={submitHandler}>
+            <div className=''>
                 <button type="submit" className='bg-primary-200 text-white rounded-md w-full py-2 font-medium'>Create Free Account</button>
             </div>
         </form>

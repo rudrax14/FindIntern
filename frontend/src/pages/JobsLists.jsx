@@ -37,9 +37,9 @@ function JobsLists() {
             </section>
             <section className='py-7'>
                 <div className="container mx-auto max-w-[1320px]">
-                    <div className='md:grid grid-cols-4 gap-3'>
+                    <div className='lg:grid grid-cols-4 gap-3 lg:space-y-0 space-y-6'>
                         {/* compo todo */}
-                        <div className='border rounded-lg'>
+                        <div className='border rounded-lg mx-6'>
                             <div className=''>
                                 <div className="card-header flex items-center gap-2 border-b p-5">
                                     <IoFilterSharp />

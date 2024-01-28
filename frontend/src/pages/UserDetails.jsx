@@ -5,7 +5,7 @@ import { LiaUserSolid } from "react-icons/lia";
 import InputField from '../components/InputField';
 import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
 import DetailsHeader from '../components/DetailsHeader';
-import ProfileDetailsForm from '../components/ProfileDetailsForm';
+import ProfileDetailsForm from '../components/UserDetailsForm';
 
 function UserDetails() {
 

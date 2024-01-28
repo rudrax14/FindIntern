@@ -59,13 +59,13 @@ function LoginForm() {
     return (
         <>
             <form action="" className='flex flex-col gap-4' onSubmit={submitHandler}>
-                <InputField name='email' data={formData.email} event={changeHandler} label='Username or email' ph='Email address here' type='text' />
+                <InputField name='email' data={formData.email} event={changeHandler} label='Username or email' ph='Email address here' type='email' />
                 <InputField name='password' data={formData.password} event={changeHandler} label='Password' ph='**************' type='password' />
                 <div className='flex justify-end'>
                     <a href="" className='text-primary-200'>Forgot your password?</a>
                 </div>
-                <div className='' onClick={submitHandler}>
-                    <button className='bg-primary-200 text-white rounded-md w-full py-2 font-medium'>Sign in</button>
+                <div className=''>
+                    <button type='submit' className='bg-primary-200 text-white rounded-md w-full py-2 font-medium'>Sign in</button>
                 </div>
             </form>
         </>
