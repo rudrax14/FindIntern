@@ -33,11 +33,23 @@ exports.userProfile = catchAsync(async (req,res,next)=>{
 });
 
 exports.updateUserProfile = catchAsync(async (req,res,next)=>{
+    const query = {};
+    // if('skills' in req.body){
+    //   const skills = req.body.skills;
+    //   query['$addToSet'] = { skills:{$each:skills} };
+    //   delete req.body.skills;
+    // }
+    
+   
     const userObj = filterUserObject(req.body,["password","fullName","username","email"])
-    await User.findByIdAndUpdate(req.user.id,userObj);
+    query['$set'] = {
+      updatedAt:Date.now(),
+      ...userObj
+    } 
+    await User.findByIdAndUpdate(req.user.id,query);
     res.status(200).json({
         status:'Success',
-        message:"User profile successfully update"
+        message:"User profile successfully updated"
     })
 });
 
@@ -61,6 +73,17 @@ exports.applyJob = catchAsync( async (req,res,next)=>{
       return next(new AppError("You have already applied for this job",401));
     }
 
+    //Add user to the appliedUsers array
+    
+    await Job.findByIdAndUpdate(jobId,{
+      $push:{
+        appliedUsers: {
+          userId,
+          dateApplied : Date.now() 
+        }
+      }
+    })
+
     // Add the job to the user's appliedJobs array
     await User.findByIdAndUpdate(userId, {
       $push: {
@@ -71,6 +94,8 @@ exports.applyJob = catchAsync( async (req,res,next)=>{
       },
       $set: { updatedAt: Date.now() }
     });
+
+    
 
     res.status(200).json({
       status: 'Success',

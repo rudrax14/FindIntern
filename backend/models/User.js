@@ -38,6 +38,16 @@ const userSchema = new mongoose.Schema({
       default: Date.now
     }
   }],
+  posts:[{
+    userId:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref:'User'
+    },
+    createdAt:{
+      type:Date,
+      default:Date.now
+    }
+  }],
   createdAt: {
     type: Date,
     default: Date.now
