@@ -68,13 +68,13 @@ function StartupPage() {
                 </section>
                 {/* companies */}
                 <section className='company-list mt-20 '>
-                    <div className="container mx-auto ">
+                    <div className="container mx-auto max-w-4xl">
 
                         <div className='text-center'>
                             <span className='text-primary-200 text-base font-semibold uppercase tracking-widest'>Latest Job Opening</span>
                             <h2 className='font-bold text-3xl text-secondary-300 mt-6'>Explore remote friendly, flexible job opportunities.</h2>
                         </div>
-                        <div className='w-m'>
+                        <div className=''>
                             <JobsCards />
                         </div>
                         <div className='flex items-center justify-center mb-10'>

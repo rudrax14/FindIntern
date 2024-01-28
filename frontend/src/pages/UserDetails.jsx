@@ -5,6 +5,7 @@ import { LiaUserSolid } from "react-icons/lia";
 import InputField from '../components/InputField';
 import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
 import DetailsHeader from '../components/DetailsHeader';
+import ProfileDetailsForm from '../components/ProfileDetailsForm';
 
 function UserDetails() {
 
@@ -40,25 +41,12 @@ function UserDetails() {
         <>
             <Navbar />
             <div className="container mx-auto py-8 px-4">
-                <DetailsHeader h1='Find a Job & grow your career' h2='Build your profile and let recruiters find you. Get job postings delivered right to your email.'/>
+                <DetailsHeader h1='Find a Job & grow your career' h2='Build your profile and let recruiters find you. Get job postings delivered right to your email.' />
             </div>
             <div className='lg:grid grid-cols-3 gap-6 md:flex container mx-auto py-6 md:px-24 px-6'>
-                <form action="" onSubmit={submitHandler} className=' border flex flex-col gap-3 border-gray-300 rounded-lg p-12 col-span-2'>
-                    <div className='flex flex-col gap-3'>
-                        <h3 className='text-2xl font-semibold text-secondary-300'>Basic Information</h3>
-                        <p>Add your personal details in the form.</p>
-                    </div>
-                    <div className='flex flex-col gap-6'>
-                        <InputField label='Job Title' ph='Write the Job Title' type='text' imp='*' />
-                        <InputField label='Location' ph='Write the Job Title' type='text' imp='*' />
-                        <InputField label='Education' ph='Write the Job Title' type='text' imp='*' />
-                        <InputField label='Experience' ph='Write the Job Title' type='text' imp='*' />
-                        <InputField label='Skills' ph='Write the Job Title' type='text' imp='*' />
-                        <div className=''>
-                            <button className='bg-primary-200 text-white rounded-md lg:w-2/6 w-full py-2 font-medium'>Submit for Approval</button>
-                        </div>
-                    </div>
-                </form>
+                {/* left side */}
+                <ProfileDetailsForm />
+
                 {/* compo */}
                 <div className=' bg-secondary-100 flex flex-col gap-4 h-fit p-8 w-[66%] md:w-[76%] rounded-lg md:mt-0 mt-6'>
                     <div>
