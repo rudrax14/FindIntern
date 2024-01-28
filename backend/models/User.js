@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: true, 
+    required: true,
     unique: true
   },
   email: {
@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  profileImgUrl: String,
   location: String,
   education: String,
   experience: String,
@@ -38,14 +39,14 @@ const userSchema = new mongoose.Schema({
       default: Date.now
     }
   }],
-  posts:[{
-    userId:{
+  posts: [{
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref:'User'
+      ref: 'User'
     },
-    createdAt:{
-      type:Date,
-      default:Date.now
+    createdAt: {
+      type: Date,
+      default: Date.now
     }
   }],
   createdAt: {
@@ -57,18 +58,17 @@ const userSchema = new mongoose.Schema({
     default: Date.now
   }
 });
-userSchema.pre('save',async function(next){
-  if(!this.isModified('password')){
-      return next();
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
+    return next();
   }
 
-  const hash = await bcrypt.hash(this.password,10);
+  const hash = await bcrypt.hash(this.password, 10);
   this.password = hash;
- 
+
   next();
 
 })
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
-    

@@ -4,8 +4,11 @@ import App from './App.jsx'
 import './index.css'
 import { BrowserRouter } from "react-router-dom";
 import { Toaster } from 'react-hot-toast';
+import UserState from './context/Auth/UserState.jsx';
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+
+
+  <UserState>
     <BrowserRouter>
       <Toaster
         position="top-right"
@@ -13,5 +16,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       />
       <App />
     </BrowserRouter>
-  </React.StrictMode>,
+  </UserState>
+  ,
 )

@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import InputField from './InputField';
 import AuthButton from './AuthButton';
 import toast from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
-
+import axios from 'axios';
+import UserContext from '../context/Auth/userContext';
 function SignupForm() {
+
+    const context = useContext(UserContext)
+    const { setSignupData } = context
+
     const [accountType, setAccountType] = useState('users');
     const [formData, setFormData] = useState({
-        userName: '',
+        username: '',
+        fullName: '',
         email: '',
         password: '',
         cPassword: '',
@@ -36,19 +42,29 @@ function SignupForm() {
         //     toast.error("Enter All Details");
         //     return;
         // }
-
-
         formData.accountType = accountType;
+        const accountData = { ...formData };
+        // console.log(accountData);
+        axios.post('http://localhost:5000/api/v1/jobseeker/register', accountData)
+            .then((response) => {
+                // console.log(response.data);
+                setSignupData(response.data);
+                toast.success("Account Created");
+                if (formData.accountType === 'users') {
+                    navigate("/user/post");
+                } else {
+                    navigate("/company/post");
+                }
+            })
+            .catch((err) => {
+                console.log(err.response.data.message);
+                const error = err.response.data.message;
+                toast.error(error)
+            })
 
         // setIsLoggedIn(true);
-        toast.success("Account Created");
-        const accountData = { ...formData };
-        console.log(accountData);
-        if (formData.accountType === 'users') {
-            navigate("/user/post");
-        } else {
-            navigate("/company/post");
-        }
+
+
     };
 
     const redirectHandler = () => {
@@ -58,8 +74,9 @@ function SignupForm() {
     return (
 
         <form className='flex flex-col gap-4' onSubmit={submitHandler}>
-            <InputField name='userName' data={formData.userName} event={changeHandler} label='Full Name' ph='Full Name' type='text' />
-            <InputField name='email' data={formData.email} event={changeHandler} label='Email' ph='Email address here' type='text' />
+            <InputField name='fullName' data={formData.fullName} event={changeHandler} label='Full Name' ph='Full Name' type='text' />
+            <InputField name='username' data={formData.username} event={changeHandler} label='User name' ph='User Name' type='text' />
+            <InputField name='email' data={formData.email} event={changeHandler} label='Email' ph='Email address here' type='email' />
             <InputField name='password' data={formData.password} event={changeHandler} label='Password' ph='**************' type='password' />
             <InputField name='cPassword' data={formData.cPassword} event={changeHandler} label='Confirm Password' ph='**************' type='password' />
             <div className='flex gap-2 text-secondary-200'>

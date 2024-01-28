@@ -1,7 +1,87 @@
-import React from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import InputField from './InputField'
-
+import UserContext from '../context/Auth/userContext';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 function ProfileDetailsForm() {
+
+    const [formData, setFormData] = useState({
+        fullName: '',
+        username: '',
+        email: '',
+        location: '',
+        education: '',
+        experience: '',
+        skills: [],
+    });
+
+    const context = useContext(UserContext);
+    const { userDetails } = context;
+
+    useEffect(() => {
+        if (userDetails && userDetails.userProfile) {
+            setFormData(prevFormData => ({
+                ...prevFormData,
+                fullName: userDetails.userProfile.fullName,
+                username: userDetails.userProfile.username,
+                email: userDetails.userProfile.email,
+                location: userDetails.userProfile.location,
+                education: userDetails.userProfile.education,
+                experience: userDetails.userProfile.experience,
+                skills: userDetails.userProfile.skills,
+            }));
+        }
+    }, [userDetails]);
+
+    const changeHandler = (event) => {
+        const { name, value } = event.target;
+
+
+        if (name === 'skills') {
+
+            const skillsArray = value.split(',').map(skill => skill.trim());
+
+            setFormData(prev => ({
+                ...prev,
+                [name]: skillsArray,
+            }));
+        } else {
+
+            setFormData(prev => ({
+                ...prev,
+                [name]: value,
+            }));
+        }
+    };
+
+    const submitHandler = (e) => {
+        e.preventDefault();
+        const accountData = { ...formData };
+        const jwtToken = localStorage.getItem("userToken");
+        axios.patch('http://localhost:5000/api/v1/jobseeker/userProfile', accountData, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+            }
+        })
+            .then((response) => {
+                console.log(response.data);
+                // setSignupData(response.data);
+                toast.success("Profile updated successfully");
+            })
+            .catch((err) => {
+                console.log(err);
+                // const error = err.response.data.message;
+                // toast.error(error)
+            })
+        // console.log(accountData);
+    };
+
+
+
+
+
+
+
     return (
         <>
             <div className='border border-gray-300 rounded-lg col-span-2'>
@@ -31,13 +111,16 @@ function ProfileDetailsForm() {
                         <p className='text-secondary-200'>
                             Edit your personal information and address.
                         </p>
-                        <form action="" className='space-y-6 mt-6'>
-                            <InputField label='Location' ph='Write the Job Title' type='text' imp='*' />
-                            <InputField label='Education' ph='Write the Job Title' type='text' imp='*' />
-                            <InputField label='Experience' ph='Write the Job Title' type='text' imp='*' />
-                            <InputField label='Skills' ph='Write the Job Title' type='text' imp='*' />
+                        <form action="" className='space-y-6 mt-6' onSubmit={submitHandler}>
+                            <InputField data={formData.fullName} event={changeHandler} name='fullName' label='Full Name' ph='Full Name' type='text' imp='*' />
+                            <InputField data={formData.username} event={changeHandler} name='username' label='User Name' ph='User Name' type='text' imp='*' />
+                            <InputField data={formData.email} event={changeHandler} name='email' label='Email' ph='Email' type='email' imp='*' />
+                            <InputField data={formData.location} event={changeHandler} name='location' label='Location' ph='Location' type='text' imp='*' />
+                            <InputField data={formData.education} event={changeHandler} name='education' label='Education' ph='Education' type='text' imp='*' />
+                            <InputField data={formData.experience} event={changeHandler} name='experience' label='Experience' ph='Experience' type='text' imp='*' />
+                            <InputField data={formData.skills} event={changeHandler} name='skills' label='Skills' ph='Skills' type='text' imp='*' />
                             <div className=''>
-                                <button className='bg-primary-200 hover:bg-primary-400 text-white rounded-md  w-fit py-2 px-6 font-medium'>Submit</button>
+                                <button type="submit" className='bg-primary-200 hover:bg-primary-400 text-white rounded-md  w-fit py-2 px-6 font-medium'>Submit</button>
                             </div>
                         </form>
                     </div>

@@ -9,32 +9,6 @@ import ProfileDetailsForm from '../components/ProfileDetailsForm';
 
 function UserDetails() {
 
-    const navigate = useNavigate();
-
-    const [formData, setFormData] = useState({
-        email: '',
-        password: '',
-    });
-
-    function changeHandler(event) {
-        setFormData((prev) => ({
-            ...prev,
-            [event.target.name]: event.target.value,
-        }));
-    }
-
-    function submitHandler(e) {
-        e.preventDefault();
-
-        // setIsLoggedIn(true);
-        toast.success('Login successful')
-        const accountData = {
-            ...formData,
-        };
-        console.log(accountData);
-
-        navigate("/dashboard");
-    }
 
 
     return (

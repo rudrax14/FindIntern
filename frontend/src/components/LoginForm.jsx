@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import InputField from './InputField';
 import AuthButton from './AuthButton';
 import toast from 'react-hot-toast';
+import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-
+import UserContext from '../context/Auth/userContext';
 function LoginForm() {
+
+    const context = useContext(UserContext)
+    const { setLoginData } = context
+
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -19,17 +24,32 @@ function LoginForm() {
         }));
     }
 
+
+
     function submitHandler(e) {
         e.preventDefault();
 
         // setIsLoggedIn(true);
-        toast.success('Login successful')
         const accountData = {
             ...formData,
         };
-        console.log(accountData);
 
-        navigate("/dashboard");
+        axios.post('http://localhost:5000/api/v1/jobseeker/login', accountData)
+            .then((response) => {
+                console.log(response.data);
+                localStorage.setItem("userToken", response.data.token);
+                setLoginData(response.data);
+                toast.success('Login successful')
+                navigate("/user/jobs");
+            })
+            .catch((err) => {
+                console.log(err.response.data.message);
+                const error = err.response.data.message;
+                toast.error(error)
+            })
+
+        // console.log(accountData);
+
     }
 
     const redirectHandler = (e) => {
