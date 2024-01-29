@@ -10,7 +10,7 @@ function SignupForm() {
     const context = useContext(UserContext)
     const { setSignupData } = context
 
-    const [accountType, setAccountType] = useState('users');
+    const [accountType, setAccountType] = useState('jobseeker');
     const [formData, setFormData] = useState({
         username: '',
         fullName: '',
@@ -45,7 +45,7 @@ function SignupForm() {
         formData.accountType = accountType;
         const accountData = { ...formData };
         // console.log(accountData);
-        axios.post('http://localhost:5000/api/v1/jobseeker/register', accountData)
+        axios.post(`http://localhost:5000/api/v1/${accountType}/register`, accountData)
             .then((response) => {
                 // console.log(response.data);
                 setSignupData(response.data);
@@ -67,9 +67,7 @@ function SignupForm() {
 
     };
 
-    const redirectHandler = () => {
-        navigate('/user/login');
-    };
+   
 
     return (
 
@@ -81,7 +79,7 @@ function SignupForm() {
             <InputField name='cPassword' data={formData.cPassword} event={changeHandler} label='Confirm Password' ph='**************' type='password' />
             <div className='flex gap-2 text-secondary-200'>
                 <input type="checkbox" name="" id="" className='' onClick={() => {
-                    const newAccountType = accountType === 'company' ? 'users' : 'company';
+                    const newAccountType = accountType === 'company' ? 'jobseeker' : 'company';
                     setAccountType(newAccountType);
                 }} />
                 <span>Check if you want to register a company.</span>
