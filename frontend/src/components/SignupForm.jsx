@@ -4,7 +4,7 @@ import AuthButton from './AuthButton';
 import toast from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import UserContext from '../context/Auth/userContext';
+import {UserContext} from '../context/Auth/UserContext';
 function SignupForm() {
 
     const context = useContext(UserContext)

@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import InputField from './InputField'
-import UserContext from '../context/Auth/userContext';
+import { userData } from '../context/Auth/UserContext'
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
@@ -15,7 +15,7 @@ function CompanyDetailsForm() {
         skills: [],
     });
 
-    const context = useContext(UserContext);
+    const context = useContext(userData);
     const { userDetails } = context;
 
     useEffect(() => {

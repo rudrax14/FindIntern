@@ -4,7 +4,7 @@ import AuthButton from './AuthButton';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import UserContext from '../context/Auth/userContext';
+import {UserContext} from '../context/Auth/UserContext';
 function LoginForm() {
 
     const context = useContext(UserContext)
@@ -36,7 +36,7 @@ function LoginForm() {
 
         axios.post('http://localhost:5000/api/v1/jobseeker/login', accountData)
             .then((response) => {
-                console.log(response.data);
+                // console.log(response.data);
                 localStorage.setItem("userToken", response.data.token);
                 setLoginData(response.data);
                 toast.success('Login successful')
