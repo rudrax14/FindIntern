@@ -6,6 +6,7 @@ import JobsCards from '../components/JobsCards';
 import FilterBoxJobs from '../components/FilterBoxJobs';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
+import Searchbar from '../components/Searchbar';
 function JobsLists() {
     function valuetext(value) {
         return `${value}`;
@@ -14,23 +15,14 @@ function JobsLists() {
         <>
             <Navbar />
             <section className='bg-secondary-100'>
-                <div className="container mx-auto py-12 px-28">
+                <div className="container mx-auto md:block flex justify-center py-12 md:px-28">
                     <div className='w-4/6 flex flex-col gap-8'>
-                        <h1 className='text-secondary-300 font-bold text-4xl'>Showing jobs for '<span className='text-primary-200'>it manager</span>, India</h1>
-                        <div>
-                            <form action="" className='flex shadow-xl flex-col gap-6 py-4 px-8 items-center h-full w-full rounded-lg bg-white md:flex-row md:rounded-full md:px-4 md:h-14 md:w-min md:justify-between md:items-center '>
-                                <div className='flex items-center py-1 border w-full md:border-none rounded-full text-secondary-200 gap-3 pl-3'>
-                                    <span className=''>{<FaSistrix />}</span>
-                                    <input type="text" placeholder='Job Title' className='placeholder:text-secondary-200 outline-none' />
-                                </div>
-                                <div className='flex  items-center py-1 border md:border-none w-full rounded-full text-secondary-200 gap-3 pl-3'>
-                                    <span className=''>{<IoLocationOutline />}</span>
-                                    <input type="text" placeholder='Location' className='placeholder:text-secondary-200 outline-none' />
-                                </div>
-                                <div className='flex w-full md:block'>
-                                    <button className='bg-primary-200 hover:bg-primary-300 w-full text-white px-12 py-2 rounded-full font-medium'>Search</button>
-                                </div>
-                            </form>
+                        <div className=''>
+
+                            <h1 className='text-secondary-300  font-bold text-4xl'>Showing jobs for '<span className='text-primary-200'>it manager</span>, India</h1>
+                        </div>
+                        <div className=''>
+                            <Searchbar />
                         </div>
                     </div>
                 </div>
@@ -66,7 +58,7 @@ function JobsLists() {
                                     </div>
                                 </div>
                                 <div className="card-body p-5 space-y-3 border-b">
-                                    <a href="" className='text-secondary-300 font-semibold'>Salary</a>
+                                    <a href="" className='text-secondary-300 font-semibold'>Experience</a>
                                     <div className=''>
                                         <form action="" className='text-secondary-200'>
                                             <div className='flex w-full'>

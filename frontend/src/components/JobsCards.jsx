@@ -4,7 +4,7 @@ function JobsCards() {
     return (
         <>
             <div className='jobs-card flex flex-col items-center pb-4 gap-6 px-6'>
-                <div className="card-body border sm:flex w-full p-6 rounded-lg hover:shadow-2xl hover:cursor-pointer">
+                <div className="card-body border sm:flex w-full p-6 rounded-lg hover:shadow-md hover:cursor-pointer">
                     <div className='comp-logo '>
                         <img src="https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-brand-logo/job-list-logo-1.svg" alt="" className='border rounded-full mr-6 mb-3' />
                     </div>

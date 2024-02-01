@@ -47,7 +47,7 @@ const UserProvider = ({ children }) => {
     // }
 
     useEffect(() => {
-        if (loginData && Object.keys(loginData).length > 0) userData();
+        // if (loginData && Object.keys(loginData).length > 0) userData();
         // console.log('running');
         // console.log("login data", loginData)
         // companyData()
@@ -63,7 +63,8 @@ const UserProvider = ({ children }) => {
         signupData,
         setSignupData,
         userDetails,
-        setUserDetails
+        setUserDetails,
+        userData
     };
     return (
         <UserContext.Provider value={value} >

@@ -10,6 +10,7 @@ import SingleJobs from "./pages/SingleJobs";
 import User from "./pages/Profile/User";
 import Admin from "./pages/Profile/Admin";
 import Dashboard from "./pages/Dashboard";
+import Onboarding from "./pages/Onboarding";
 function App() {
   return (
     <div className="">
@@ -24,6 +25,7 @@ function App() {
         <Route path="/user/profile" element={<User />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/onboarding" element={<Onboarding />} />
         <Route path="*" element={<h1>404 Not Found</h1>} />
       </Routes>
 

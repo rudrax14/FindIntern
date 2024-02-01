@@ -4,7 +4,7 @@ import AuthButton from './AuthButton';
 import toast from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import {UserContext} from '../context/Auth/UserContext';
+import { UserContext } from '../context/Auth/UserContext';
 function SignupForm() {
 
     const context = useContext(UserContext)
@@ -50,6 +50,7 @@ function SignupForm() {
                 // console.log(response.data);
                 setSignupData(response.data);
                 toast.success("Account Created");
+
                 if (formData.accountType === 'users') {
                     navigate("/user/post");
                 } else {
@@ -62,12 +63,11 @@ function SignupForm() {
                 toast.error(error)
             })
 
-        // setIsLoggedIn(true);
+        // setIsLoggedIn(tru);
 
 
     };
 
-   
 
     return (
 

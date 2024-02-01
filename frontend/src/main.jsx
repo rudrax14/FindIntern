@@ -4,9 +4,8 @@ import App from './App.jsx'
 import './index.css'
 import { BrowserRouter } from "react-router-dom";
 import { Toaster } from 'react-hot-toast';
-import UserProvider from './context/Auth/UserContext.jsx';
+import UserProvider from './context/Auth/UserContext';
 ReactDOM.createRoot(document.getElementById('root')).render(
-
 
   <UserProvider>
     <BrowserRouter>
@@ -14,7 +13,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         position="top-right"
         reverseOrder={false}
       />
-      <App />
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
     </BrowserRouter>
   </UserProvider>
+
 )

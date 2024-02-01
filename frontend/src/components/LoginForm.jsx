@@ -4,11 +4,11 @@ import AuthButton from './AuthButton';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import {UserContext} from '../context/Auth/UserContext';
+import { UserContext } from '../context/Auth/UserContext';
 function LoginForm() {
 
     const context = useContext(UserContext)
-    const { setLoginData } = context
+    const { setLoginData, userData } = context
 
     const navigate = useNavigate();
 
@@ -40,7 +40,8 @@ function LoginForm() {
                 localStorage.setItem("userToken", response.data.token);
                 setLoginData(response.data);
                 toast.success('Login successful')
-                navigate("/user/jobs");
+                userData()
+               
             })
             .catch((err) => {
                 console.log(err.response.data.message);
