@@ -1,9 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react'
 import InputField from './InputField'
-import {UserContext} from '../context/Auth/UserContext';
+import { UserContext } from '../context/Auth/UserContext';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 function UserDetailsForm() {
+
+
 
     const [formData, setFormData] = useState({
         fullName: '',
@@ -16,7 +18,8 @@ function UserDetailsForm() {
     });
 
     const context = useContext(UserContext);
-    const { userDetails } = context;
+    const { userDetails, userData } = context;
+    useEffect(() => { userData() }, [])
 
     useEffect(() => {
         if (userDetails && userDetails.userProfile) {

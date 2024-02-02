@@ -23,9 +23,6 @@ function LoginForm() {
             [event.target.name]: event.target.value,
         }));
     }
-
-
-
     function submitHandler(e) {
         e.preventDefault();
 
@@ -41,7 +38,7 @@ function LoginForm() {
                 setLoginData(response.data);
                 toast.success('Login successful')
                 userData()
-               
+                navigate('/user/post')
             })
             .catch((err) => {
                 console.log(err.response.data.message);
@@ -53,9 +50,9 @@ function LoginForm() {
 
     }
 
-    const redirectHandler = (e) => {
-        navigate('/user/signup');
-    }
+    // const redirectHandler = (e) => {
+    //     navigate('/user/signup');
+    // }
 
     return (
         <>
