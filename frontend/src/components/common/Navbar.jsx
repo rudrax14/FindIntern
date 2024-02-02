@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
+import logo from '../../../public/logo.png'
 import { Twirl as Hamburger } from 'hamburger-react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 function Navbar() {
+    const navigate = useNavigate();
     const [isHover, setHover] = useState(false)
     const [isOpen, setOpen] = useState(false)
     const location = useLocation();
@@ -14,7 +16,10 @@ function Navbar() {
             <nav className='sticky top-0 bg-white z-20' >
                 <div className="flex h-14 shadow-md px-2">
                     <div className="container mx-auto flex justify-between items-center">
-                        <Link to="/" className='font-bold text-xl text-primary-200 tracking-widest md:ml-28'>FINDINTERN</Link>
+                        <div className='flex md:ml-28 items-center hover:cursor-pointer' onClick={() => { navigate('/') }}>
+                            <img src={logo} className='w-48' alt="" />
+                            {/* <Link to="/" className='font-bold text-xl text-primary-200 tracking-widest '>FINDINTERN</Link> */}
+                        </div>
                         <div className='' onMouseLeave={() => setHover(false)}>
                             <ul className='sm:flex w-60 justify-between text-lg font-medium hidden text-secondary-300'>
                                 <Link to="/" className='hover:text-primary-200 hover:cursor-pointer'>Home</Link>
@@ -24,12 +29,12 @@ function Navbar() {
                             </ul>
                         </div>
                         {/* login signup button */}
-                        <div className={`buttons flex text-center font-medium text-lg ${location.pathname == "/" ? '' : 'hidden'}`}>
+                        <div className={`buttons flex text-center font-medium text-lg ${location.pathname == "/" ? '' : 'hidden'} mr-32`}>
                             <Link to="/onboarding" className='text-primary-200 border-primary-200 hover:bg-primary-200 hover:text-white rounded-md border px-2 py-1 mr-2'>Sign in</Link>
                             <Link to="/onboarding" className='bg-primary-200 text-white border-primary-200 hover:bg-primary-300 rounded-md border px-2 py-1'>Sign Up</Link>
                         </div>
-                        <div className={`md:hidden flex justify-center items-center gap-3`} >
-                            <div className={`profile relative ${location.pathname !== "/" ? '' : 'hidden'}`} >
+                        <div className={`flex justify-center items-center gap-3 ${location.pathname !== "/" ? '' : 'hidden'}  mr-32`}>
+                            <div className={`profile relative`}>
                                 <button
                                     onMouseEnter={() => setHover(true)}
                                     className={`block h-12 w-12 rounded-full overflow-hidden border-2 ${isHover ? 'border-primary-200' : ''} hover:outline-none`}
@@ -40,7 +45,7 @@ function Navbar() {
                                 <div
                                     onMouseEnter={() => setHover(true)}
                                     onMouseLeave={() => setHover(false)}
-                                    className={`${!isHover ? 'hidden' : 'bg-white rounded-lg text-secondary-200 mt-1 absolute right-0 w-40 top-auto shadow-lg'}  `}
+                                    className={`${!isHover ? 'hidden' : 'bg-white rounded-lg text-secondary-200 mt-1 absolute right-0 w-40 top-auto shadow-lg'}`}
                                 >
                                     <Link className='block px-4 py-1' to="/user/profile">Profile</Link>
                                     <Link className='block px-4 py-1' to="/user/post">Account Settings</Link>
@@ -48,9 +53,9 @@ function Navbar() {
                                 </div>
                             </div>
                             {/* mobile device hamburger */}
-                            <div className='block sm:hidden'>
-                                <Hamburger toggled={isOpen} toggle={setOpen} color='#754ffe' />
-                            </div>
+                        </div>
+                        <div className='block sm:hidden'>
+                            <Hamburger toggled={isOpen} toggle={setOpen} color='#754ffe' />
                         </div>
                     </div>
                 </div>

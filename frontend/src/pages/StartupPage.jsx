@@ -1,5 +1,5 @@
 import React from 'react'
-import JobsCards from '../components/JobsCards';
+import JobsCards from '../components/JobsCard';
 import Navbar from '../components/common/Navbar';
 import Searchbar from '../components/Searchbar';
 function StartupPage() {
@@ -52,12 +52,14 @@ function StartupPage() {
             <section className='company-list mt-20 '>
                 <div className="container mx-auto max-w-4xl">
 
-                    <div className='text-center'>
+                    <div className='text-center mb-6'>
                         <span className='text-primary-200 text-base font-semibold uppercase tracking-widest'>Latest Job Opening</span>
                         <h2 className='font-bold text-3xl text-secondary-300 mt-6'>Explore remote friendly, flexible job opportunities.</h2>
                     </div>
                     <div className=''>
-                        <JobsCards />
+                        {Array(4).fill().map((_e, index) => (
+                            <JobsCards key={index} logo='https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-brand-logo/job-list-logo-1.svg' company='Software Engineer (Web3/Crypto)' role='Featured Job' experience='1 - 5 years' salary='12k - 18k' location='Ahmedabad, Gujarat' />
+                        ))}
                     </div>
                     <div className='flex items-center justify-center mb-10'>
                         <button className='hover:bg-primary-200 hover:text-white border border-primary-200 text-primary-200 font-medium p-3 rounded-lg'>Browse All Jobs Postings</button>

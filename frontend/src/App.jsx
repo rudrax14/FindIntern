@@ -11,6 +11,7 @@ import User from "./pages/Profile/User";
 import Admin from "./pages/Profile/Admin";
 import Dashboard from "./pages/Dashboard";
 import Onboarding from "./pages/Onboarding";
+import NotFound from "./pages/NotFound";
 function App() {
   return (
     <div className="">
@@ -26,7 +27,7 @@ function App() {
         <Route path="/admin" element={<Admin />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/onboarding" element={<Onboarding />} />
-        <Route path="*" element={<h1>404 Not Found</h1>} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
 
     </div>

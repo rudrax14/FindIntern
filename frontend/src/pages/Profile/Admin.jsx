@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from '../../components/common/Navbar'
-import JobsCards from '../../components/JobsCards'
+import JobsCards from '../../components/JobsCard'
 import { FaSistrix } from "react-icons/fa";
 import { Link } from 'react-router-dom'
 function Admin() {

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Navbar from '../components/common/Navbar'
 import { FaSistrix } from "react-icons/fa";
 import { IoLocationOutline, IoFilterSharp } from "react-icons/io5";
-import JobsCards from '../components/JobsCards';
+import JobsCards from '../components/JobsCard';
 import FilterBoxJobs from '../components/FilterBoxJobs';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
@@ -31,13 +31,13 @@ function JobsLists() {
                 <div className="container mx-auto max-w-[1320px]">
                     <div className='lg:grid grid-cols-4 gap-3 lg:space-y-0 space-y-6'>
                         {/* compo todo */}
-                        <div className='border rounded-lg mx-6'>
+                        <div className='border rounded-lg mx-6 h-fit sticky top-20'>
                             <div className=''>
                                 <div className="card-header flex items-center gap-2 border-b p-5">
                                     <IoFilterSharp />
                                     <h1 className='text-sm'>All Filters</h1>
                                 </div>
-                                <div className="card-body p-5 space-y-3 border-b">
+                                <div className="card-body p-5 space-y-3 border-b ">
                                     <a href="" className='text-secondary-300 font-semibold'>Locations</a>
                                     <div className=''>
                                         <form action="" className='text-secondary-200 space-y-1'>
@@ -65,14 +65,14 @@ function JobsLists() {
                                                 <Box sx={{ width: 300 }}>
                                                     <Slider
                                                         aria-label="Always visible"
-                                                        defaultValue={13}
+                                                        defaultValue={15}
                                                         getAriaValueText={valuetext}
                                                         step={1}
                                                         min={0}
                                                         max={30}
-                                                        color="secondary"
+                                                        sx={{ color: '#754ffe' }}
                                                         valueLabelDisplay="on"
-
+                                                        valueLabelFormat={valuetext}
                                                     />
                                                     <div className='flex justify-between'>
                                                         <span>0 Years</span>
@@ -87,9 +87,9 @@ function JobsLists() {
                         </div>
                         <div className='col-span-3'>
                             <div className=' rounded-lg h-full'>
-                                <JobsCards />
-                                <JobsCards />
-                                <JobsCards />
+                                {Array(10).fill().map((_e, index) => (
+                                    <JobsCards key={index} logo='https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-brand-logo/job-list-logo-1.svg' company='Software Engineer (Web3/Crypto)' role='Featured Job' experience='1 - 5 years' salary='12k - 18k' location='Ahmedabad, Gujarat' />
+                                ))}
                             </div>
                         </div>
                     </div>
