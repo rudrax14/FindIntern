@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import FilterBoxJobs from './FilterBoxJobs'
 
 function CardBody() {
-    const [visible, setVisible] = useState(false)
+    const [visible, setVisible] = useState(true)
     return (
         <div className="card-body p-5 space-y-3 border-b ">
             <a href="" onClick={(e) => { e.preventDefault(), setVisible(!visible) }} className='text-secondary-300 font-semibold'>Locations</a>
