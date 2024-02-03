@@ -1,15 +1,19 @@
 
-import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-
+import React, { useContext } from 'react'
+import { Link, useNavigate, useParams, useLocation } from 'react-router-dom'
+import { UserContext } from '../context/Auth/UserContext'
 function Onboarding() {
+    const { userType, setUserType, userMode } = useContext(UserContext)
+    const param = useLocation();
     const navigate = useNavigate();
     const userClickHandler = () => {
-        navigate('/login')
+        setUserType('jobseeker')
+        navigate(`/onboarding/${userMode}/${userType}`)
     }
 
     const recruiterClickHandler = () => {
-        navigate('/login')
+        setUserType('recruiter')
+        navigate(`/onboarding/${userMode}/${userType}`)
     }
     return (
         <>

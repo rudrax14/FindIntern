@@ -17,11 +17,12 @@ function App() {
     <div className="">
       <Routes>
         <Route path="/" element={<StartupPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        {/* dasdas */}
+        {/* joobseeker */}
         <Route path="/onboarding/signin/jobseeker" element={<Login />} />
         <Route path="/onboarding/signup/jobseeker" element={<Signup />} />
+        {/* recruiter */}
+        <Route path="/onboarding/signin/recruiter" element={<Login />} />
+        <Route path="/onboarding/signup/recruiter" element={<Signup />} />
         <Route path="/company/post" element={<PostJobs />} />
         <Route path="/user/post" element={<UserDetails />} />
         <Route path="/user/jobs" element={<JobsLists />} />

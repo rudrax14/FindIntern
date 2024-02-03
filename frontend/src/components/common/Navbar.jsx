@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import logo from '../../../public/logo.png'
 import { Twirl as Hamburger } from 'hamburger-react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { UserContext } from '../../context/Auth/UserContext'
 function Navbar() {
     const navigate = useNavigate();
     const [isHover, setHover] = useState(false)
@@ -11,6 +12,7 @@ function Navbar() {
         localStorage.removeItem("userToken");
     }
 
+    const { setUserMode } = useContext(UserContext)
     return (
         <>
             <nav className='sticky top-0 bg-white z-20' >
@@ -30,8 +32,8 @@ function Navbar() {
                         </div>
                         {/* login signup button */}
                         <div className={`buttons flex text-center font-medium text-lg ${location.pathname == "/" ? '' : 'hidden'} mr-32`} >
-                            <Link to="/onboarding/signin" className='text-primary-200 border-primary-200 hover:bg-primary-200 hover:text-white rounded-md border px-2 py-1 mr-2'>Sign in</Link>
-                            <Link to="/onboarding/signup" className='bg-primary-200 text-white border-primary-200 hover:bg-primary-300 rounded-md border px-2 py-1'>Sign Up</Link>
+                            <Link to="/onboarding/signin" onClick={() => { setUserMode('signin') }} className='text-primary-200 border-primary-200 hover:bg-primary-200 hover:text-white rounded-md border px-2 py-1 mr-2'>Sign in</Link>
+                            <Link to="/onboarding/signup" onClick={() => { setUserMode('signup') }} className='bg-primary-200 text-white border-primary-200 hover:bg-primary-300 rounded-md border px-2 py-1'>Sign Up</Link>
                         </div>
                         <div className={`flex justify-center items-center gap-3 ${location.pathname !== "/" ? '' : 'hidden'}  mr-32`}>
                             <div className={`profile relative`} >

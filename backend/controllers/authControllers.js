@@ -26,66 +26,66 @@ async function addToBlacklist(redisClient, token) {
 
 
 
-exports.register = catchAsync(async (req,res,next)=>{
-  const { username,email, password, name,role } = req.body;
+exports.register = catchAsync(async (req, res, next) => {
+  const { username, email, password, name, role } = req.body;
   let Model = "";
-// Validate that all required fields are provided
-if (!username || !name || !email || !password ) {
-  return next(new AppError('Fill every field'));
-}
-if(role === "user"){
-  Model = User;
-}else if(role === "company"){
-  Model = Company;
-}else if(role === "admin"){
-  Model = Admin
-}
-// Create a new user
-const newRegister = await Model.create({
-  username,
-  email,
-  password,
-  fullName:name,
-});
+  // Validate that all required fields are provided
+  if (!username || !name || !email || !password) {
+    return next(new AppError('Fill every field'));
+  }
+  if (role === "user") {
+    Model = User;
+  } else if (role === "company") {
+    Model = Company;
+  } else if (role === "admin") {
+    Model = Admin
+  }
+  // Create a new user
+  const newRegister = await Model.create({
+    username,
+    email,
+    password,
+    fullName: name,
+  });
 
-// Create a JWT token for the new company
-const payload = {
-  email: newRegister.email,
-  id: newRegister._id,
-  name: newRegister.name,
-  role
-};
-const token = await signToken(payload);
+  // Create a JWT token for the new company
+  const payload = {
+    email: newRegister.email,
+    id: newRegister._id,
+    name: newRegister.name,
+    role
+  };
+  const token = await signToken(payload);
 
-// Send response with the new company and JWT token
-res.status(200).json({
-  message: `A new ${role}  just registered`,
-  [`${role}`]:newRegister,
-  token
-});
+  // Send response with the new company and JWT token
+  res.status(200).json({
+    message: `A new ${role}  just registered`,
+    [`${role}`]: newRegister,
+    token
+  });
 });
 
 
 exports.login = catchAsync(async (req, res, next) => {
-  const { email, password,role } = req.body;
+  const { email, password, role } = req.body;
   let Model = "";
   // Validate that email and password are provided
   if (!email || !password) {
     return next(new AppError('Cannot leave email or password field blank'));
   }
-  if(role === "user"){
-      Model = User;
-    }else if(role === "company"){
-      Model = Company;
-    }else if(role === "admin"){
-      Model = Admin;
-    }
+  if (role === "user") {
+    Model = User;
+  } else if (role === "company") {
+    Model = Company;
+  } else if (role === "admin") {
+    Model = Admin;
+  }
   // Find the document with the provided email
   const document = await Model.findOne({ email });
 
   // Validate that the document exists
   if (!document) {
-    return next(new AppError(`${Model} not found`));
+    return next(new AppError(`${role} not found`, 404));
   }
 
   // Validate the provided password against the stored hashed password
@@ -97,14 +97,14 @@ exports.login = catchAsync(async (req, res, next) => {
   }
 
   // Create a JWT token for the logged-in user
-  const payload = { email: document.email, id: document._id, name:document.fullName,role:role };
+  const payload = { email: document.email, id: document._id, name: document.fullName, role: role };
   const token = await signToken(payload);
 
   // Send response with success message, user information, and JWT token
   res.status(201).json({
     status: 'SUCCESS',
     message: "Login successful",
-    [`${role}`]:document,
+    [`${role}`]: document,
     token
   });
 });
@@ -155,17 +155,17 @@ exports.userRegister = catchAsync(async (req, res, next) => {
 
 
 // Register a company
-exports.companyRegister = catchAsync(async (req,res,next)=>{
-    const { email, password, name } = req.body;
+exports.companyRegister = catchAsync(async (req, res, next) => {
+  const { email, password, name } = req.body;
 
   // Validate that all required fields are provided
-  if (!name || !email || !password ) {
+  if (!name || !email || !password) {
     return next(new AppError('Fill every field'));
   }
 
   // Create a new user
   const newCompany = await Company.create({
-    
+
     email,
     password,
     name,
@@ -189,37 +189,37 @@ exports.companyRegister = catchAsync(async (req,res,next)=>{
 })
 
 // Register a admin
-exports.adminRegister = catchAsync(async (req,res,next)=>{
-  const { username,email, password, name } = req.body;
+exports.adminRegister = catchAsync(async (req, res, next) => {
+  const { username, email, password, name } = req.body;
 
-// Validate that all required fields are provided
-if (!username || !name || !email || !password ) {
-  return next(new AppError('Fill every field'));
-}
+  // Validate that all required fields are provided
+  if (!username || !name || !email || !password) {
+    return next(new AppError('Fill every field'));
+  }
 
-// Create a new user
-const newAdmin = await Admin.create({
-  username,
-  email,
-  password,
-  name,
-});
+  // Create a new user
+  const newAdmin = await Admin.create({
+    username,
+    email,
+    password,
+    name,
+  });
 
-// Create a JWT token for the new company
-const payload = {
-  email: newAdmin.email,
-  id: newAdmin._id,
-  name: newAdmin.name,
-  role: "admin"
-};
-const token = await signToken(payload);
+  // Create a JWT token for the new company
+  const payload = {
+    email: newAdmin.email,
+    id: newAdmin._id,
+    name: newAdmin.name,
+    role: "admin"
+  };
+  const token = await signToken(payload);
 
-// Send response with the new company and JWT token
-res.status(200).json({
-  message: "A new admin just registered",
-  newAdmin,
-  token
-});
+  // Send response with the new company and JWT token
+  res.status(200).json({
+    message: "A new admin just registered",
+    newAdmin,
+    token
+  });
 })
 
 
@@ -252,7 +252,7 @@ exports.userLogin = catchAsync(async (req, res, next) => {
   }
 
   // Create a JWT token for the logged-in user
-  const payload = { email: user.email, id: user._id, name:user.fullName,role:"user" };
+  const payload = { email: user.email, id: user._id, name: user.fullName, role: "user" };
   const token = await signToken(payload);
 
   // Send response with success message, user information, and JWT token
@@ -267,44 +267,44 @@ exports.userLogin = catchAsync(async (req, res, next) => {
 
 // Login a company
 exports.companyLogin = catchAsync(async (req, res, next) => {
-    const { email, password } = req.body;
-  
-    // Validate that email and password are provided
-    if (!email || !password) {
-      return next(new AppError('Cannot leave email or password field blank'));
-    }
-  
-    // Find the user with the provided email
-    const company = await Company.findOne({ email });
-  
-    // Validate that the company exists
-    if (!company) {
-      return next(new AppError('Company not found'));
-    }
-  
-    // Validate the provided password against the stored hashed password
-    const isPasswordValid = await verifyPassword(password, company.password);
-  
-    // If password is not valid, send an error response
-    if (!isPasswordValid) {
-      return next(new AppError('Enter the correct password'));
-    }
-  
-    // Create a JWT token for the logged-in company
-    const payload = { email: company.email, id: company._id, name:company.name,role:"company" };
-    const token = await signToken(payload);
-  
-    // Send response with success message, user information, and JWT token
-    res.status(201).json({
-      status: 'SUCCESS',
-      message: "Login successful",
-      company,
-      token
-    });
+  const { email, password } = req.body;
+
+  // Validate that email and password are provided
+  if (!email || !password) {
+    return next(new AppError('Cannot leave email or password field blank'));
+  }
+
+  // Find the user with the provided email
+  const company = await Company.findOne({ email });
+
+  // Validate that the company exists
+  if (!company) {
+    return next(new AppError('Company not found'));
+  }
+
+  // Validate the provided password against the stored hashed password
+  const isPasswordValid = await verifyPassword(password, company.password);
+
+  // If password is not valid, send an error response
+  if (!isPasswordValid) {
+    return next(new AppError('Enter the correct password'));
+  }
+
+  // Create a JWT token for the logged-in company
+  const payload = { email: company.email, id: company._id, name: company.name, role: "company" };
+  const token = await signToken(payload);
+
+  // Send response with success message, user information, and JWT token
+  res.status(201).json({
+    status: 'SUCCESS',
+    message: "Login successful",
+    company,
+    token
   });
+});
 
 
-  // Login a company
+// Login a company
 exports.adminLogin = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -330,7 +330,7 @@ exports.adminLogin = catchAsync(async (req, res, next) => {
   }
 
   // Create a JWT token for the logged-in company
-  const payload = { email: admin.email, id: admin._id, name:admin.name,role:"company" };
+  const payload = { email: admin.email, id: admin._id, name: admin.name, role: "company" };
   const token = await signToken(payload);
 
   // Send response with success message, user information, and JWT token

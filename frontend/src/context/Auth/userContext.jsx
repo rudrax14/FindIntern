@@ -6,6 +6,8 @@ export const UserContext = createContext();
 
 
 const UserProvider = ({ children }) => {
+    const [userType, setUserType] = useState('jobseeker');
+    const [userMode, setUserMode] = useState('signup');
     const [userDetails, setUserDetails] = useState({})
     const [companyDetails, setCompanyDetails] = useState({})
     const [loginData, setLoginData] = useState({})
@@ -64,7 +66,11 @@ const UserProvider = ({ children }) => {
         setSignupData,
         userDetails,
         setUserDetails,
-        userData
+        userData,
+        userType,
+        setUserType,
+        userMode,
+        setUserMode
     };
     return (
         <UserContext.Provider value={value} >
