@@ -1,12 +1,12 @@
-const { userRegister, userLogin, logout, verifyToken } = require('../controllers/authControllers');
+const { userRegister, userLogin, logout, verifyToken,register,login } = require('../controllers/authControllers');
 const { userProfile, updateUserProfile, applyJob } = require('../controllers/userControllers');
 
 const router = require('express').Router();
 
 const jobRouters = require('../routers/jobRouters');
 
-router.post('/register',userRegister);
-router.post('/login',userLogin);
+router.post('/register',register);
+router.post('/login',login);
 router.post('/logout',logout);
 
 router.route('/userProfile').get(verifyToken,userProfile).patch(verifyToken,updateUserProfile);
