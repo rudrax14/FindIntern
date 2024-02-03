@@ -7,6 +7,7 @@ import FilterBoxJobs from '../components/FilterBoxJobs';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import Searchbar from '../components/Searchbar';
+import CardBody from '../components/CardBody';
 function JobsLists() {
     function valuetext(value) {
         return `${value}`;
@@ -37,16 +38,7 @@ function JobsLists() {
                                     <IoFilterSharp />
                                     <h1 className='text-sm'>All Filters</h1>
                                 </div>
-                                <div className="card-body p-5 space-y-3 border-b ">
-                                    <a href="" className='text-secondary-300 font-semibold'>Locations</a>
-                                    <div className=''>
-                                        <form action="" className='text-secondary-200 space-y-1'>
-                                            <FilterBoxJobs h1='Mumbai' h2='(8)' />
-                                            <FilterBoxJobs h1='Delhi' h2='(4)' />
-                                            <FilterBoxJobs h1='Bangalore' h2='(3)' />
-                                        </form>
-                                    </div>
-                                </div>
+                                <CardBody />
                                 <div className="card-body p-5 space-y-3 border-b">
                                     <a href="" className='text-secondary-300 font-semibold'>Salary</a>
                                     <div className=''>

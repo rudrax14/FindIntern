@@ -19,6 +19,9 @@ function App() {
         <Route path="/" element={<StartupPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        {/* dasdas */}
+        <Route path="/onboarding/signin/jobseeker" element={<Login />} />
+        <Route path="/onboarding/signup/jobseeker" element={<Signup />} />
         <Route path="/company/post" element={<PostJobs />} />
         <Route path="/user/post" element={<UserDetails />} />
         <Route path="/user/jobs" element={<JobsLists />} />
@@ -26,7 +29,8 @@ function App() {
         <Route path="/user/profile" element={<User />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/onboarding" element={<Onboarding />} />
+        <Route path="/onboarding/signin" element={<Onboarding />} />
+        <Route path="/onboarding/signup" element={<Onboarding />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
 
