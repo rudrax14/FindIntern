@@ -1,5 +1,5 @@
 import React from 'react'
-import SignupForm from '../SignupForm'
+import SignupForm from '../../components/SignupForm'
 import { Link } from 'react-router-dom'
 
 function Signup() {

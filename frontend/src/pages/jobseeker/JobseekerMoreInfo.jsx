@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
-import Navbar from '../components/common/Navbar'
+import Navbar from '../../components/common/Navbar'
 import { LiaUserSolid } from "react-icons/lia";
-import InputField from '../components/InputField';
+import InputField from '../../components/InputField';
 import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
-import DetailsHeader from '../components/DetailsHeader';
-import ProfileDetailsForm from '../components/UserDetailsForm';
+import DetailsHeader from '../../components/DetailsHeader';
+import ProfileDetailsForm from '../../components/UserDetailsForm';
 
 function UserDetails() {
 

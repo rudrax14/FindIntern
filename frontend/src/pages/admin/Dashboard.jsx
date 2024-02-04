@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import Navbar from '../components/common/Navbar'
-import {UserContext} from '../context/Auth/UserContext'
+import Navbar from '../../components/common/Navbar'
+import { UserContext } from '../../context/UserContext'
 function Dashboard() {
     const context = useContext(userContext)
     const { loginData } = context;

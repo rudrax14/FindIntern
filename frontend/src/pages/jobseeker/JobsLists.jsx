@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import Navbar from '../components/common/Navbar'
+import Navbar from '../../components/common/Navbar'
 import { FaSistrix } from "react-icons/fa";
 import { IoLocationOutline, IoFilterSharp } from "react-icons/io5";
-import JobsCards from '../components/JobsCard';
-import FilterBoxJobs from '../components/FilterBoxJobs';
+import JobsCards from '../../components/JobsCard';
+import FilterBoxJobs from '../../components/FilterBoxJobs';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
-import Searchbar from '../components/Searchbar';
-import CardBody from '../components/CardBody';
+import Searchbar from '../../components/Searchbar';
+import CardBody from '../../components/CardBody';
 function JobsLists() {
     function valuetext(value) {
         return `${value}`;

@@ -1,10 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react'
 import InputField from './InputField';
-import AuthButton from './AuthButton';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import { UserContext } from '../context/Auth/UserContext';
+import { UserContext } from '../context/UserContext';
 function LoginForm() {
 
     const context = useContext(UserContext)

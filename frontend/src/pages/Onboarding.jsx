@@ -1,7 +1,7 @@
 
 import React, { useContext } from 'react'
 import { Link, useNavigate, useParams, useLocation } from 'react-router-dom'
-import { UserContext } from '../context/Auth/UserContext'
+import { UserContext } from '../context/UserContext'
 function Onboarding() {
     const { userType, setUserType, userMode } = useContext(UserContext)
     const param = useLocation();

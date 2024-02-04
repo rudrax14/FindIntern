@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import InputField from './InputField'
-import { UserContext } from '../context/Auth/UserContext';
+import { UserContext } from '../context/UserContext';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 function UserDetailsForm() {

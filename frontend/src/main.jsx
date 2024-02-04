@@ -4,7 +4,7 @@ import App from './App.jsx'
 import './index.css'
 import { BrowserRouter } from "react-router-dom";
 import { Toaster } from 'react-hot-toast';
-import UserProvider from './context/Auth/UserContext';
+import UserProvider from './context/UserContext';
 ReactDOM.createRoot(document.getElementById('root')).render(
 
   <UserProvider>

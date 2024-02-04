@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import logo from '../../../public/logo.png'
 import { Twirl as Hamburger } from 'hamburger-react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { UserContext } from '../../context/Auth/UserContext'
+import { UserContext } from '../../context/UserContext'
 function Navbar() {
     const navigate = useNavigate();
     const [isHover, setHover] = useState(false)
@@ -25,15 +25,15 @@ function Navbar() {
                         <div className='' >
                             <ul className='sm:flex w-60 justify-between text-lg font-medium hidden text-secondary-300'>
                                 <Link to="/" className='hover:text-primary-200 hover:cursor-pointer'>Home</Link>
-                                <Link to="/user/jobs" className='hover:text-primary-200 hover:cursor-pointer'>Jobs</Link>
-                                <Link to="/single/jobs" className='hover:text-primary-200 hover:cursor-pointer'>Single Jobs</Link>
+                                <Link to="/all-jobs" className='hover:text-primary-200 hover:cursor-pointer'>Jobs</Link>
+                                <Link to="/job-profile" className='hover:text-primary-200 hover:cursor-pointer'>Single Jobs</Link>
 
                             </ul>
                         </div>
                         {/* login signup button */}
                         <div className={`buttons flex text-center font-medium text-lg ${location.pathname == "/" ? '' : 'hidden'} mr-32`} >
-                            <Link to="/onboarding/signin" onClick={() => { setUserMode('signin') }} className='text-primary-200 border-primary-200 hover:bg-primary-200 hover:text-white rounded-md border px-2 py-1 mr-2'>Sign in</Link>
-                            <Link to="/onboarding/signup" onClick={() => { setUserMode('signup') }} className='bg-primary-200 text-white border-primary-200 hover:bg-primary-300 rounded-md border px-2 py-1'>Sign Up</Link>
+                            <Link to="/onboarding/sign-in" onClick={() => { setUserMode('sign-in') }} className='text-primary-200 border-primary-200 hover:bg-primary-200 hover:text-white rounded-md border px-2 py-1 mr-2'>Sign in</Link>
+                            <Link to="/onboarding/sign-up" onClick={() => { setUserMode('sign-up') }} className='bg-primary-200 text-white border-primary-200 hover:bg-primary-300 rounded-md border px-2 py-1'>Sign Up</Link>
                         </div>
                         <div className={`flex justify-center items-center gap-3 ${location.pathname !== "/" ? '' : 'hidden'}  mr-32`}>
                             <div className={`profile relative`} >

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import Navbar from '../components/common/Navbar'
+import Navbar from '../../components/common/Navbar'
 import { LiaUserSolid } from "react-icons/lia";
-import InputField from '../components/InputField';
-import DetailsHeader from '../components/DetailsHeader';
+import InputField from '../../components/InputField';
+import DetailsHeader from '../../components/DetailsHeader';
 function PostJobs() {
     return (
         <>

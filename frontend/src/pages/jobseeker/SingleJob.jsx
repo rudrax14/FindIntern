@@ -1,6 +1,6 @@
 import React from 'react'
-import Navbar from '../components/common/Navbar'
-import JobsCards from '../components/JobsCard'
+import Navbar from '../../components/common/Navbar'
+import JobsCards from '../../components/JobsCard'
 
 function SingleJobs() {
     return (
