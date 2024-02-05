@@ -35,7 +35,7 @@ function Navbar() {
                             <Link to="/onboarding/sign-in" onClick={() => { setUserMode('sign-in') }} className='text-primary-200 border-primary-200 hover:bg-primary-200 hover:text-white rounded-md border px-2 py-1 mr-2'>Sign in</Link>
                             <Link to="/onboarding/sign-up" onClick={() => { setUserMode('sign-up') }} className='bg-primary-200 text-white border-primary-200 hover:bg-primary-300 rounded-md border px-2 py-1'>Sign Up</Link>
                         </div>
-                        <div className={`flex justify-center items-center gap-3 ${location.pathname !== "/" ? '' : 'hidden'}  mr-32`}>
+                        <div className={`flex justify-center  w-fit items-center gap-3 ${location.pathname !== "/" ? '' : 'hidden'}  md:mr-32`}>
                             <div className={`profile relative`} >
                                 <div
                                     onMouseEnter={() => setHover(true)}
@@ -53,15 +53,15 @@ function Navbar() {
                                     onMouseLeave={() => setHover(false)}
                                     className={`${!isHover ? 'fixed left-[-100%]' : ' bg-white rounded-lg transition-all ease-in-out duration-300 text-secondary-200  absolute mt-2 right-0 w-40 top-auto shadow-lg border'}`}
                                 >
-                                    <Link className='block px-4 py-1  hover:text-primary-200 hover:cursor-pointer' to="/user/profile">Profile</Link>
-                                    <Link className='block px-4 py-1 hover:text-primary-200 hover:cursor-pointer' to="/user/post">Account Settings</Link>
+                                    <Link className='block px-4 py-1  hover:text-primary-200 hover:cursor-pointer' to="/jobseeker/profile">Profile</Link>
+                                    <Link className='block px-4 py-1 hover:text-primary-200 hover:cursor-pointer' to="/jobseeker/edit-info">Account Settings</Link>
                                     <Link className='block px-4 py-1 hover:text-primary-200 hover:cursor-pointer' to="/" onClick={clickHandler}>Sign Out</Link>
                                 </div>
                             </div>
                             {/* mobile device hamburger */}
-                        </div>
-                        <div className='block sm:hidden'>
-                            <Hamburger toggled={isOpen} toggle={setOpen} color='#754ffe' />
+                            <div className='block sm:hidden'>
+                                <Hamburger toggled={isOpen} toggle={setOpen} color='#754ffe' />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@ function Navbar() {
 
             </nav >
             {/* mobile device hamburger div */}
-            < div className={` ${isOpen ? 'mt-14 fixed top-0 w-full h-full ease-in-out duration-500 md:hidden' : 'ease-in-out duration-500 fixed left-[-100%]'}`
+            < div className={` ${isOpen ? ' mt-14 fixed top-0 w-full h-full ease-in-out duration-500 md:hidden z-40' : 'ease-in-out duration-500 fixed left-[-100%]'}`
             }>
                 <div className='bg-white py-4 border-primary-200 border transition-all'>
                     <ul className='flex flex-col w-full justify-between text-lg font-medium px-6'>
@@ -80,7 +80,7 @@ function Navbar() {
                         <li className='border-b-[2px] pb-1  hover:text-primary-200 hover:cursor-pointer'>About Us</li>
                     </ul>
                 </div>
-                <div className='backdrop-blur-sm h-full '></div>
+                <div className='backdrop-blur-sm h-full'></div>
             </div >
         </>
 

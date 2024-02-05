@@ -40,7 +40,7 @@ function App() {
         <Route path="/jobseeker/more-info" element={<JobseekerMoreInfo />} />
         <Route path="/recruiter/more-info" element={<RecruiterMoreInfo />} />
         {/* edit-info */}
-        <Route path="/jobseeker/edit-info" element={<JobseekerProfile />} />
+        <Route path="/jobseeker/edit-info" element={<JobseekerMoreInfo />} />
         <Route path="/recruiter/edit-info" element={<RecruiterMoreInfo />} />
         {/* recruiter-post */}
         <Route path="/recruiter/post-a-job" element={<PostJobs />} />
