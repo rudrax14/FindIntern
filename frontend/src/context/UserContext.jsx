@@ -6,7 +6,7 @@ export const UserContext = createContext();
 
 
 const UserProvider = ({ children }) => {
-    const [userType, setUserType] = useState('jobseeker');
+    const [userType, setUserType] = useState("");
     const [userMode, setUserMode] = useState('sign-in');
     const [userDetails, setUserDetails] = useState({})
     const [companyDetails, setCompanyDetails] = useState({})

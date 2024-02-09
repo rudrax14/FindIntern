@@ -8,8 +8,8 @@ import { UserContext } from '../context/UserContext';
 function SignupForm() {
 
     const context = useContext(UserContext)
-    const { setSignupData } = context
-
+    const { setSignupData,setUserType } = context;
+   
     const [accountType, setAccountType] = useState('jobseeker');
     const [formData, setFormData] = useState({
         username: '',

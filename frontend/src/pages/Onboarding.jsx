@@ -1,5 +1,5 @@
 
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link, useNavigate, useParams, useLocation } from 'react-router-dom'
 import { UserContext } from '../context/UserContext'
 function Onboarding() {
@@ -8,13 +8,17 @@ function Onboarding() {
     const navigate = useNavigate();
     const userClickHandler = () => {
         setUserType('jobseeker')
-        navigate(`/onboarding/${userMode}/${userType}`)
+        console.log(userType);
+        navigate(`/onboarding/${userMode}/jobseeker`)
     }
 
     const recruiterClickHandler = () => {
         setUserType('recruiter')
-        navigate(`/onboarding/${userMode}/${userType}`)
+        console.log(userType)
+        navigate(`/onboarding/${userMode}/recruiter`)
     }
+
+   
     return (
         <>
             <div className='bg-secondary-100 h-screen flex justify-center items-center'>
