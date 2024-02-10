@@ -1,5 +1,6 @@
 import React, { createContext, useState } from 'react'
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 
 export const JobContext = createContext();
@@ -7,6 +8,7 @@ export const JobContext = createContext();
 const JobProvider = ({children})=>{
         const [allJobs,setAllJobs] = useState([]);
         const [job,setJob] = useState({});
+        
         const fetchAllJobs = ()=>{
                 const jwtToken = localStorage.getItem("userToken");
                 axios.get(`http://localhost:5000/api/v1/job`, {
@@ -28,6 +30,7 @@ const JobProvider = ({children})=>{
                         }
                     }).then((response)=>{
                         setJob(response.data.job);
+                        
                     }).catch((err)=>{
                         console.log(err);
                     })

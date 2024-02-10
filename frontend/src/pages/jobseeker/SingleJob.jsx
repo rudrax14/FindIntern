@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import Navbar from '../../components/common/Navbar'
 import JobsCards from '../../components/JobsCard'
+import { JobContext } from '../../context/JobContext';
+import { useParams } from 'react-router-dom';
 
 function SingleJobs() {
+    const { fetchAJob,job } = useContext(JobContext);
+    const { id } = useParams();
+    useEffect(()=>{
+        fetchAJob(id);
+    },[])
     return (
         <>
             <Navbar />
@@ -17,7 +24,7 @@ function SingleJobs() {
                             <div className='flex flex-col w-full gap-10'>
                                 <div className='comp-description flex flex-col gap-1'>
                                     <div className='flex items-center'>
-                                        <h3 className='font-semibold text-2xl'>Software Engineer (Web3/Crypto)</h3>
+                                        <h3 className='font-semibold text-2xl'>{job.title}</h3>
                                         <span className='text-red-600 font-normal ml-2 mt-1 bg-red-50 px-3 rounded-lg'>Featured Job</span>
                                     </div>
                                     <div className='text-secondary-200 flex flex-row gap-3'>
@@ -29,9 +36,9 @@ function SingleJobs() {
                                 <div className=''>
                                     <div className='sm:flex justify-between text-secondary-200'>
                                         <div className='flex flex-row gap-3'>
-                                            <span>1 - 5 years</span>
-                                            <span>12k - 18k</span>
-                                            <span>Ahmedabad, Gujarat</span>
+                                            <span>{job.experience}</span>
+                                            <span>{job.salary}</span>
+                                            <span>{job.location}</span>
                                         </div>
                                         <div className=''>21 hours ago</div>
                                     </div>

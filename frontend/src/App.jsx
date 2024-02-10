@@ -46,7 +46,7 @@ function App() {
         <Route path="/recruiter/post-a-job" element={<PostJobs />} />
         {/* jobs */}
         <Route path="/all-jobs" element={<JobsLists />} />
-        <Route path="/job-profile" element={<SingleJobs />} />
+        <Route path="/job-profile/:id" element={<SingleJobs />} />
         {/* admin */}
         <Route path="/admin" element={<Admin />} />
         <Route path="/dashboard" element={<Dashboard />} />
