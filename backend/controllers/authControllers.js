@@ -2,6 +2,7 @@ const signToken = require('../utils/signToken');
 const verifyPassword = require('../utils/verifyPassword');
 const User = require('../models/User');
 const Company = require('../models/Company');
+const Admin = require('../models/Admin');
 
 const AppError = require('../utils/AppError');
 const catchAsync = require('../utils/catchAsync');
@@ -9,7 +10,6 @@ const runRedisServer = require('../redisConn');
 
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
-const Admin = require('../models/Admin');
 
 // Function to extract the Bearer token from the request headers
 function extractBearerToken(req) {
@@ -31,10 +31,10 @@ exports.register = catchAsync(async (req, res, next) => {
   let Model = "";
   // Validate that all required fields are provided
   if (!username || !name || !email || !password) {
-    return next(new AppError('Fill every field',404));
+    return next(new AppError('Fill every field', 404));
   }
-  if(!role){
-    return next(new AppError('Provide a role',404))
+  if (!role) {
+    return next(new AppError('Provide a role', 404))
   }
   if (role === "user") {
     Model = User;
@@ -76,13 +76,17 @@ exports.login = catchAsync(async (req, res, next) => {
   if (!email || !password) {
     return next(new AppError('Cannot leave email or password field blank'));
   }
-  if (role === "user") {
+  if (!role) {
+    return next(new AppError('Provide a role', 404));
+  }
+  if (role === "jobseeker") {
     Model = User;
-  } else if (role === "company") {
+  } else if (role === "recruiter") {
     Model = Company;
   } else if (role === "admin") {
     Model = Admin;
   }
+  console.log("model=", Model);
   // Find the document with the provided email
   const document = await Model.findOne({ email });
 

@@ -49,9 +49,9 @@ const UserProvider = ({ children }) => {
     // }
 
     useEffect(() => {
-        // if (loginData && Object.keys(loginData).length > 0) userData();
-        // console.log('running');
-        // console.log("login data", loginData)
+        if (loginData && Object.keys(loginData).length > 0) userData();
+        console.log('running');
+        console.log("login data", loginData)
         // companyData()
     }, [loginData])
 

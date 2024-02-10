@@ -7,8 +7,8 @@ import { UserContext } from '../context/UserContext';
 function LoginForm() {
 
     const context = useContext(UserContext)
-    const { setLoginData, userData,setUserType } = context
-    
+    const { setLoginData, setUserType, userType } = context
+
 
     const navigate = useNavigate();
 
@@ -29,22 +29,22 @@ function LoginForm() {
         // setIsLoggedIn(true);
         const accountData = {
             ...formData,
+            role: userType
         };
+        // console.log(userType);
 
-        // axios.post('http://localhost:5000/api/v1/jobseeker/login', accountData)
-        //     .then((response) => {
-        //         // console.log(response.data);
-        //         localStorage.setItem("userToken", response.data.token);
-        //         setLoginData(response.data);
-        //         toast.success('Login successful')
-        //         userData()
-        //         navigate('/user/post')
-        //     })
-        //     .catch((err) => {
-        //         console.log(err.response.data.message);
-        //         const error = err.response.data.message;
-        //         toast.error(error)
-        //     })
+        axios.post('http://localhost:5000/api/v1/auth/login', accountData)
+            .then((response) => {
+                localStorage.setItem("userToken", response.data.token);
+                setLoginData(response.data);
+                toast.success('Login successful')
+                navigate('/all-jobs')
+            })
+            .catch((err) => {
+                console.log(err.response.data.message);
+                const error = err.response.data.message;
+                toast.error(error)
+            })
 
         // console.log(accountData);
 
