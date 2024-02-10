@@ -21,7 +21,7 @@ const jobSchema = new mongoose.Schema({
   responsibilities: [String],
   type: {
     type: String,
-    enum: ['Full-time', 'Part-time', 'Contract', 'Freelance', 'Internship']
+    enum: ['Full-time', 'Part-time']
   },
   salary: Number,
   postedBy: {
@@ -29,22 +29,22 @@ const jobSchema = new mongoose.Schema({
     ref: 'Company',
     required: true
   },
-  
-  appliedUsers:[{
-    userId:{
+
+  appliedUsers: [{
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref:"User"
+      ref: "User"
     },
     dateApplied: {
       type: Date,
       default: Date.now
     }
 
-}],
-approved:{
-  type:Boolean,
-  default:false
-},
+  }],
+  approved: {
+    type: Boolean,
+    default: false
+  },
   createdAt: {
     type: Date,
     default: Date.now
