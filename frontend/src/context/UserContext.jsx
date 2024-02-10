@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect, createContext, useMemo, useCallback } from 'react'
+import React, { useState, useEffect, createContext } from 'react'
 
 
 export const UserContext = createContext();
@@ -23,7 +23,7 @@ const UserProvider = ({ children }) => {
         })
             .then((response) => {
                 // console.log('response', response.data)
-                setUserDetails(response.data);
+                setUserDetails(response.data.userProfile);
                 // console.log('done')
             })
             .catch((err) => {
@@ -33,7 +33,7 @@ const UserProvider = ({ children }) => {
 
     // const companyData = () => {
     //     const jwtToken = localStorage.getItem("userToken");
-    //     axios.get('http://localhost:5000/api/v1/jobseeker/userProfile', {
+    //     axios.get('http://localhost:5000/api/v1/company/companyProfile', {
     //         headers: {
     //             Authorization: `Bearer ${jwtToken}`,
     //         }

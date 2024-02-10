@@ -12,9 +12,10 @@ function Navbar() {
     const clickHandler = () => {
         localStorage.removeItem("userToken");
     }
-    const profileClickHandler = () => {
-        navigate(`/${userType}/profile`)
-    }
+    // const profileClickHandler = () => {
+    //     console.log('userType', userType)
+    //     navigate(`/${userType}/profile`)
+    // }
     return (
         <>
             <nav className='sticky top-0 bg-white z-20' >
@@ -55,8 +56,8 @@ function Navbar() {
                                     onMouseLeave={() => setHover(false)}
                                     className={`${!isHover ? 'fixed left-[-100%]' : ' bg-white rounded-lg transition-all ease-in-out duration-300 text-secondary-200  absolute mt-2 right-0 w-40 top-auto shadow-lg border'}`}
                                 >
-                                    <Link className='block px-4 py-1  hover:text-primary-200 hover:cursor-pointer' onClick={profileClickHandler}>Profile</Link>
-                                    <Link className='block px-4 py-1 hover:text-primary-200 hover:cursor-pointer' to="/jobseeker/edit-info">Account Settings</Link>
+                                    <Link className='block px-4 py-1  hover:text-primary-200 hover:cursor-pointer' to={`/${userType}/profile`}>Profile</Link>
+                                    <Link className='block px-4 py-1 hover:text-primary-200 hover:cursor-pointer' to={`/${userType}/edit-info`}>Account Settings</Link>
                                     <Link className='block px-4 py-1 hover:text-primary-200 hover:cursor-pointer' to="/" onClick={clickHandler}>Sign Out</Link>
                                 </div>
                             </div>
