@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { JobContext } from '../context/JobContext'
 
-function JobsCards({ logo, company, rating, reviews, experience, salary, location, timeAgo, role, }) {
+function JobsCards({ logo, company, rating, reviews, experience, salary, location, timeAgo, role,id }) {
+    const { fetchAJob } = useContext(JobContext)
     return (
         <>
-            <div className='jobs-card flex flex-col items-center pb-4 gap-6 px-6'>
+            <div onClick={()=>fetchAJob(id)} className='jobs-card flex flex-col items-center pb-4 gap-6 px-6'>
                 <div className="card-body border sm:flex w-full p-6 rounded-lg hover:shadow-md hover:cursor-pointer">
                     <div className='comp-logo '>
                         <img src={logo} alt="" className='border rounded-full mr-6 mb-3' />

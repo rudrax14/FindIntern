@@ -1,4 +1,4 @@
-     const router = require('express').Router({mergeParams: true});
+     const router = require('express').Router();
 const { verifyToken } = require('../controllers/authControllers');
 const { createJob, updateJob, deleteJob, getAllJobs, getSingleJob } = require('../controllers/jobControllers');
 const { setAndVerifyRoles } = require('../controllers/middlewares/authMiddlewares');
@@ -6,9 +6,9 @@ const { setAndVerifyRoles } = require('../controllers/middlewares/authMiddleware
 
      
      
-     router.route('/job').get(verifyToken,getAllJobs).post(verifyToken,setAndVerifyRoles('company'),createJob);
+     router.route('/').get(verifyToken,getAllJobs).post(verifyToken,setAndVerifyRoles('company'),createJob);
      
-     router.route('/job/:jobId').get(verifyToken,getSingleJob).patch(verifyToken,setAndVerifyRoles('company'),updateJob).delete(verifyToken,setAndVerifyRoles('company'),deleteJob);
+     router.route('/:jobId').get(verifyToken,getSingleJob).patch(verifyToken,setAndVerifyRoles('company'),updateJob).delete(verifyToken,setAndVerifyRoles('company'),deleteJob);
 
      
      

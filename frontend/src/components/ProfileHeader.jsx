@@ -4,7 +4,7 @@ import { UserContext } from '../context/UserContext'
 function ProfileHeader() {
     const context = useContext(UserContext)
     const { userDetails,userData } = context;
-    const {userType} = useParams()
+    const {userType} = useParams();
     useEffect(()=>{
         userData(userType)
     },[]);

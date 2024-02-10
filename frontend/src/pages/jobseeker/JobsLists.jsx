@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Navbar from '../../components/common/Navbar'
 import { FaSistrix } from "react-icons/fa";
 import { IoLocationOutline, IoFilterSharp } from "react-icons/io5";
@@ -8,10 +8,15 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import Searchbar from '../../components/Searchbar';
 import CardBody from '../../components/CardBody';
+import { JobContext } from '../../context/JobContext';
 function JobsLists() {
     function valuetext(value) {
         return `${value}`;
     }
+    const {allJobs,fetchAllJobs} = useContext(JobContext);
+    useEffect(()=>{
+        fetchAllJobs();
+    },[])
     return (
         <>
             <Navbar />
@@ -79,8 +84,9 @@ function JobsLists() {
                         </div>
                         <div className='col-span-3'>
                             <div className=' rounded-lg h-full'>
-                                {Array(10).fill().map((_e, index) => (
-                                    <JobsCards key={index} logo='https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-brand-logo/job-list-logo-1.svg' company='Software Engineer (Web3/Crypto)' role='Featured Job' experience='1 - 5 years' salary='12k - 18k' location='Ahmedabad, Gujarat' />
+                                {allJobs.map((job, index) => (
+                                    // <JobsCards key={index} logo='https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-brand-logo/job-list-logo-1.svg' company='Software Engineer (Web3/Crypto)' role='Featured Job' experience='1 - 5 years' salary='12k - 18k' location='Ahmedabad, Gujarat' />
+                                <JobsCards key={index} logo='https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-brand-logo/job-list-logo-1.svg' company={job.company} role='Featured Job' experience={job.experience} salary={job.salary} location={job.location} id={job.id} />
                                 ))}
                             </div>
                         </div>

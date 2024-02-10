@@ -21,7 +21,8 @@ app.use(express.json());
 app.use("/api/v1/auth/",authRouter);
 app.use("/api/v1/jobseeker/", userRouter);
 app.use("/api/v1/recruiter/", companyRouter);
-companyRouter.use('/:companyId', jobRouter);
+app.use("/api/v1/job",jobRouter);
+//companyRouter.use('/:companyId', jobRouter);
 app.use("/api/v1/admin/",adminRouter);
 
 //  app.use("/api/v1/jobseeker/company/:companyId/job/:jobId", userRouter, companyRouter, jobRouter);
