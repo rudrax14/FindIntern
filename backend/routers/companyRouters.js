@@ -9,7 +9,7 @@ router.post('/register',register);
 router.post('/login',login);
 router.post('/logout',logout);
 
-router.route('/companyProfile').get(verifyToken,setAndVerifyRoles("recruiter"),companyProfile).patch(updateCompanyProfile);
+router.route('/profile').get(verifyToken,setAndVerifyRoles("recruiter"),companyProfile).patch(updateCompanyProfile);
 
 
 

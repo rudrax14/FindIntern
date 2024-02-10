@@ -14,16 +14,18 @@ const UserProvider = ({ children }) => {
     const [signupData, setSignupData] = useState({})
 
     // fetch user information
-    const userData = () => {
+    const userData = (userType) => {
         const jwtToken = localStorage.getItem("userToken");
-        axios.get('http://localhost:5000/api/v1/jobseeker/userProfile', {
+        
+        axios.get(`http://localhost:5000/api/v1/${userType}/profile`, {
             headers: {
                 Authorization: `Bearer ${jwtToken}`,
             }
         })
             .then((response) => {
                 // console.log('response', response.data)
-                setUserDetails(response.data.userProfile);
+                console.log(response.data.profile)
+                setUserDetails(response.data.profile);
                 // console.log('done')
             })
             .catch((err) => {
@@ -48,12 +50,12 @@ const UserProvider = ({ children }) => {
     //         })
     // }
 
-    useEffect(() => {
-        if (loginData && Object.keys(loginData).length > 0) userData();
-        console.log('running');
-        console.log("login data", loginData)
-        // companyData()
-    }, [loginData])
+    // useEffect(() => {
+    //     if (loginData && Object.keys(loginData).length > 0) userData();
+    //     console.log('running');
+    //     console.log("login data", loginData)
+    //     // companyData()
+    // }, [loginData])
 
 
 

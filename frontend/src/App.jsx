@@ -34,8 +34,8 @@ function App() {
         <Route path="/onboarding/sign-in/recruiter" element={<Login />} />
         <Route path="/onboarding/sign-up/recruiter" element={<Signup />} />
         {/*profile */}
-        <Route path="/jobseeker/profile" element={<JobseekerProfile />} />
-        <Route path="/recruiter/profile" element={<RecruiterProfile />} />
+        <Route path="/:userType/profile/" element={<JobseekerProfile />} />
+        <Route path="/:userType/profile/" element={<RecruiterProfile />} />
         {/* more-info */}
         <Route path="/jobseeker/more-info" element={<JobseekerMoreInfo />} />
         <Route path="/recruiter/more-info" element={<RecruiterMoreInfo />} />

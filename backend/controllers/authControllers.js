@@ -48,7 +48,7 @@ exports.register = catchAsync(async (req, res, next) => {
     username,
     email,
     password,
-    fullName: name,
+    name,
   });
 
   // Create a JWT token for the new company

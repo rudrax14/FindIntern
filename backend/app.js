@@ -20,7 +20,7 @@ const errorControllers = require('./controllers/errorControllers');
 app.use(express.json());
 app.use("/api/v1/auth/",authRouter);
 app.use("/api/v1/jobseeker/", userRouter);
-app.use("/api/v1/company/", companyRouter);
+app.use("/api/v1/recruiter/", companyRouter);
 companyRouter.use('/:companyId', jobRouter);
 app.use("/api/v1/admin/",adminRouter);
 

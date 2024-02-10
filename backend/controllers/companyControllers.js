@@ -28,7 +28,7 @@ exports.companyProfile = catchAsync(async (req,res,next)=>{
     // }
     res.status(200).json({
         status:'Success',
-        companyProfile
+        profile:companyProfile
     })
 });
 

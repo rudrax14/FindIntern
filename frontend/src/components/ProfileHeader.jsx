@@ -1,10 +1,14 @@
 import React, { useContext, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { UserContext } from '../context/UserContext'
 function ProfileHeader() {
     const context = useContext(UserContext)
-    const { userType } = context
-    // console.log('userDetails', userDetails)
+    const { userDetails,userData } = context;
+    const {userType} = useParams()
+    useEffect(()=>{
+        userData(userType)
+    },[]);
+    
     return (
         <div className="container mx-auto max-w-7xl rounded-lg">
             <div className="header">
@@ -19,7 +23,7 @@ function ProfileHeader() {
                     <div className="flex justify-between px-2 sm:px-3 sm:justify-between items-center w-full">
                         <div className="flex flex-col">
                             <div className='sm:flex items-center'>
-                                <h2 className='text-2xl font-semibold text-secondary-300'>{userDetails.fullName || "null"}</h2>
+                                <h2 className='text-2xl font-semibold text-secondary-300'>{userDetails.name || "null"}</h2>
                                 <span className='text-red-600 font-normal sm:ml-2 mt-1 bg-red-50 px-3 rounded-lg'>{userType}</span>
                             </div>
                             <p className='text-secondary-200'>@{userDetails.username || "null"}</p>
