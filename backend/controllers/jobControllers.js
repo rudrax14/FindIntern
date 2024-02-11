@@ -62,7 +62,7 @@ exports.createJob = catchAsync(async (req, res) => {
     // you need to store the id of that company in job document
     // you need to store the id of that job in company docmument
     const job = req.body;
-
+    
 // const job = {
 //   title,
 //   location,

@@ -9,6 +9,7 @@ import Slider from "@mui/material/Slider";
 import Searchbar from "../../components/Searchbar";
 import CardBody from "../../components/CardBody";
 import { JobContext } from "../../context/JobContext";
+import TimeTracker from "../../utils/TimeTracker";
 function JobsLists() {
     function valuetext(value) {
         return `${value}`;
@@ -101,7 +102,7 @@ function JobsLists() {
                                         salary={job.salary}
                                         location={job.location}
                                         id={job._id}
-                                        timeAgo={job.createdAt}
+                                        timeAgo={TimeTracker(job.createdAt)}
                                     />
                                 ))}
                             </div>
