@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const catchAsync = require('../utils/catchAsync');
-const Job = require('../models/Job')
+const Job = require('../models/Job');
+const AppError = require('../utils/AppError');
 
 const filterUserObject = (userObj,attrs)=>{
     
@@ -103,4 +104,29 @@ exports.applyJob = catchAsync( async (req,res,next)=>{
     });
 })
 
+
+exports.getAllAppliedJobsByUser = async (req, res,next) => {
+  const userId = req.user.id; // Assuming user ID is provided in the request parameters
+
+
+    // Find the user by ID
+    const user = await User.findById(userId);
+
+    if (!user) {
+      next(new AppError('User not found',404))
+    }
+
+    // Populate the appliedJobs array of the user
+    await user.populate('appliedJobs.jobId');
+
+    // Extract the applied jobs from the populated user object
+    const appliedJobs = user.appliedJobs.map(job => job.jobId);
+
+    res.status(200).json({
+      status: 'Success',
+      appliedJobs,
+    });
+  
+   
+};
 
