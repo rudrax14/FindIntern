@@ -23,6 +23,9 @@ const jobSchema = new mongoose.Schema({
     type: String,
     enum: ['Full-time', 'Part-time']
   },
+  department: {
+    type:String
+  },
   salary: Number,
   postedBy: {
     type: mongoose.Schema.Types.ObjectId,

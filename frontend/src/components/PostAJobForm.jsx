@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { LiaUserSolid } from "react-icons/lia";
 import InputField from "./InputField";
+import { useNavigate } from "react-router-dom";
+import { JobContext } from "../context/JobContext";
+import axios from "axios";
+
 function PostAJobForm() {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         title: "",
         company: "",
@@ -9,19 +14,46 @@ function PostAJobForm() {
         salary: "",
         department: "",
         type: "Full Time",
+        requirements:[],
         description: "",
     });
+    const {postAJob,job} = useContext(JobContext);
     function changeHandler(event) {
-        setFormData((prev) => ({
-            ...prev,
-            [event.target.name]: event.target.value,
-        }));
+        const {name,value} = event.target;
+        if( name === "requirements" ){
+            const requirementsArray = value.split(',').map(skill => skill.trim());
+
+            setFormData(prev => ({
+                ...prev,
+                [name]: requirementsArray,
+            }));
+        }
+        else{
+
+            setFormData((prev) => ({
+                ...prev,
+                [name]: value,
+            }));
+
+        }
+        
     }
 
     function submitHandler(e) {
         e.preventDefault();
-        console.log(formData);
-
+        const jwtToken = localStorage.getItem("userToken");
+            axios.post(`http://localhost:5000/api/v1/job`,formData, {
+                        headers: {
+                            Authorization: `Bearer ${jwtToken}`,
+                        }
+                    }).then((response)=>{
+                        setJob(response.data.newJob);
+                        
+                    }).catch((err)=>{
+                        console.log(err);
+                    })
+        //navigate(`/job-profile/${job._id}`)
+        
 
     }
 
@@ -62,8 +94,8 @@ function PostAJobForm() {
                 />
                 <InputField
                     name="location"
-                    label="Loaction"
-                    ph="Loaction"
+                    label="Location"
+                    ph="Location"
                     type="text"
                     imp="*"
                     event={changeHandler}
@@ -106,6 +138,20 @@ function PostAJobForm() {
                     </label>
                     <textarea
                         name="description"
+                        id=""
+                        cols=""
+                        rows="3"
+                        placeholder="Write about job"
+                        className="border text-secondary-200 border-[#cbd5e1] w-full py-2 px-4 rounded-md placeholder:text-secondary-200 focus:border-primary-100 focus:shadow-sm focus:shadow-primary-100 focus:outline-none"
+                        onChange={changeHandler}
+                    ></textarea>
+                </div>
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="" className="text-secondary-300 font-semibold">
+                        Job Requirements
+                    </label>
+                    <textarea
+                        name="requirements"
                         id=""
                         cols=""
                         rows="3"

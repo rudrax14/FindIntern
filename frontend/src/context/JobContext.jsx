@@ -21,7 +21,19 @@ const JobProvider = ({children})=>{
                         console.log(err);
                     })
         };
-        const postAJob = ()=>{};
+        const postAJob = (formData)=>{
+            const jwtToken = localStorage.getItem("userToken");
+            axios.post(`http://localhost:5000/api/v1/job`,formData, {
+                        headers: {
+                            Authorization: `Bearer ${jwtToken}`,
+                        }
+                    }).then((response)=>{
+                        setJob(response.data.newJob);
+                        
+                    }).catch((err)=>{
+                        console.log(err);
+                    })
+        };
         const fetchAJob = (id)=>{
                 const jwtToken = localStorage.getItem("userToken");
                 axios.get(`http://localhost:5000/api/v1/job/${id}`, {

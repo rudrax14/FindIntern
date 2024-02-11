@@ -69,7 +69,7 @@ exports.createJob = catchAsync(async (req,res,next)=>{
 //   description,
 //   postedBy: req.params.companyId
 // };
-job.postedBy = req.params.companyId;
+job.postedBy = req.user.id;
 
 const newJob = await Job.create(job);
 
