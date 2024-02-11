@@ -13,14 +13,14 @@ function PostAJobForm() {
         location: "",
         salary: "",
         department: "",
-        type: "Full Time",
-        requirements:[],
+        type: "Full-Time",
+        requirements: [],
         description: "",
     });
-    const {postAJob,job} = useContext(JobContext);
+    const { job, setJob } = useContext(JobContext);
     function changeHandler(event) {
-        const {name,value} = event.target;
-        if( name === "requirements" ){
+        const { name, value } = event.target;
+        if (name === "requirements") {
             const requirementsArray = value.split(',').map(skill => skill.trim());
 
             setFormData(prev => ({
@@ -28,7 +28,7 @@ function PostAJobForm() {
                 [name]: requirementsArray,
             }));
         }
-        else{
+        else {
 
             setFormData((prev) => ({
                 ...prev,
@@ -36,24 +36,24 @@ function PostAJobForm() {
             }));
 
         }
-        
+
     }
 
     function submitHandler(e) {
         e.preventDefault();
         const jwtToken = localStorage.getItem("userToken");
-            axios.post(`http://localhost:5000/api/v1/job`,formData, {
-                        headers: {
-                            Authorization: `Bearer ${jwtToken}`,
-                        }
-                    }).then((response)=>{
-                        setJob(response.data.newJob);
-                        
-                    }).catch((err)=>{
-                        console.log(err);
-                    })
-        //navigate(`/job-profile/${job._id}`)
-        
+        axios.post(`http://localhost:5000/api/v1/job`, formData, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+            }
+        }).then((response) => {
+            setJob(response.data.newJob);
+            navigate(`/recruiter/job-profile/${response.data.newJob._id}`)
+
+        }).catch((err) => {
+            console.log(err);
+        })
+
 
     }
 
@@ -128,8 +128,8 @@ function PostAJobForm() {
                         className="border text-secondary-200 border-[#cbd5e1] w-full py-2 px-4 rounded-md placeholder:text-secondary-200 focus:border-primary-100 focus:shadow-sm focus:shadow-primary-100 focus:outline-none"
                         onChange={changeHandler}
                     >
-                        <option value="Full Time">Full Time</option>
-                        <option value="Part Time">Part Time</option>
+                        <option value="Full-Time">Full Time</option>
+                        <option value="Part-Time">Part Time</option>
                     </select>
                 </div>
                 <div className="flex flex-col gap-2">

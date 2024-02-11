@@ -1,14 +1,15 @@
 import React, { useContext } from 'react'
 import { JobContext } from '../context/JobContext'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useParams } from 'react-router-dom';
 
 function JobsCards({ logo, company, rating, reviews, experience, salary, location, timeAgo, role,id }) {
     
     const navigate = useNavigate();
+    const {userType} = useParams();
     return (
         <>
             <div onClick={()=>{
-                navigate(`/job-profile/${id}`);
+                navigate(`/${userType}/job-profile/${id}`);
 
             }} className='jobs-card flex flex-col items-center pb-4 gap-6 px-6'>
                 <div className="card-body border sm:flex w-full p-6 rounded-lg hover:shadow-md hover:cursor-pointer">

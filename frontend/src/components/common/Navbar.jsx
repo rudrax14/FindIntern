@@ -1,14 +1,14 @@
 import React, { useContext, useState } from 'react'
 import logo from '../../../public/logo.png'
 import { Twirl as Hamburger } from 'hamburger-react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { UserContext } from '../../context/UserContext'
 function Navbar() {
     const navigate = useNavigate();
     const [isHover, setHover] = useState(false)
     const [isOpen, setOpen] = useState(false)
     const location = useLocation();
-    const { setUserMode, userType } = useContext(UserContext)
+    const { setUserMode } = useContext(UserContext)
     const clickHandler = () => {
         localStorage.removeItem("userToken");
     }
@@ -16,6 +16,11 @@ function Navbar() {
     //     console.log('userType', userType)
     //     navigate(`/${userType}/profile`)
     // }
+    const { userType } = useParams();
+    // useEffect(() => {
+    //     userData(userType)
+    // }, []);
+    const isRecruiterPostJob = location.pathname === "/recruiter/post-a-job";
     return (
         <>
             <nav className='sticky top-0 bg-white z-20' >
@@ -28,7 +33,7 @@ function Navbar() {
                         <div className='' >
                             <ul className='sm:flex w-60 justify-between text-lg font-medium hidden text-secondary-300'>
                                 <Link to="/" className='hover:text-primary-200 hover:cursor-pointer'>Home</Link>
-                                <Link to="/all-jobs" className='hover:text-primary-200 hover:cursor-pointer'>Jobs</Link>
+                                <Link to={`/${userType}/all-jobs`} className='hover:text-primary-200 hover:cursor-pointer'>Jobs</Link>
                                 <Link to="/job-profile" className='hover:text-primary-200 hover:cursor-pointer'>Single Jobs</Link>
 
                             </ul>
@@ -57,7 +62,9 @@ function Navbar() {
                                     className={`${!isHover ? 'fixed left-[-100%]' : ' bg-white rounded-lg transition-all ease-in-out duration-300 text-secondary-200  absolute mt-2 right-0 w-40 top-auto shadow-lg border'}`}
                                 >
                                     <Link className='block px-4 py-1  hover:text-primary-200 hover:cursor-pointer' to={`/${userType}/profile`}>Profile</Link>
-                                    <Link className='block px-4 py-1 hover:text-primary-200 hover:cursor-pointer' to={`/${userType}/edit-info`}>Account Settings</Link>
+                                    {userType === "recruiter" && !isRecruiterPostJob && (
+                                        <Link className='block px-4 py-1  hover:text-primary-200 hover:cursor-pointer' to={`/${userType}/post-a-job`}>Post A Job</Link>)}
+                                    <Link className='block px-4 py-1  hover:text-primary-200 hover:cursor-pointer' to={`/${userType}/edit-info`}>Account Settings</Link>
                                     <Link className='block px-4 py-1 hover:text-primary-200 hover:cursor-pointer' to="/" onClick={clickHandler}>Sign Out</Link>
                                 </div>
                             </div>

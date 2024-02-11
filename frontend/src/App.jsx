@@ -28,11 +28,11 @@ function App() {
         <Route path="/onboarding/sign-in" element={<Onboarding />} />
         <Route path="/onboarding/sign-up" element={<Onboarding />} />
         {/* joobseeker */}
-        <Route path="/onboarding/sign-in/jobseeker" element={<Login />} />
-        <Route path="/onboarding/sign-up/jobseeker" element={<Signup />} />
+        <Route path="/onboarding/sign-in/:userType" element={<Login />} />
+        <Route path="/onboarding/sign-up/:userType" element={<Signup />} />
         {/* recruiter */}
-        <Route path="/onboarding/sign-in/recruiter" element={<Login />} />
-        <Route path="/onboarding/sign-up/recruiter" element={<Signup />} />
+        <Route path="/onboarding/sign-in/:userType" element={<Login />} />
+        <Route path="/onboarding/sign-up/:userType" element={<Signup />} />
         {/*profile */}
         <Route path="/:userType/profile/" element={<JobseekerProfile />} />
         <Route path="/:userType/profile/" element={<RecruiterProfile />} />
@@ -43,10 +43,10 @@ function App() {
         <Route path="/jobseeker/edit-info" element={<JobseekerMoreInfo />} />
         <Route path="/recruiter/edit-info" element={<RecruiterMoreInfo />} />
         {/* recruiter-post */}
-        <Route path="/recruiter/post-a-job" element={<PostJobs />} />
+        <Route path="/:userType/post-a-job" element={<PostJobs />} />
         {/* jobs */}
-        <Route path="/all-jobs" element={<JobsLists />} />
-        <Route path="/job-profile/:id" element={<SingleJobs />} />
+        <Route path="/:userType/all-jobs" element={<JobsLists />} />
+        <Route path="/:userType/job-profile/:id" element={<SingleJobs />} />
         {/* admin */}
         <Route path="/admin" element={<Admin />} />
         <Route path="/dashboard" element={<Dashboard />} />

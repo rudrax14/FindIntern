@@ -2,16 +2,16 @@ import React, { useEffect, useState, useContext } from 'react'
 import InputField from './InputField';
 import toast from 'react-hot-toast';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from '../context/UserContext';
 function LoginForm() {
 
     const context = useContext(UserContext)
-    const { setLoginData, setUserType, userType } = context
+    const { setLoginData, setUserType } = context
 
 
     const navigate = useNavigate();
-
+    const { userType } = useParams();
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -38,7 +38,7 @@ function LoginForm() {
                 localStorage.setItem("userToken", response.data.token);
                 setLoginData(response.data);
                 toast.success('Login successful')
-                navigate('/all-jobs')
+                navigate(`/${userType}/all-jobs`)
             })
             .catch((err) => {
                 console.log(err.response.data.message);

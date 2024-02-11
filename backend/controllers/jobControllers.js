@@ -57,7 +57,7 @@ exports.getSingleJob = catchAsync(async (req, res,next) => {
 // Example usage in a route
 // router.get('/jobs/:jobId', getJobById);
 
-exports.createJob = catchAsync(async (req,res,next)=>{
+exports.createJob = catchAsync(async (req, res) => {
     //for posting a job
     // you need to store the id of that company in job document
     // you need to store the id of that job in company docmument
