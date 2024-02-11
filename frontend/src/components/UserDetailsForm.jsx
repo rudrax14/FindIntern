@@ -3,12 +3,13 @@ import InputField from './InputField'
 import { UserContext } from '../context/UserContext';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useParams } from 'react-router-dom';
 function UserDetailsForm() {
 
 
 
     const [formData, setFormData] = useState({
-        fullName: '',
+        name: '',
         username: '',
         email: '',
         location: '',
@@ -16,22 +17,22 @@ function UserDetailsForm() {
         experience: '',
         skills: [],
     });
-
+    const { userType } = useParams();
     const context = useContext(UserContext);
     const { userDetails, userData } = context;
-    useEffect(() => { userData() }, [])
+    useEffect(() => { userData(userType) }, [])
 
     useEffect(() => {
-        if (userDetails && userDetails.userProfile) {
+        if (userDetails) {
             setFormData(prevFormData => ({
                 ...prevFormData,
-                fullName: userDetails.userProfile.fullName || '',
-                username: userDetails.userProfile.username || '',
-                email: userDetails.userProfile.email || '',
-                location: userDetails.userProfile.location || '',
-                education: userDetails.userProfile.education || '',
-                experience: userDetails.userProfile.experience || '',
-                skills: userDetails.userProfile.skills || [],
+                name: userDetails.name || '',
+                username: userDetails.username || '',
+                email: userDetails.email || '',
+                location: userDetails.location || '',
+                education: userDetails.education || '',
+                experience: userDetails.experience || '',
+                skills: userDetails.skills || [],
             }));
         }
     }, [userDetails]);
@@ -116,7 +117,15 @@ function UserDetailsForm() {
                             Edit your personal information and address.
                         </p>
                         <form action="" className='space-y-6 mt-6' onSubmit={submitHandler}>
-                            <InputField data={formData.fullName} event={changeHandler} name='fullName' label='Full Name' ph='Full Name' type='text' imp='*' />
+                            <InputField
+                                data={formData.name}
+                                event={changeHandler}
+                                name='name'
+                                label='Full Name'
+                                ph={userDetails.name || 'Full Name'}
+                                type='text'
+                                imp='*'
+                            />
                             <InputField data={formData.username} event={changeHandler} name='username' label='User Name' ph='User Name' type='text' imp='*' />
                             <InputField data={formData.email} event={changeHandler} name='email' label='Email' ph='Email' type='email' imp='*' />
                             <InputField data={formData.location} event={changeHandler} name='location' label='Location' ph='Location' type='text' imp='*' />

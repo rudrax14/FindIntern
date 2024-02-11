@@ -16,7 +16,7 @@ const UserProvider = ({ children }) => {
     // fetch user information
     const userData = (userType) => {
         const jwtToken = localStorage.getItem("userToken");
-        
+
         axios.get(`http://localhost:5000/api/v1/${userType}/profile`, {
             headers: {
                 Authorization: `Bearer ${jwtToken}`,
@@ -24,8 +24,8 @@ const UserProvider = ({ children }) => {
         })
             .then((response) => {
                 // console.log('response', response.data)
-                console.log(response.data.profile)
                 setUserDetails(response.data.profile);
+                console.log("context-userDetails", response.data.profile)
                 // console.log('done')
             })
             .catch((err) => {

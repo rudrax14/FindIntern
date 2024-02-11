@@ -16,6 +16,7 @@ const JobProvider = ({ children }) => {
                 Authorization: `Bearer ${jwtToken}`,
             }
         }).then((response) => {
+            console.log(response.data.jobs);
             setAllJobs(response.data.jobs);
         }).catch((err) => {
             console.log(err);
