@@ -39,7 +39,7 @@ function JobsLists() {
                 <div className="container mx-auto max-w-[1320px]">
                     <div className="lg:grid grid-cols-4 gap-3 lg:space-y-0 space-y-6">
                         {/* compo todo */}
-                        <div className="border rounded-lg mx-6 h-fit sticky top-20">
+                        <div className="border rounded-lg mx-6 h-fit md:sticky top-20">
                             <div className="">
                                 <div className="card-header flex items-center gap-2 border-b p-5">
                                     <IoFilterSharp />
@@ -95,9 +95,9 @@ function JobsLists() {
                                     <JobsCards
                                         key={index}
                                         logo="https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-brand-logo/job-list-logo-1.svg"
+                                        title={job.title}
+                                        type={job.type}
                                         company={job.company}
-                                        role="Featured Job"
-                                        experience={job.experience}
                                         salary={job.salary}
                                         location={job.location}
                                         id={job._id}

@@ -4,15 +4,17 @@ import { useNavigate, useParams } from "react-router-dom";
 
 function JobsCards({
   logo,
+  title,
+  type,
   company,
+  period,
+  salary,
+  location,
+  id,
+  timeAgo,
   rating,
   reviews,
   experience,
-  salary,
-  location,
-  timeAgo,
-  role,
-  id,
 }) {
   const navigate = useNavigate();
   const { userType } = useParams();
@@ -31,13 +33,13 @@ function JobsCards({
           <div className="flex flex-col w-full gap-10">
             <div className="comp-description flex flex-col gap-1">
               <div className="flex items-center">
-                <h3 className="font-semibold text-base">{company}</h3>
+                <h3 className="font-semibold text-base">{title || "null"}</h3>
                 <span className="text-red-600 font-normal sm:ml-2 mt-1 bg-red-50 px-3 rounded-lg">
-                  {role}
+                  {type || "null"}
                 </span>
               </div>
               <div className="text-secondary-200 flex flex-row gap-3">
-                <span>at HelpDesk</span>
+                <span>at {company}</span>
                 <span className="text-secondary-300">4.5 ⭐</span>
                 <span>(131 Reviews)</span>
               </div>
@@ -45,9 +47,9 @@ function JobsCards({
             <div className="">
               <div className="sm:flex justify-between text-secondary-200">
                 <div className="flex flex-row gap-3">
-                  <span>{experience}</span>
-                  <span>{salary}</span>
-                  <span>{location}</span>
+                  <span>{period || "null"}</span>
+                  <span> ₹ {salary || "null"}</span>
+                  <span>{location || "null"}</span>
                 </div>
                 <div className="">{timeAgo || "null"}</div>
               </div>
