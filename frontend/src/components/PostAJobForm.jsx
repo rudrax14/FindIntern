@@ -12,10 +12,10 @@ function PostAJobForm() {
         company: "",
         location: "",
         salary: "",
+        description: "",
+        requirements: [],
         department: "",
         type: "Full-Time",
-        requirements: [],
-        description: "",
     });
     const { job, setJob } = useContext(JobContext);
     function changeHandler(event) {

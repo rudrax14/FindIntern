@@ -16,7 +16,7 @@ const JobProvider = ({ children }) => {
                 Authorization: `Bearer ${jwtToken}`,
             }
         }).then((response) => {
-            console.log(response.data.jobs);
+            console.log("context-fetchAllJobs", response.data.jobs);
             setAllJobs(response.data.jobs);
         }).catch((err) => {
             console.log(err);
@@ -42,6 +42,7 @@ const JobProvider = ({ children }) => {
                 Authorization: `Bearer ${jwtToken}`,
             }
         }).then((response) => {
+            console.log("context-fetchAJob", response.data.job);
             setJob(response.data.job);
 
         }).catch((err) => {

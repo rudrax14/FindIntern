@@ -101,6 +101,7 @@ function JobsLists() {
                                         salary={job.salary}
                                         location={job.location}
                                         id={job._id}
+                                        timeAgo={job.createdAt}
                                     />
                                 ))}
                             </div>

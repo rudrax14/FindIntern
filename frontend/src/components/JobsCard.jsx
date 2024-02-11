@@ -49,7 +49,7 @@ function JobsCards({
                   <span>{salary}</span>
                   <span>{location}</span>
                 </div>
-                <div className="">2 Hours Ago</div>
+                <div className="">{timeAgo || "null"}</div>
               </div>
             </div>
           </div>
