@@ -10,15 +10,15 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
   <UserProvider>
     <JobProvider>
-    <BrowserRouter>
-      <Toaster
-        position="top-right"
-        reverseOrder={false}
-      />
-      <React.StrictMode>
+      <BrowserRouter>
+        <Toaster
+          position="top-right"
+          reverseOrder={false}
+        />
+        {/* <React.StrictMode> */}
         <App />
-      </React.StrictMode>
-    </BrowserRouter>
+        {/* </React.StrictMode> */}
+      </BrowserRouter>
     </JobProvider>
   </UserProvider>
 

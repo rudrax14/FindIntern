@@ -9,6 +9,7 @@ const JobProvider = ({ children }) => {
     const [allJobs, setAllJobs] = useState([]);
     const [job, setJob] = useState({});
 
+
     const fetchAllJobs = () => {
         const jwtToken = localStorage.getItem("userToken");
         axios.get(`http://localhost:5000/api/v1/job`, {
@@ -50,6 +51,20 @@ const JobProvider = ({ children }) => {
         })
     };
 
+    const fetchAllCompanyJobs = () => {
+        const jwtToken = localStorage.getItem("userToken");
+        axios.get(`http://localhost:5000/api/v1/recruiter/getAllPostedJobs`, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+            }
+        }).then((response) => {
+            console.log("context-fetchAllCompanyJobs", response.data.jobs);
+            setAllJobs(response.data.jobs);
+
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
 
     const value = {
         fetchAllJobs,
@@ -57,7 +72,8 @@ const JobProvider = ({ children }) => {
         fetchAJob,
         allJobs,
         job,
-        setJob
+        setJob,
+        fetchAllCompanyJobs,
     }
     return (
         <JobContext.Provider value={value} >

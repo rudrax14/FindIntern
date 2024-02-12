@@ -102,6 +102,7 @@ function JobsLists() {
                                         salary={job.salary}
                                         location={job.location}
                                         id={job._id}
+                                        period={job.period}
                                         timeAgo={TimeTracker(job.createdAt)}
                                     />
                                 ))}

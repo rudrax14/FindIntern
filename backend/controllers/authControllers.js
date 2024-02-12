@@ -44,11 +44,12 @@ exports.register = catchAsync(async (req, res, next) => {
     Model = Admin
   }
   // Create a new user
-  const newRegister = await Model.create({
+  const newRegister = await Company.create({
     username,
     email,
     password,
     name,
+    role,
   });
 
   // Create a JWT token for the new company

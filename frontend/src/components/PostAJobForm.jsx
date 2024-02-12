@@ -16,45 +16,42 @@ function PostAJobForm() {
         requirements: [],
         department: "",
         type: "Full-Time",
+        period: "",
     });
     const { job, setJob } = useContext(JobContext);
     function changeHandler(event) {
         const { name, value } = event.target;
         if (name === "requirements") {
-            const requirementsArray = value.split(',').map(skill => skill.trim());
+            const requirementsArray = value.split(",").map((skill) => skill.trim());
 
-            setFormData(prev => ({
+            setFormData((prev) => ({
                 ...prev,
                 [name]: requirementsArray,
             }));
-        }
-        else {
-
+        } else {
             setFormData((prev) => ({
                 ...prev,
                 [name]: value,
             }));
-
         }
-
     }
 
     function submitHandler(e) {
         e.preventDefault();
         const jwtToken = localStorage.getItem("userToken");
-        axios.post(`http://localhost:5000/api/v1/job`, formData, {
-            headers: {
-                Authorization: `Bearer ${jwtToken}`,
-            }
-        }).then((response) => {
-            setJob(response.data.newJob);
-            navigate(`/recruiter/job-profile/${response.data.newJob._id}`)
-
-        }).catch((err) => {
-            console.log(err);
-        })
-
-
+        axios
+            .post(`http://localhost:5000/api/v1/job`, formData, {
+                headers: {
+                    Authorization: `Bearer ${jwtToken}`,
+                },
+            })
+            .then((response) => {
+                setJob(response.data.newJob);
+                navigate(`/recruiter/job-profile/${response.data.newJob._id}`);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     return (
@@ -112,7 +109,15 @@ function PostAJobForm() {
                 <InputField
                     name="department"
                     label="Department"
-                    ph="Web Design"
+                    ph="Eg: Web Design"
+                    type="text"
+                    imp="*"
+                    event={changeHandler}
+                />
+                <InputField
+                    name="period"
+                    label="Period"
+                    ph="Eg: 1-2 months, 1-5 months, 1-10 months"
                     type="text"
                     imp="*"
                     event={changeHandler}
@@ -161,7 +166,10 @@ function PostAJobForm() {
                     ></textarea>
                 </div>
                 <div className="">
-                    <button type="submit" className="bg-primary-200 text-white rounded-md lg:w-2/6 w-full py-2 font-medium">
+                    <button
+                        type="submit"
+                        className="bg-primary-200 text-white rounded-md lg:w-2/6 w-full py-2 font-medium"
+                    >
                         Submit for Approval
                     </button>
                 </div>
