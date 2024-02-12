@@ -28,7 +28,8 @@ async function addToBlacklist(redisClient, token) {
 
 exports.register = catchAsync(async (req, res, next) => {
   const { username, email, password, name, role } = req.body;
-  let Model = "";
+  let Model = null; // Initialize as null
+
   // Validate that all required fields are provided
   if (!username || !name || !email || !password) {
     return next(new AppError('Fill every field', 404));
@@ -36,15 +37,20 @@ exports.register = catchAsync(async (req, res, next) => {
   if (!role) {
     return next(new AppError('Provide a role', 404))
   }
-  if (role === "user") {
+
+  // Assign the appropriate model based on the role
+  if (role === "jobseeker") {
     Model = User;
-  } else if (role === "company") {
+  } else if (role === "recruiter") {
     Model = Company;
   } else if (role === "admin") {
-    Model = Admin
+    Model = Admin;
+  } else {
+    return next(new AppError('Invalid role', 404));
   }
+
   // Create a new user
-  const newRegister = await Company.create({
+  const newRegister = await Model.create({
     username,
     email,
     password,
@@ -63,7 +69,7 @@ exports.register = catchAsync(async (req, res, next) => {
 
   // Send response with the new company and JWT token
   res.status(200).json({
-    message: `A new ${role}  just registered`,
+    message: `A new ${role} just registered`,
     [`${role}`]: newRegister,
     token
   });
