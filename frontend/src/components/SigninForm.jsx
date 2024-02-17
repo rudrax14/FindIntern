@@ -31,14 +31,18 @@ function LoginForm() {
             ...formData,
             role: userType
         };
-        // console.log(userType);
+        console.log(userType);
 
         axios.post('http://localhost:5000/api/v1/auth/login', accountData)
             .then((response) => {
                 localStorage.setItem("userToken", response.data.token);
                 setLoginData(response.data);
                 toast.success('Login successful')
-                navigate(`/${userType}/all-jobs`)
+                if (userType === 'admin') {
+                    navigate(`/${userType}/dashboard`)
+                } else {
+                    navigate(`/${userType}/all-jobs`)
+                }
             })
             .catch((err) => {
                 console.log(err.response.data.message);

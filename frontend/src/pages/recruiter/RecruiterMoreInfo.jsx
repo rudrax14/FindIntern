@@ -12,7 +12,7 @@ function CompanyDetails() {
                 <form action="" className='lg:grid flex flex-col gap-6 grid-cols-2 py-6 lg:px-24 pt-12'>
                     <div className='flex flex-col gap-3'>
                         <div className='text-5xl text-primary-200'><LiaUserSolid /></div>
-                        <h3 className='text-xl font-semibold text-secondary-300'>Your information</h3>
+                        <h3 className='text-xl font-semibold text-secondary-300'>Your information - Recruiter</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit lacerat amet ac.</p>
                     </div>
                     <div className='flex flex-col gap-6'>

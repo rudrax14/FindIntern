@@ -3,6 +3,7 @@ import { LiaUserSolid } from "react-icons/lia";
 import InputField from "./InputField";
 import { useNavigate } from "react-router-dom";
 import { JobContext } from "../context/JobContext";
+import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import axios from "axios";
 
 function PostAJobForm() {
@@ -62,7 +63,7 @@ function PostAJobForm() {
         >
             <div className="flex flex-col gap-3">
                 <div className="text-5xl text-primary-200">
-                    <LiaUserSolid />
+                    <HiOutlineBuildingOffice2 />
                 </div>
                 <h3 className="text-xl font-semibold text-secondary-300">
                     Job information

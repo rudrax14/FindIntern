@@ -6,7 +6,7 @@ function Signup() {
     return (
         <>
 
-            <div className='flex items-center justify-center h-screen bg-secondary-100 p-5'>
+            <div className='flex items-center justify-center bg-secondary-100 p-5'>
                 <div className="max-w-[30rem] w-full rounded overflow-hidden shadow-2xl bg-white flex flex-col gap-6 px-10 py-6">
                     <div className='flex flex-col gap-3'>
                         <Link to="/" className='text-primary-200 text-2xl font-bold tracking-wider'>FindIntern</Link>

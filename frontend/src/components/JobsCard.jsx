@@ -1,7 +1,10 @@
 import React, { useContext } from "react";
 import { JobContext } from "../context/JobContext";
 import { useNavigate, useParams } from "react-router-dom";
-
+import { IoLocationOutline, IoCalendarClearOutline } from "react-icons/io5";
+import { LiaRupeeSignSolid } from "react-icons/lia";
+import { Link } from "react-router-dom";
+import { FaRegTrashAlt } from "react-icons/fa";
 function JobsCards({
   logo,
   title,
@@ -32,11 +35,16 @@ function JobsCards({
           </div>
           <div className="flex flex-col w-full gap-10">
             <div className="comp-description flex flex-col gap-1">
-              <div className="flex items-center">
-                <h3 className="font-semibold text-base">{title || "null"}</h3>
-                <span className="text-red-600 font-normal sm:ml-2 mt-1 bg-red-50 px-3 rounded-lg">
-                  {type || "null"}
-                </span>
+              <div className="flex justify-between">
+                <div className="flex items-center">
+                  <h3 className="font-semibold text-base">{title || "null"}</h3>
+                  <span className="text-red-600 font-normal sm:ml-2 mt-1 bg-red-50 px-3 rounded-lg">
+                    {type || "null"}
+                  </span>
+                </div>
+                <div className={`${userType == 'recruiter' ? 'block' : 'hidden'}`}>
+                  <a href="/"><FaRegTrashAlt /></a>
+                </div>
               </div>
               <div className="text-secondary-200 flex flex-row gap-3">
                 <span>at {company}</span>
@@ -47,9 +55,19 @@ function JobsCards({
             <div className="">
               <div className="sm:flex justify-between text-secondary-200">
                 <div className="flex flex-row gap-3">
-                  <span>{period || "null"}</span>
-                  <span> ₹ {salary || "null"}</span>
-                  <span>{location || "null"}</span>
+                  <div className="flex items-center gap-1">
+                    <span className=""><IoCalendarClearOutline /></span>
+                    <span>{period || "null"}</span>
+
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <span><LiaRupeeSignSolid /></span>
+                    <span>{salary || "null"}</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <span><IoLocationOutline /></span>
+                    <span>{location || "null"}</span>
+                  </div>
                 </div>
                 <div className="">{timeAgo || "null"}</div>
               </div>

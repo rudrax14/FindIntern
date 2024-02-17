@@ -4,7 +4,6 @@ import { Link, useNavigate, useParams, useLocation } from 'react-router-dom'
 import { UserContext } from '../context/UserContext'
 function Onboarding() {
     const { userType, setUserType, userMode } = useContext(UserContext)
-    const param = useLocation();
     const navigate = useNavigate();
     const userClickHandler = () => {
         setUserType('jobseeker')

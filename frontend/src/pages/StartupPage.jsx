@@ -7,7 +7,7 @@ function StartupPage() {
         <>
             <Navbar />
             {/* Hero section */}
-            <section className='bg-secondary-100 h-dvh py-20 flex '>
+            <section className='bg-secondary-100 h-dvh py-20 flex'>
                 <div className="container xl:grid grid-cols-2 flex 2xl px-6 mx-auto">
                     <div className='flex flex-col gap-12 w-full sm:flex-wrap text-center sm:text-start justify-center 2xl:px-20'>
                         <div className='flex flex-col gap-6'>
