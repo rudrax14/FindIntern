@@ -28,7 +28,7 @@ async function addToBlacklist(redisClient, token) {
 
 exports.register = catchAsync(async (req, res, next) => {
   const { username, email, password, name, role } = req.body;
-  let Model = null; // Initialize as null
+  let Model = ""; // Initialize as null
 
   // Validate that all required fields are provided
   if (!username || !name || !email || !password) {

@@ -19,6 +19,7 @@ import JobseekerProfile from "./pages/jobseeker/JobseekerProfile";
 import Admin from "./pages/admin/AdminProfile";
 import Dashboard from "./pages/admin/Dashboard";
 import NotFound from "./pages/NotFound";
+import MoreInfo from "./components/MoreInfo";
 function App() {
   return (
     <div className="">
@@ -37,8 +38,9 @@ function App() {
         <Route path="/:userType/profile/" element={<JobseekerProfile />} />
         <Route path="/:userType/profile/" element={<RecruiterProfile />} />
         {/* more-info */}
-        <Route path="/:userType/more-info" element={<JobseekerMoreInfo />} />
-        <Route path="/:userType/more-info" element={<RecruiterMoreInfo />} />
+        <Route path="/:userType/more-info" element={<MoreInfo />} />
+        {/* <Route path="/recruiter/more-info" element={<RecruiterMoreInfo />} /> */}
+        {/* <Route path="/recruiter/more-info" element={<RecruiterMoreInfo />} /> */}
         {/* edit-info */}
         <Route path="/:userType/edit-info" element={<JobseekerMoreInfo />} />
         <Route path="/:userType/edit-info" element={<RecruiterMoreInfo />} />
@@ -48,8 +50,8 @@ function App() {
         <Route path="/:userType/all-jobs" element={<JobsLists />} />
         <Route path="/:userType/job-profile/:id" element={<SingleJobs />} />
         {/* admin */}
-        <Route path="/sign-in/:userType" element={<Login />} />
-        <Route path="/:userType/dashboard" element={<Admin />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         {/* not found */}
         <Route path="*" element={<NotFound />} />
       </Routes>

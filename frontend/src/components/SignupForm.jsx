@@ -30,15 +30,15 @@ function SignupForm() {
     const submitHandler = (e) => {
         e.preventDefault();
 
-        if (formData.password !== formData.cPassword) {
-            toast.error("Passwords do not match");
-            return;
-        }
+        // if (formData.password !== formData.cPassword) {
+        //     toast.error("Passwords do not match");
+        //     return;
+        // }
 
-        if (!formData.username || !formData.email || !formData.password) {
-            toast.error("Enter All Details");
-            return;
-        }
+        // if (!formData.username || !formData.email || !formData.password) {
+        //     toast.error("Enter All Details");
+        //     return;
+        // }
         // formData.accountType = accountType;
         const accountData = {
             ...formData,
