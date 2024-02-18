@@ -3,8 +3,8 @@ import { JobContext } from "../context/JobContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { IoLocationOutline, IoCalendarClearOutline } from "react-icons/io5";
 import { LiaRupeeSignSolid } from "react-icons/lia";
-import { Link } from "react-router-dom";
 import { FaRegTrashAlt } from "react-icons/fa";
+
 function JobsCards({
   logo,
   title,
@@ -21,6 +21,16 @@ function JobsCards({
 }) {
   const navigate = useNavigate();
   const { userType } = useParams();
+  const { deleteJob } = useContext(JobContext);
+
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (window.confirm("Are you sure you want to delete this job?")) {
+      deleteJob(id);
+    }
+  };
   return (
     <>
       <div
@@ -42,8 +52,13 @@ function JobsCards({
                     {type || "null"}
                   </span>
                 </div>
-                <div className={`${userType == 'recruiter' ? 'block' : 'hidden'}`}>
-                  <a href="/"><FaRegTrashAlt /></a>
+                <div
+                  className={`delete-button ${userType == "recruiter" ? "block" : "hidden"}`}
+                  onClick={handleDelete}
+                >
+                  <a href="/">
+                    <FaRegTrashAlt />
+                  </a>
                 </div>
               </div>
               <div className="text-secondary-200 flex flex-row gap-3">
@@ -56,16 +71,21 @@ function JobsCards({
               <div className="sm:flex justify-between text-secondary-200">
                 <div className="flex flex-row gap-3">
                   <div className="flex items-center gap-1">
-                    <span className=""><IoCalendarClearOutline /></span>
+                    <span className="">
+                      <IoCalendarClearOutline />
+                    </span>
                     <span>{period || "null"}</span>
-
                   </div>
                   <div className="flex items-center gap-1">
-                    <span><LiaRupeeSignSolid /></span>
+                    <span>
+                      <LiaRupeeSignSolid />
+                    </span>
                     <span>{salary || "null"}</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <span><IoLocationOutline /></span>
+                    <span>
+                      <IoLocationOutline />
+                    </span>
                     <span>{location || "null"}</span>
                   </div>
                 </div>

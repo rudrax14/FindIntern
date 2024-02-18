@@ -1,134 +1,140 @@
-import React, { useContext, useState, useEffect } from 'react'
-import InputField from './InputField'
-import { userData } from '../context/Auth/UserContext'
-import axios from 'axios';
-import toast from 'react-hot-toast';
-
+import React, { useEffect, useState } from "react";
+import InputField from "./InputField";
+import { LiaUserSolid } from "react-icons/lia";
+import { useParams } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
 function CompanyDetailsForm() {
     const [formData, setFormData] = useState({
-        fullName: '',
-        username: '',
-        email: '',
-        location: '',
-        education: '',
-        experience: '',
-        skills: [],
+        industry: "",
+        size: "",
+        location: "",
+        website: "",
+        logo: "",
+        jobDescription: "",
     });
 
-    const context = useContext(userData);
-    const { userDetails } = context;
+    const { userType } = useParams();
+    const context = useContext(UserContext);
+    const { userDetails, userData } = context;
 
     useEffect(() => {
-        if (userDetails && userDetails.userProfile) {
-            setFormData(prevFormData => ({
+        userData(userType);
+        if (userDetails) {
+            setFormData((prevFormData) => ({
                 ...prevFormData,
-                fullName: userDetails.userProfile.fullName || '',
-                username: userDetails.userProfile.username || '',
-                email: userDetails.userProfile.email || '',
-                location: userDetails.userProfile.location || '',
-                education: userDetails.userProfile.education || '',
-                experience: userDetails.userProfile.experience || '',
-                skills: userDetails.userProfile.skills || [],
+                industry: userDetails.industry || "",
+                size: userDetails.size || "",
+                location: userDetails.location || "",
+                website: userDetails.website || "",
+                logo: userDetails.logo || "",
+                jobDescription: userDetails.jobDescription || "",
             }));
         }
-    }, [userDetails]);
-
+    }, []);
 
     const changeHandler = (event) => {
         const { name, value } = event.target;
-
-
-        if (name === 'skills') {
-
-            const skillsArray = value.split(',').map(skill => skill.trim());
-
-            setFormData(prev => ({
-                ...prev,
-                [name]: skillsArray,
-            }));
-        } else {
-
-            setFormData(prev => ({
-                ...prev,
-                [name]: value,
-            }));
-        }
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
     };
 
     const submitHandler = (e) => {
         e.preventDefault();
-        const accountData = { ...formData };
-        const jwtToken = localStorage.getItem("userToken");
-        axios.patch('http://localhost:5000/api/v1/jobseeker/userProfile', accountData, {
-            headers: {
-                Authorization: `Bearer ${jwtToken}`,
-            }
-        })
-            .then((response) => {
-                console.log(response.data);
-
-                toast.success("Profile updated successfully");
-            })
-            .catch((err) => {
-                console.log(err);
-                const error = err.response.data.message;
-                toast.error(error)
-            })
-        // console.log(accountData);
+        console.log("Form Submitted");
     };
 
-
-
-
-
-
-
     return (
-        <>
-            <div className='border border-gray-300 rounded-lg col-span-2'>
-                <div className="card-header border-b p-6 space-y-1">
-                    <h3 className='text-xl font-semibold text-secondary-300'>Profile Details</h3>
-                    <p className='text-secondary-200'>You have full control to manage your own account setting.</p>
+        <form
+            action=""
+            className="lg:grid flex flex-col gap-6 grid-cols-2 py-6 lg:px-24 pt-12"
+            onSubmit={submitHandler}
+        >
+            <div className="flex flex-col gap-3">
+                <div className="text-5xl text-primary-200">
+                    <LiaUserSolid />
                 </div>
-                <div className="card-body p-6">
-                    <div className="profile md:flex md:justify-between space-y-6 items-center ">
-                        <div className='flex justify-center items-center gap-6'>
-                            <img className='h-20 w-20 rounded-full border-2' src="https://codescandy.com/geeks-bootstrap-5/assets/images/avatar/avatar-3.jpg" alt="" />
-                            <div className='space-y-1'>
-                                <h3 className='text-xl font-semibold text-secondary-300'>Your avatar</h3>
-                                <p className='text-secondary-200'>
-                                    PNG or JPG no bigger than 800px wide and tall.
-                                </p>
-                            </div>
-                        </div>
-                        <div className='flex gap-2'>
-                            <a href="" className='border border-secondary-200 hover:bg-secondary-200 hover:text-white text-secondary-200 rounded-md font-medium px-2 py-1'>Update</a>
-                            <a href="" className='border border-red-500  hover:bg-red-500 hover:text-white text-red-500 rounded-md font-medium px-2 py-1'>Delete</a>
-                        </div>
-                    </div>
-                    <hr className='my-5' />
-                    <div>
-                        <h3 className='text-xl font-semibold text-secondary-300'>Personal Details</h3>
-                        <p className='text-secondary-200'>
-                            Edit your personal information and address.
-                        </p>
-                        <form action="" className='space-y-6 mt-6' onSubmit={submitHandler}>
-                            <InputField data={formData.fullName} event={changeHandler} name='fullName' label='Full Name' ph='Full Name' type='text' imp='*' />
-                            <InputField data={formData.username} event={changeHandler} name='username' label='User Name' ph='User Name' type='text' imp='*' />
-                            <InputField data={formData.email} event={changeHandler} name='email' label='Email' ph='Email' type='email' imp='*' />
-                            <InputField data={formData.location} event={changeHandler} name='location' label='Location' ph='Location' type='text' imp='*' />
-                            <InputField data={formData.education} event={changeHandler} name='education' label='Education' ph='Education' type='text' imp='*' />
-                            <InputField data={formData.experience} event={changeHandler} name='experience' label='Experience' ph='Experience' type='text' imp='*' />
-                            <InputField data={formData.skills} event={changeHandler} name='skills' label='Skills' ph='Skills' type='text' imp='*' />
-                            <div className='' >
-                                <button type="submit" className='bg-primary-200 hover:bg-primary-400 text-white rounded-md  w-fit py-2 px-6 font-medium'>Submit</button>
-                            </div>
-                        </form>
-                    </div>
+                <h3 className="text-xl font-semibold text-secondary-300">
+                    Your information - Recruiter
+                </h3>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit lacerat amet
+                    ac.
+                </p>
+            </div>
+            <div className="flex flex-col gap-6">
+                <InputField
+                    data={formData.industry}
+                    event={changeHandler}
+                    name="industry"
+                    label="Industry"
+                    ph="Write the Job Title"
+                    type="text"
+                    imp="*"
+                />
+                <InputField
+                    data={formData.size}
+                    event={changeHandler}
+                    name="size"
+                    label="Size"
+                    ph="Eg: 12"
+                    type="number"
+                    imp="*"
+                />
+                <InputField
+                    data={formData.location}
+                    event={changeHandler}
+                    name="location"
+                    label="Location"
+                    ph="Location"
+                    type="text"
+                    imp="*"
+                />
+                <InputField
+                    data={formData.website}
+                    event={changeHandler}
+                    name="website"
+                    label="Website"
+                    ph="Your Website Link"
+                    type="text"
+                    imp="*"
+                />
+                <InputField
+                    data={formData.logo}
+                    event={changeHandler}
+                    name="logo"
+                    label="Logo URL"
+                    ph="Your Logo URL"
+                    type="text"
+                    imp="*"
+                />
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="" className="text-secondary-300 font-semibold">
+                        Job description
+                    </label>
+                    <textarea
+                        data={formData.jobDescription}
+                        name=""
+                        id=""
+                        cols=""
+                        rows="3"
+                        placeholder="Write about job"
+                        className="border text-secondary-200 border-[#cbd5e1] w-full py-2 px-4 rounded-md placeholder:text-secondary-200 focus:border-primary-100 focus:shadow-sm focus:shadow-primary-100 focus:outline-none"
+                    ></textarea>
+                </div>
+                <div className="">
+                    <button
+                        type="submit"
+                        className="bg-primary-200 text-white rounded-md lg:w-2/6 w-full py-2 font-medium"
+                    >
+                        Submit for Approval
+                    </button>
                 </div>
             </div>
-        </>
-    )
+        </form>
+    );
 }
 
-export default CompanyDetailsForm
+export default CompanyDetailsForm;

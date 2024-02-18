@@ -19,6 +19,7 @@ import JobseekerProfile from "./pages/jobseeker/JobseekerProfile";
 import Admin from "./pages/admin/AdminProfile";
 import Dashboard from "./pages/admin/Dashboard";
 import NotFound from "./pages/NotFound";
+// redirector
 import MoreInfo from "./components/MoreInfo";
 function App() {
   return (
@@ -39,11 +40,8 @@ function App() {
         <Route path="/:userType/profile/" element={<RecruiterProfile />} />
         {/* more-info */}
         <Route path="/:userType/more-info" element={<MoreInfo />} />
-        {/* <Route path="/recruiter/more-info" element={<RecruiterMoreInfo />} /> */}
-        {/* <Route path="/recruiter/more-info" element={<RecruiterMoreInfo />} /> */}
         {/* edit-info */}
-        <Route path="/:userType/edit-info" element={<JobseekerMoreInfo />} />
-        <Route path="/:userType/edit-info" element={<RecruiterMoreInfo />} />
+        <Route path="/:userType/edit-info" element={<MoreInfo />} />
         {/* recruiter-post */}
         <Route path="/:userType/post-a-job" element={<PostJobs />} />
         {/* jobs */}

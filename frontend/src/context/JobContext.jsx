@@ -66,6 +66,20 @@ const JobProvider = ({ children }) => {
         })
     }
 
+    const deleteJob = async (jobId) => {
+        try {
+            const jwtToken = localStorage.getItem("userToken");
+            await axios.delete(`http://localhost:5000/api/v1/job/${jobId}`, {
+                headers: {
+                    Authorization: `Bearer ${jwtToken}`,
+                }
+            });
+            setAllJobs(allJobs.filter(job => job._id !== jobId));
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const value = {
         fetchAllJobs,
         // postAJob,
@@ -74,6 +88,7 @@ const JobProvider = ({ children }) => {
         job,
         setJob,
         fetchAllCompanyJobs,
+        deleteJob
     }
     return (
         <JobContext.Provider value={value} >
