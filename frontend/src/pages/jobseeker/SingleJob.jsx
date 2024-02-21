@@ -1,15 +1,15 @@
 import React, { useContext, useEffect } from 'react'
 import Navbar from '../../components/common/Navbar'
-import JobsCards from '../../components/JobsCard'
+import JobsCards from '../../components/common/JobsCard'
 import { JobContext } from '../../context/JobContext';
 import { useParams } from 'react-router-dom';
 
 function SingleJobs() {
-    const { fetchAJob,job } = useContext(JobContext);
+    const { fetchAJob, job } = useContext(JobContext);
     const { id } = useParams();
-    useEffect(()=>{
+    useEffect(() => {
         fetchAJob(id);
-    },[])
+    }, [])
     return (
         <>
             <Navbar />

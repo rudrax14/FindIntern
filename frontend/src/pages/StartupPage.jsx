@@ -1,7 +1,7 @@
 import React from 'react'
-import JobsCards from '../components/JobsCard';
+import JobsCards from '../components/common/JobsCard';
 import Navbar from '../components/common/Navbar';
-import Searchbar from '../components/Searchbar';
+import Searchbar from '../components/common/Searchbar';
 function StartupPage() {
     return (
         <>

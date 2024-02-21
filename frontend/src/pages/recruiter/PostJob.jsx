@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import Navbar from '../../components/common/Navbar'
 
-import DetailsHeader from '../../components/DetailsHeader';
-import PostAJobForm from '../../components/PostAJobForm';
+import DetailsHeader from '../../components/common/DetailsHeader';
+import PostAJobForm from '../../components/Form/PostAJobForm';
 function PostJobs() {
     return (
         <>

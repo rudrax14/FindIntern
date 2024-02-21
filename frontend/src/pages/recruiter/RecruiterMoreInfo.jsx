@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from '../../components/common/Navbar'
-import DetailsHeader from '../../components/DetailsHeader'
-import CompanyDetailsForm from '../../components/CompanyDetailsForm'
+import DetailsHeader from '../../components/common/DetailsHeader'
+import CompanyDetailsForm from '../../components/Form/CompanyDetailsForm'
 function CompanyDetails() {
     return (
         <>

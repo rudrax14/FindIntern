@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import FilterBoxJobs from './FilterBoxJobs'
+import FilterBoxJobs from '../Filter/FilterBoxJobs'
 
 function CardBody() {
     const [visible, setVisible] = useState(true)

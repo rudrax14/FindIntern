@@ -1,10 +1,9 @@
 import React, { useState, useContext } from "react";
 import InputField from "./InputField";
-import AuthButton from "./AuthButton";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "../../context/UserContext";
 function SignupForm() {
     const context = useContext(UserContext);
     const { setSignupData, setUserType } = context;

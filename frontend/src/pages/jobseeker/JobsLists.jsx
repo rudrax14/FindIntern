@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../../components/common/Navbar";
 import { FaSistrix } from "react-icons/fa";
 import { IoLocationOutline, IoFilterSharp } from "react-icons/io5";
-import JobsCards from "../../components/JobsCard";
-import FilterBoxJobs from "../../components/FilterBoxJobs";
+import JobsCards from "../../components/common/JobsCard";
+import FilterBoxJobs from "../../components/Filter/FilterBoxJobs";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
-import Searchbar from "../../components/Searchbar";
-import CardBody from "../../components/CardBody";
+import Searchbar from "../../components/common/Searchbar";
+import CardBody from "../../components/common/CardBody";
 import { JobContext } from "../../context/JobContext";
 import TimeTracker from "../../utils/TimeTracker";
 function JobsLists() {

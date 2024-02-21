@@ -3,7 +3,7 @@ import InputField from "./InputField";
 import { LiaUserSolid } from "react-icons/lia";
 import { useParams } from "react-router-dom";
 import { useContext } from "react";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "../../context/UserContext";
 function CompanyDetailsForm() {
     const [formData, setFormData] = useState({
         industry: "",

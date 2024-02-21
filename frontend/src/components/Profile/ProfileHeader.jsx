@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { UserContext } from '../context/UserContext'
+import { UserContext } from '../../context/UserContext'
 function ProfileHeader() {
     const context = useContext(UserContext)
     const { userDetails, userData } = context;

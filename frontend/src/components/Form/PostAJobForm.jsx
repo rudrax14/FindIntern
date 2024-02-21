@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { LiaUserSolid } from "react-icons/lia";
 import InputField from "./InputField";
 import { useNavigate } from "react-router-dom";
-import { JobContext } from "../context/JobContext";
+import { JobContext } from "../../context/JobContext";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import axios from "axios";
 

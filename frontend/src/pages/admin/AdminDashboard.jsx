@@ -2,7 +2,7 @@ import React from 'react'
 import Navbar from '../../components/common/Navbar'
 import { FaSistrix } from "react-icons/fa";
 
-import ProfileHeader from '../../components/ProfileHeader';
+import ProfileHeader from '../../components/Profile/ProfileHeader';
 import Table from '../../components/Table';
 function Admin() {
     return (
@@ -17,7 +17,7 @@ function Admin() {
                         <form action="" className='px-6'>
                             <div className='flex items-center py-2 border w-full rounded-xl text-secondary-200 gap-3 pl-3'>
                                 <span className=''>{<FaSistrix />}</span>
-                                <input type="text" placeholder='Search' className='placeholder:text-secondary-200 outline-none ' />
+                                <input type="text" placeholder='Search' className='placeholder:text-secondary-200 outline-none w-full' />
                             </div>
                         </form>
                         {/* jobs cards */}

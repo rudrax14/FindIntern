@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { JobContext } from "../context/JobContext";
+import { JobContext } from "../../context/JobContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { IoLocationOutline, IoCalendarClearOutline } from "react-icons/io5";
 import { LiaRupeeSignSolid } from "react-icons/lia";

@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../../components/common/Navbar";
-import JobsCards from "../../components/JobsCard";
-import ProfileHeader from "../../components/ProfileHeader";
+import JobsCards from "../../components/common/JobsCard";
+import ProfileHeader from "../../components/Profile/ProfileHeader";
 import { useContext, useEffect } from "react";
 import { JobContext } from "../../context/JobContext";
 import { useParams } from "react-router-dom";
