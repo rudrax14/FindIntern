@@ -37,7 +37,7 @@ function JobsCards({
         onClick={() => {
           navigate(`/${userType}/job-profile/${id}`);
         }}
-        className="jobs-card flex flex-col items-center pb-4 gap-6 px-6"
+        className="jobs-card flex flex-col items-center pb-4 gap-6"
       >
         <div className="card-body border sm:flex w-full p-6 rounded-lg hover:shadow-md hover:cursor-pointer">
           <div className="comp-logo ">

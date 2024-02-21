@@ -1,8 +1,26 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react';
 import JobsCards from '../components/common/JobsCard';
 import Navbar from '../components/common/Navbar';
 import Searchbar from '../components/common/Searchbar';
+import { JobContext } from '../context/JobContext';
+import TimeTracker from '../utils/TimeTracker';
+import { useParams } from 'react-router-dom';
 function StartupPage() {
+    const { userType } = useParams();
+    const { allJobs, fetchAllJobs } = useContext(JobContext);
+
+    // State to hold the userType
+    const [currentUserType, setCurrentUserType] = useState(userType);
+
+    useEffect(() => {
+        fetchAllJobs();
+        // Set userType to "guest" when at the "/" page
+        if (window.location.pathname === "/") {
+            setCurrentUserType("guest");
+        }
+    }, []);
+
+
     return (
         <>
             <Navbar />
@@ -57,8 +75,20 @@ function StartupPage() {
                         <h2 className='font-bold text-3xl text-secondary-300 mt-6'>Explore remote friendly, flexible job opportunities.</h2>
                     </div>
                     <div className=''>
-                        {Array(4).fill().map((_e, index) => (
-                            <JobsCards key={index} logo='https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-brand-logo/job-list-logo-1.svg' company='Software Engineer (Web3/Crypto)' role='Featured Job' experience='1 - 5 years' salary='12k - 18k' location='Ahmedabad, Gujarat' />
+                        {allJobs.map((job, index) => (
+                            // <JobsCards key={index} logo='https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-brand-logo/job-list-logo-1.svg' company='Software Engineer (Web3/Crypto)' role='Featured Job' experience='1 - 5 years' salary='12k - 18k' location='Ahmedabad, Gujarat' />
+                            <JobsCards
+                                key={index}
+                                logo="https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-brand-logo/job-list-logo-1.svg"
+                                title={job.title}
+                                type={job.type}
+                                company={job.company}
+                                salary={job.salary}
+                                location={job.location}
+                                id={job._id}
+                                period={job.period}
+                                timeAgo={TimeTracker(job.createdAt)}
+                            />
                         ))}
                     </div>
                     <div className='flex items-center justify-center mb-10'>

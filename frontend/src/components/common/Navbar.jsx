@@ -9,8 +9,13 @@ function Navbar() {
     const [isOpen, setOpen] = useState(false)
     const location = useLocation();
     const { setUserMode } = useContext(UserContext)
+    if (location.pathname === "/") {
+        localStorage.removeItem("userToken");
+    }
     const clickHandler = () => {
         localStorage.removeItem("userToken");
+
+
     }
     // const profileClickHandler = () => {
     //     console.log('userType', userType)

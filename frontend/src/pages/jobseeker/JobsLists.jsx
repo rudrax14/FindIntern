@@ -38,9 +38,9 @@ function JobsLists() {
             </section>
             <section className="py-7">
                 <div className="container mx-auto max-w-[1320px]">
-                    <div className="lg:grid grid-cols-4 gap-3 lg:space-y-0 space-y-6">
+                    <div className="md:grid grid-cols-4 gap-3 lg:space-y-0 space-y-6">
                         {/* compo todo */}
-                        <div className="border rounded-lg mx-6 h-fit md:sticky top-20">
+                        <div className="border rounded-lg ml-4 h-fit lg:sticky top-20">
                             <div className="">
                                 <div className="card-header flex items-center gap-2 border-b p-5">
                                     <IoFilterSharp />
@@ -49,7 +49,7 @@ function JobsLists() {
                                 <CardBody />
                                 <div className="card-body p-5 space-y-3 border-b">
                                     <a href="" className="text-secondary-300 font-semibold">
-                                        Salary
+                                        Stipend
                                     </a>
                                     <div className="">
                                         <form action="" className="text-secondary-200 space-y-1">
@@ -61,7 +61,7 @@ function JobsLists() {
                                 </div>
                                 <div className="card-body p-5 space-y-3 border-b">
                                     <a href="" className="text-secondary-300 font-semibold">
-                                        Experience
+                                        Period
                                     </a>
                                     <div className="">
                                         <form action="" className="text-secondary-200">
@@ -69,18 +69,18 @@ function JobsLists() {
                                                 <Box sx={{ width: 300 }}>
                                                     <Slider
                                                         aria-label="Always visible"
-                                                        defaultValue={15}
+                                                        defaultValue={6}
                                                         getAriaValueText={valuetext}
                                                         step={1}
-                                                        min={0}
-                                                        max={30}
+                                                        min={1}
+                                                        max={12}
                                                         sx={{ color: "#754ffe" }}
                                                         valueLabelDisplay="on"
                                                         valueLabelFormat={valuetext}
                                                     />
                                                     <div className="flex justify-between">
-                                                        <span>0 Years</span>
-                                                        <span>30 Years</span>
+                                                        <span>1 Months</span>
+                                                        <span>12 Months</span>
                                                     </div>
                                                 </Box>
                                             </div>
@@ -90,7 +90,7 @@ function JobsLists() {
                             </div>
                         </div>
                         <div className="col-span-3">
-                            <div className=" rounded-lg h-full">
+                            <div className=" rounded-lg h-full mr-4">
                                 {allJobs.map((job, index) => (
                                     // <JobsCards key={index} logo='https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-brand-logo/job-list-logo-1.svg' company='Software Engineer (Web3/Crypto)' role='Featured Job' experience='1 - 5 years' salary='12k - 18k' location='Ahmedabad, Gujarat' />
                                     <JobsCards

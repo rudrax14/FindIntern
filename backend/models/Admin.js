@@ -16,7 +16,7 @@ const adminSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  fullName: {
+  name: {
     type: String,
     required: true,
   },
@@ -35,17 +35,17 @@ const adminSchema = new mongoose.Schema({
   },
 });
 
-adminSchema.pre('save',async function(next){
-    if(!this.isModified('password')){
-        return next();
-    }
-  
-    const hash = await bcrypt.hash(this.password,10);
-    this.password = hash;
-   
-    next();
-  
-  })
+adminSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
+    return next();
+  }
+
+  const hash = await bcrypt.hash(this.password, 10);
+  this.password = hash;
+
+  next();
+
+})
 const Admin = mongoose.model('Admin', adminSchema);
 
 module.exports = Admin;

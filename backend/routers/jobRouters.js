@@ -6,7 +6,7 @@ const { setAndVerifyRoles } = require('../controllers/middlewares/authMiddleware
 
 
 
-router.route('/').get(verifyToken, getAllJobs).post(verifyToken, createJob);
+router.route('/').get(getAllJobs).post(verifyToken, createJob);
 
 router.route('/:jobId').get(verifyToken, getSingleJob).patch(verifyToken, setAndVerifyRoles('company'), updateJob).delete(verifyToken, setAndVerifyRoles('recruiter'), deleteJob);
 
