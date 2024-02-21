@@ -16,8 +16,7 @@ import JobsLists from "./pages/jobseeker/JobsLists";
 import SingleJobs from "./pages/jobseeker/SingleJob";
 import JobseekerProfile from "./pages/jobseeker/JobseekerProfile";
 // admin
-import Admin from "./pages/admin/AdminProfile";
-import Dashboard from "./pages/admin/Dashboard";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 import NotFound from "./pages/NotFound";
 // redirector
 import MoreInfo from "./components/MoreInfo";
@@ -48,8 +47,8 @@ function App() {
         <Route path="/:userType/all-jobs" element={<JobsLists />} />
         <Route path="/:userType/job-profile/:id" element={<SingleJobs />} />
         {/* admin */}
-        <Route path="/admin" element={<Admin />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/sign-in/:userType" element={<Login />} />
+        <Route path="/:userType/dashboard" element={<AdminDashboard />} />
         {/* not found */}
         <Route path="*" element={<NotFound />} />
       </Routes>

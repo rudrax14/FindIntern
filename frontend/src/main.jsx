@@ -6,20 +6,22 @@ import { BrowserRouter } from "react-router-dom";
 import { Toaster } from 'react-hot-toast';
 import UserProvider from './context/UserContext';
 import JobProvider from './context/JobContext.jsx';
+import AdminProvider from './context/AdminContext.jsx';
 ReactDOM.createRoot(document.getElementById('root')).render(
-
-  <UserProvider>
-    <JobProvider>
-      <BrowserRouter>
-        <Toaster
-          position="top-right"
-          reverseOrder={false}
-        />
-        {/* <React.StrictMode> */}
-        <App />
-        {/* </React.StrictMode> */}
-      </BrowserRouter>
-    </JobProvider>
-  </UserProvider>
+  <AdminProvider>
+    <UserProvider>
+      <JobProvider>
+        <BrowserRouter>
+          <Toaster
+            position="top-right"
+            reverseOrder={false}
+          />
+          {/* <React.StrictMode> */}
+          <App />
+          {/* </React.StrictMode> */}
+        </BrowserRouter>
+      </JobProvider>
+    </UserProvider>
+  </AdminProvider>
 
 )
