@@ -5,20 +5,22 @@ export const AdminContext = createContext();
 
 function AdminProvider({ children }) {
 
+
+    // admin approve and reject
     const AdminReject = (id) => {
         return () => {
             console.log("context-admin-AdminReject", id);
-            // const jwtToken = localStorage.getItem("userToken");
-            // axios.get(`http://localhost:5000/api/v1/admin/disapprove/${id}`, {
-            //     headers: {
-            //         Authorization: `Bearer ${jwtToken}`,
-            //     }
-            // }).then((response) => {
-            //     console.log("context-admin-AdminReject", response.data);
+            const jwtToken = localStorage.getItem("userToken");
+            axios.patch(`http://localhost:5000/api/v1/admin/disapprove/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${jwtToken}`,
+                }
+            }).then((response) => {
+                console.log("context-admin-AdminReject", response.data);
 
-            // }).catch((err) => {
-            //     console.log(err);
-            // })
+            }).catch((err) => {
+                console.log(err);
+            })
         }
 
     }
@@ -26,17 +28,17 @@ function AdminProvider({ children }) {
     const AdminApprove = (id) => {
         return () => {
             console.log("context-admin-AdminApprove", id);
-            // const jwtToken = localStorage.getItem("userToken");
-            // axios.get(`http://localhost:5000/api/v1/admin/approve/${id}`, {
-            //     headers: {
-            //         Authorization: `Bearer ${jwtToken}`,
-            //     }
-            // }).then((response) => {
-            //     console.log("context-admin-AdminApprove", response.data);
+            const jwtToken = localStorage.getItem("userToken");
+            axios.patch(`http://localhost:5000/api/v1/admin/approve/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${jwtToken}`,
+                }
+            }).then((response) => {
+                console.log("context-admin-AdminApprove", response.data);
 
-            // }).catch((err) => {
-            //     console.log(err);
-            // })
+            }).catch((err) => {
+                console.log(err);
+            })
         }
     }
 

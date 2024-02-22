@@ -5,11 +5,17 @@ import { JobContext } from '../../context/JobContext';
 import { useParams } from 'react-router-dom';
 
 function SingleJobs() {
-    const { fetchAJob, job } = useContext(JobContext);
+    const { fetchAJob, job, applyJob } = useContext(JobContext);
     const { id } = useParams();
     useEffect(() => {
         fetchAJob(id);
     }, [])
+
+
+    const appliedHandeler = () => {
+        console.log('apply for this job', job._id);
+        applyJob(job._id);
+    }
     return (
         <>
             <Navbar />
@@ -88,7 +94,7 @@ function SingleJobs() {
                             </ul>
                         </div>
                         <div className=''>
-                            <button className='bg-primary-200 hover:bg-primary-400 text-white rounded-md w-full py-2 font-medium'>Apply For This Job</button>
+                            <button onClick={appliedHandeler} className='bg-primary-200 hover:bg-primary-400 text-white rounded-md w-full py-2 font-medium'>Apply For This Job</button>
                         </div>
                     </div>
                 </div>

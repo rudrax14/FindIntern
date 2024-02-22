@@ -9,7 +9,7 @@ function Table() {
     const { AdminApprove, AdminReject } = useContext(AdminContext);
     useEffect(() => {
         fetchAllJobs();
-    }, []);
+    }, [fetchAllJobs]);
 
     return (
         <>
@@ -29,41 +29,50 @@ function Table() {
 
 
                     {/* repeat body */}
-                    {allJobs.map((job, index) => (
-                        <tbody key={index} className='hover:bg-secondary-100 border-y'>
-                            <tr className=''>
-                                <td className=''>
-                                    <a href="" className=''>
-                                        <div className='md:flex gap-2 py-3 px-2 ml-6'>
-                                            <div className=''>
-                                                <img className='w-24 rounded-' src="https://codescandy.com/geeks-bootstrap-5/assets/images/course/course-gatsby.jpg" alt="" />
-                                            </div>
-                                            <div>
-                                                <h4>{job.title || 'null'}</h4>
-                                                <span>{TimeTracker(job.createdAt)}</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </td>
-                                <td className=''>
-                                    <div className='flex gap-3'>
-                                        <img className='h-6 w-6 rounded-full' src="https://codescandy.com/geeks-bootstrap-5/assets/images/avatar/avatar-7.jpg" alt="" />
-                                        <h5>{job.company}</h5>
-                                    </div>
-                                </td>
-                                <td className='status'>
-                                    <span>Pending</span>
-                                </td>
-                                <td>
-                                    <button onClick={AdminReject(job._id)} className='border border-secondary-200 text-secondary-200 px-2 rounded-md hover:bg-secondary-200 hover:text-white'>Reject</button>
-                                    <button onClick={AdminApprove(job._id)} className='ml-2 border border-green-500 text-green-500 px-2 rounded-md hover:bg-green-500 hover:text-white'>Approved</button>
-                                </td>
-                                <td>
-                                    <span>More</span>
-                                </td>
+                    {allJobs.length === 0 ? (
+                        <tbody>
+                            <tr>
+                                <td className='text-center text-2xl font-semibold text-secondary-300 py-24' colSpan="5">No jobs request</td>
                             </tr>
                         </tbody>
-                    ))}
+                    ) : (
+                        allJobs.map((job, index) => (
+                            <tbody key={index} className='hover:bg-secondary-100 border-y'>
+                                <tr className=''>
+                                    <td className=''>
+                                        <a href="" className=''>
+                                            <div className='md:flex gap-2 py-3 px-2 ml-6'>
+                                                <div className=''>
+                                                    <img className='w-24 rounded-' src="https://codescandy.com/geeks-bootstrap-5/assets/images/course/course-gatsby.jpg" alt="" />
+                                                </div>
+                                                <div>
+                                                    <h4>{job.title || 'null'}</h4>
+                                                    <span>{TimeTracker(job.createdAt)}</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td className=''>
+                                        <div className='flex gap-3'>
+                                            <img className='h-6 w-6 rounded-full' src="https://codescandy.com/geeks-bootstrap-5/assets/images/avatar/avatar-7.jpg" alt="" />
+                                            <h5>{job.company}</h5>
+                                        </div>
+                                    </td>
+                                    <td className='status'>
+                                        <span>Pending</span>
+                                    </td>
+                                    <td>
+                                        <button onClick={AdminReject(job._id)} className='border border-secondary-200 text-secondary-200 px-2 rounded-md hover:bg-secondary-200 hover:text-white'>Reject</button>
+                                        <button onClick={AdminApprove(job._id)} className='ml-2 border border-green-500 text-green-500 px-2 rounded-md hover:bg-green-500 hover:text-white'>Approved</button>
+                                    </td>
+                                    <td>
+                                        <span>More</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        ))
+                    )}
+
                 </table>
 
             </div>

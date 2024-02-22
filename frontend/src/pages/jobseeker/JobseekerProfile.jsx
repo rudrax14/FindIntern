@@ -8,19 +8,18 @@ import { useParams } from "react-router-dom";
 import TimeTracker from "../../utils/TimeTracker";
 function User() {
     const { userType } = useParams();
-    const { allJobs, fetchAllJobs, fetchAllCompanyJobs, companyJobs } =
+    const { allJobs, fetchAllCompanyJobs, fetchAllAppliedJobs } =
         useContext(JobContext);
 
     useEffect(() => {
-        if (userType === "jobseekers") {
+        if (userType === "jobseeker") {
             console.log('jobseekers ---');
-            fetchAllJobs();
+            fetchAllAppliedJobs();
         } else {
             console.log('recruiters ---');
             fetchAllCompanyJobs();
         }
     }, []);
-
     return (
         <>
             <Navbar />
@@ -28,7 +27,7 @@ function User() {
                 <ProfileHeader />
                 <div className="container mx-auto max-w-7xl rounded-lg bg-white mt-6">
                     <h3 className="text-2xl font-semibold text-secondary-300 px-6 py-6">
-                        {userType === "jobseekers"
+                        {userType === "jobseeker"
                             ? "Your Applied Jobs"
                             : "Your Posted Jobs"}
                     </h3>
@@ -37,7 +36,7 @@ function User() {
                             No Jobs Posted
                         </div>
                     ) : (
-                        <div className="grid xl:grid-cols-2 gap-3">
+                        <div className="grid xl:grid-cols-2 gap-3 mx-6">
                             {allJobs.map((job, index) => (
                                 <JobsCards
                                     key={index}

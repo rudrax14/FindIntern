@@ -11,7 +11,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <AdminProvider>
     <UserProvider>
       <JobProvider>
-        <BrowserRouter>
+        <BrowserRouter scrollRestoration={true}>
           <Toaster
             position="top-right"
             reverseOrder={false}

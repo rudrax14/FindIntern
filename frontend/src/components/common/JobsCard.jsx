@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { JobContext } from "../../context/JobContext";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { IoLocationOutline, IoCalendarClearOutline } from "react-icons/io5";
 import { LiaRupeeSignSolid } from "react-icons/lia";
 import { FaRegTrashAlt } from "react-icons/fa";
@@ -20,6 +20,7 @@ function JobsCards({
   experience,
 }) {
   const navigate = useNavigate();
+  const routerlocation = useLocation();
   const { userType } = useParams();
   const { deleteJob } = useContext(JobContext);
 
@@ -52,10 +53,8 @@ function JobsCards({
                     {type || "null"}
                   </span>
                 </div>
-                <div
-                  className={`delete-button ${userType == "recruiter" ? "block" : "hidden"}`}
-                  onClick={handleDelete}
-                >
+                {/* // delete button */}
+                <div className={routerlocation.pathname === "/recruiter/profile" ? "delete-button block" : "delete-button hidden"} onClick={handleDelete}>
                   <a href="/">
                     <FaRegTrashAlt />
                   </a>

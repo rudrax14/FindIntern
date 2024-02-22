@@ -14,9 +14,9 @@ function JobsLists() {
     function valuetext(value) {
         return `${value}`;
     }
-    const { allJobs, fetchAllJobs } = useContext(JobContext);
+    const { allJobs, fetchAllJobs, fetchAllApprovedJobs, allApprovedJobs } = useContext(JobContext);
     useEffect(() => {
-        fetchAllJobs();
+        fetchAllApprovedJobs();
     }, []);
     return (
         <>
