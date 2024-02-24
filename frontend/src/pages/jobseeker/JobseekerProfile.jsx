@@ -6,10 +6,11 @@ import { useContext, useEffect } from "react";
 import { JobContext } from "../../context/JobContext";
 import { useParams } from "react-router-dom";
 import TimeTracker from "../../utils/TimeTracker";
+import { UserContext } from "../../context/UserContext";
 function User() {
     const { userType } = useParams();
-    const { allJobs, fetchAllCompanyJobs, fetchAllAppliedJobs } =
-        useContext(JobContext);
+    const { allJobs, fetchAllCompanyJobs, fetchAllAppliedJobs } = useContext(JobContext);
+    const { userDetails } = useContext(UserContext);
 
     useEffect(() => {
         if (userType === "jobseeker") {
@@ -39,6 +40,7 @@ function User() {
                         <div className="grid xl:grid-cols-2 gap-3 mx-6">
                             {allJobs.map((job, index) => (
                                 <JobsCards
+
                                     key={index}
                                     logo="https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-brand-logo/job-list-logo-1.svg"
                                     title={job.title}

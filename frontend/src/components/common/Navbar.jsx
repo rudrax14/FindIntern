@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import logo from '../../../public/logo.png'
 import { Twirl as Hamburger } from 'hamburger-react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
@@ -8,23 +8,17 @@ function Navbar() {
     const [isHover, setHover] = useState(false)
     const [isOpen, setOpen] = useState(false)
     const location = useLocation();
-    const { setUserMode } = useContext(UserContext)
+    const { setUserMode, userDetails, userData } = useContext(UserContext)
     if (location.pathname === "/") {
         localStorage.removeItem("userToken");
     }
     const clickHandler = () => {
         localStorage.removeItem("userToken");
-
-
     }
-    // const profileClickHandler = () => {
-    //     console.log('userType', userType)
-    //     navigate(`/${userType}/profile`)
-    // }
     const { userType } = useParams();
-    // useEffect(() => {
-    //     userData(userType)
-    // }, []);
+    useEffect(() => {
+        userData(userType)
+    }, []);
     const isRecruiterPostJob = location.pathname === "/recruiter/post-a-job";
     return (
         <>
@@ -55,7 +49,7 @@ function Navbar() {
                                     onMouseLeave={() => setHover(false)}
                                     className={`block`}
                                 >
-                                    <img className={` h-12 w-12 border-2 rounded-full object-cover ${isHover ? 'border-primary-200' : ''} hover:outline-none`} src="https://codescandy.com/geeks-bootstrap-5/assets/images/avatar/avatar-3.jpg" alt="" />
+                                    <img className={` h-12 w-12 border-2 rounded-full object-cover ${isHover ? 'border-primary-200' : ''} hover:outline-none`} src={userDetails.profileImgUrl} alt="nav-prof" />
                                 </div>
                                 <div
                                     onMouseOver={() => setHover(true)}

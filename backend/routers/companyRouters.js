@@ -10,7 +10,7 @@ router.post('/register', register);
 router.post('/login', login);
 router.post('/logout', logout);
 
-router.route('/profile').get(verifyToken, setAndVerifyRoles("recruiter"), companyProfile).patch(updateCompanyProfile);
+router.route('/profile').get(verifyToken, companyProfile).patch(verifyToken, updateCompanyProfile);
 router.route('/profile/image/upload').post(verifyToken, imageUpload);
 
 router.route('/getAllPostedJobs').get(verifyToken, getAllJobsPostedByCompany);

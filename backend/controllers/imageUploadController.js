@@ -13,12 +13,12 @@ async function uploadFileToCloudinary(file, folder, quality) {
     const options = {
         folder: folder,
         resource_type: "auto",
-
-        // these 3 lines will help to keep the original filename in the database
-        public_id: file.name,
         use_filename: true,
-        unique_filename: false
-    };
+        unique_filename: false,
+        width: 300,
+        height: 300,
+        crop: "fill", // Crop the image to fill the specified dimensions
+    };;
 
     console.log("temp file path", file.tempFilePath);
 

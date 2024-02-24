@@ -4,6 +4,8 @@ import { LiaUserSolid } from "react-icons/lia";
 import { useParams } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
+import AvatarUploader from "./AvatarUploader";
+import axios from "axios";
 function CompanyDetailsForm() {
     const [formData, setFormData] = useState({
         industry: "",
@@ -11,7 +13,7 @@ function CompanyDetailsForm() {
         location: "",
         website: "",
         logo: "",
-        jobDescription: "",
+        description: "",
     });
 
     const { userType } = useParams();
@@ -19,7 +21,6 @@ function CompanyDetailsForm() {
     const { userDetails, userData } = context;
 
     useEffect(() => {
-        userData(userType);
         if (userDetails) {
             setFormData((prevFormData) => ({
                 ...prevFormData,
@@ -27,8 +28,8 @@ function CompanyDetailsForm() {
                 size: userDetails.size || "",
                 location: userDetails.location || "",
                 website: userDetails.website || "",
-                logo: userDetails.logo || "",
-                jobDescription: userDetails.jobDescription || "",
+                // logo: userDetails.logo || "",
+                description: userDetails.description || "",
             }));
         }
     }, []);
@@ -43,7 +44,20 @@ function CompanyDetailsForm() {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        console.log("Form Submitted");
+        const jwtToken = localStorage.getItem("userToken");
+        const accountData = { ...formData };
+        axios.patch(`http://localhost:5000/api/v1/${userType}/profile`, accountData, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+            },
+        })
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((err) => {
+                console.log(err);
+                const error = err.response.data.message;
+            });
     };
 
     return (
@@ -65,6 +79,9 @@ function CompanyDetailsForm() {
                 </p>
             </div>
             <div className="flex flex-col gap-6">
+                <div>
+                    <AvatarUploader profile={userDetails.profileImgUrl} />
+                </div>
                 <InputField
                     data={formData.industry}
                     event={changeHandler}
@@ -101,7 +118,7 @@ function CompanyDetailsForm() {
                     type="text"
                     imp="*"
                 />
-                <InputField
+                {/* <InputField
                     data={formData.logo}
                     event={changeHandler}
                     name="logo"
@@ -109,14 +126,14 @@ function CompanyDetailsForm() {
                     ph="Your Logo URL"
                     type="text"
                     imp="*"
-                />
+                /> */}
                 <div className="flex flex-col gap-2">
                     <label htmlFor="" className="text-secondary-300 font-semibold">
                         Job description
                     </label>
                     <textarea
-                        data={formData.jobDescription}
-                        name=""
+                        data={formData.description}
+                        name="description"
                         id=""
                         cols=""
                         rows="3"

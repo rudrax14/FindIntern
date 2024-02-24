@@ -42,7 +42,7 @@ function JobsCards({
       >
         <div className="card-body border sm:flex w-full p-6 rounded-lg hover:shadow-md hover:cursor-pointer">
           <div className="comp-logo ">
-            <img src={logo} alt="" className="border rounded-full mr-6 mb-3" />
+            <img src={logo} alt="" className="border rounded-full mr-6 mb-3 w-14" />
           </div>
           <div className="flex flex-col w-full gap-10">
             <div className="comp-description flex flex-col gap-1">

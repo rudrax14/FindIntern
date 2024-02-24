@@ -5,9 +5,10 @@ function ProfileHeader() {
     const context = useContext(UserContext)
     const { userDetails, userData } = context;
     const { userType } = useParams();
-    useEffect(() => {
-        userData(userType)
-    }, []);
+    // navbar ke through run ho rhaa hai 
+    // useEffect(() => {
+    //     userData(userType)
+    // }, []);
 
     return (
         <div className="container mx-auto max-w-7xl rounded-lg">
@@ -18,7 +19,7 @@ function ProfileHeader() {
                         </div> */}
                 <div className='bg-white flex md:h-20 px-6 items-center rounded-b-lg w-full'>
                     <div className='relative -mt-12'>
-                        <img src="https://codescandy.com/geeks-bootstrap-5/assets/images/avatar/avatar-3.jpg" alt="" className='w-20 rounded-full border-white border-4' />
+                        <img src={userDetails.profileImgUrl} alt="" className='w-20 rounded-full border-white border-4' />
                     </div>
                     <div className="flex justify-between px-2 sm:px-3 sm:justify-between items-center w-full">
                         <div className="flex flex-col">
