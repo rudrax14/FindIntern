@@ -6,6 +6,15 @@ const connectDB = require('./conn')
 const cors = require('cors')
 const app = express();
 connectDB();
+// file upload methord // server pe upload karna hai
+const fileUpload = require('express-fileupload');
+// app.use(fileUpload());
+app.use(fileUpload({
+    useTempFiles: true,
+    tempFileDir: '/tmp/'
+}));
+const cloudinary = require('./cloudinary');
+cloudinary.cloudinaryConnect();
 app.use(cors())
 
 const authRouter = require('./routers/authRouters');
@@ -18,12 +27,18 @@ const errorControllers = require('./controllers/errorControllers');
 
 
 app.use(express.json());
-app.use("/api/v1/auth/",authRouter);
+
+
+
+
+
+
+app.use("/api/v1/auth/", authRouter);
 app.use("/api/v1/jobseeker/", userRouter);
 app.use("/api/v1/recruiter/", companyRouter);
-app.use("/api/v1/job",jobRouter);
+app.use("/api/v1/job", jobRouter);
 //companyRouter.use('/:companyId', jobRouter);
-app.use("/api/v1/admin/",adminRouter);
+app.use("/api/v1/admin/", adminRouter);
 
 //  app.use("/api/v1/jobseeker/company/:companyId/job/:jobId", userRouter, companyRouter, jobRouter);
 
