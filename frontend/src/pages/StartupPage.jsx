@@ -7,13 +7,14 @@ import TimeTracker from '../utils/TimeTracker';
 import { useParams } from 'react-router-dom';
 function StartupPage() {
     const { userType } = useParams();
-    const { allJobs, fetchAllJobs } = useContext(JobContext);
+    const { allJobs, fetchAllJobs, fetchAllApprovedJobs } = useContext(JobContext);
+
 
     // State to hold the userType
     const [currentUserType, setCurrentUserType] = useState(userType);
 
     useEffect(() => {
-        fetchAllJobs();
+        fetchAllApprovedJobs();
         // Set userType to "guest" when at the "/" page
         if (window.location.pathname === "/") {
             setCurrentUserType("guest");
@@ -75,8 +76,7 @@ function StartupPage() {
                         <h2 className='font-bold text-3xl text-secondary-300 mt-6'>Explore remote friendly, flexible job opportunities.</h2>
                     </div>
                     <div className=''>
-                        {allJobs.map((job, index) => (
-                            // <JobsCards key={index} logo='https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-brand-logo/job-list-logo-1.svg' company='Software Engineer (Web3/Crypto)' role='Featured Job' experience='1 - 5 years' salary='12k - 18k' location='Ahmedabad, Gujarat' />
+                        {allJobs.slice(0, 3).map((job, index) => (
                             <JobsCards
                                 key={index}
                                 logo="https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-brand-logo/job-list-logo-1.svg"

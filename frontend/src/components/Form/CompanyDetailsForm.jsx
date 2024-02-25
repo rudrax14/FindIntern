@@ -17,8 +17,7 @@ function CompanyDetailsForm() {
     });
 
     const { userType } = useParams();
-    const context = useContext(UserContext);
-    const { userDetails, userData } = context;
+    const { userDetails, userData } = useContext(UserContext);
 
     useEffect(() => {
         if (userDetails) {
@@ -32,7 +31,7 @@ function CompanyDetailsForm() {
                 description: userDetails.description || "",
             }));
         }
-    }, []);
+    }, [userDetails]);
 
     const changeHandler = (event) => {
         const { name, value } = event.target;
@@ -46,6 +45,7 @@ function CompanyDetailsForm() {
         e.preventDefault();
         const jwtToken = localStorage.getItem("userToken");
         const accountData = { ...formData };
+        console.log(accountData);
         axios.patch(`http://localhost:5000/api/v1/${userType}/profile`, accountData, {
             headers: {
                 Authorization: `Bearer ${jwtToken}`,
@@ -63,7 +63,7 @@ function CompanyDetailsForm() {
     return (
         <form
             action=""
-            className="lg:grid flex flex-col gap-6 grid-cols-2 py-6 lg:px-24 pt-12"
+            className="lg:grid flex flex-col gap-2 grid-cols-2 py-6 lg:px-24 pt-12"
             onSubmit={submitHandler}
         >
             <div className="flex flex-col gap-3">
@@ -78,7 +78,7 @@ function CompanyDetailsForm() {
                     ac.
                 </p>
             </div>
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-6 rounded-lg p-8 border-gray-300 border" >
                 <div>
                     <AvatarUploader profile={userDetails.profileImgUrl} />
                 </div>
@@ -132,7 +132,8 @@ function CompanyDetailsForm() {
                         Job description
                     </label>
                     <textarea
-                        data={formData.description}
+                        value={formData.description}
+                        onChange={changeHandler}
                         name="description"
                         id=""
                         cols=""
@@ -146,7 +147,7 @@ function CompanyDetailsForm() {
                         type="submit"
                         className="bg-primary-200 text-white rounded-md lg:w-2/6 w-full py-2 font-medium"
                     >
-                        Submit for Approval
+                        Update
                     </button>
                 </div>
             </div>

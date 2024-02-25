@@ -59,7 +59,7 @@ function PostAJobForm() {
         <form
             onSubmit={submitHandler}
             action=""
-            className="lg:grid flex flex-col gap-6 grid-cols-2 py-6 lg:px-24 pt-12"
+            className="lg:grid flex flex-col gap-2 grid-cols-2 py-6 lg:px-24 pt-12"
         >
             <div className="flex flex-col gap-3">
                 <div className="text-5xl text-primary-200">
@@ -73,7 +73,7 @@ function PostAJobForm() {
                     ac.
                 </p>
             </div>
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-6 rounded-lg p-8 border-gray-300 border">
                 <InputField
                     name="title"
                     label="Job Title"
