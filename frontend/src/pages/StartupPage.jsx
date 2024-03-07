@@ -26,8 +26,8 @@ function StartupPage() {
         <>
             <Navbar />
             {/* Hero section */}
-            <section className='bg-secondary-100 h-dvh py-20 flex'>
-                <div className="container xl:grid grid-cols-2 flex 2xl px-6 mx-auto">
+            <section className='bg-secondary-100 py-20 flex'>
+                <div className="container xl:grid grid-cols-2 flex 2xl px-6">
                     <div className='flex flex-col gap-12 w-full sm:flex-wrap text-center sm:text-start justify-center 2xl:px-20'>
                         <div className='flex flex-col gap-6'>
                             <h1 className='sm:text-6xl text-4xl font-bold text-wrap text-secondary-300'>Find your dream job that you love to do.</h1>

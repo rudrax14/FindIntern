@@ -24,25 +24,25 @@ function Navbar() {
         <>
             <nav className='sticky top-0 bg-white z-20' >
                 <div className="flex h-14 shadow-md px-2">
-                    <div className="container mx-auto flex justify-between items-center">
-                        <div className='flex md:ml-28 items-center hover:cursor-pointer' onClick={() => { navigate('/') }}>
+                    <div className="container md:px-24 flex justify-between items-center">
+                        <div className='flex items-center hover:cursor-pointer' onClick={() => { navigate('/') }}>
                             <img src={logo} className='w-48' alt="" />
                             {/* <Link to="/" className='font-bold text-xl text-primary-200 tracking-widest '>FINDINTERN</Link> */}
                         </div>
                         <div className='' >
                             <ul className='sm:flex w-60 justify-between text-lg font-medium hidden text-secondary-300'>
-                                <Link to="/" className='hover:text-primary-200 hover:cursor-pointer'>Home</Link>
+                                <Link to="/jobseeker/feed" className='hover:text-primary-200 hover:cursor-pointer'>Home</Link>
                                 <Link to={`/${userType}/all-jobs`} className='hover:text-primary-200 hover:cursor-pointer'>Jobs</Link>
                                 <Link to="/job-profile" className='hover:text-primary-200 hover:cursor-pointer'>Single Jobs</Link>
 
                             </ul>
                         </div>
                         {/* login signup button */}
-                        <div className={`buttons flex text-center font-medium text-lg ${location.pathname == "/" ? '' : 'hidden'} mr-32`} >
+                        <div className={`buttons flex text-center font-medium text-lg ${location.pathname == "/" ? '' : 'hidden'}`} >
                             <Link to="/onboarding/sign-in" onClick={() => { setUserMode('sign-in') }} className='text-primary-200 border-primary-200 hover:bg-primary-200 hover:text-white rounded-md border px-2 py-1 mr-2'>Sign in</Link>
                             <Link to="/onboarding/sign-up" onClick={() => { setUserMode('sign-up') }} className='bg-primary-200 text-white border-primary-200 hover:bg-primary-300 rounded-md border px-2 py-1'>Sign Up</Link>
                         </div>
-                        <div className={`flex justify-center  w-fit items-center gap-3 ${location.pathname !== "/" ? '' : 'hidden'}  md:mr-32`}>
+                        <div className={`flex justify-center  w-fit items-center gap-3 ${location.pathname !== "/" ? '' : 'hidden'} `}>
                             <div className={`profile relative`} >
                                 <div
                                     onMouseEnter={() => setHover(true)}

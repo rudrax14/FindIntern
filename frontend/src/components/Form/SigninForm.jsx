@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react'
 import InputField from './InputField';
 import toast from 'react-hot-toast';
 import axios from 'axios';
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { UserContext } from '../../context/UserContext';
 function LoginForm() {
 
@@ -64,7 +64,7 @@ function LoginForm() {
                 <InputField name='email' data={formData.email} event={changeHandler} label='Username or email' ph='Email address here' type='email' />
                 <InputField name='password' data={formData.password} event={changeHandler} label='Password' ph='**************' type='password' />
                 <div className='flex justify-end'>
-                    <a href="" className='text-primary-200'>Forgot your password?</a>
+                    <Link to="/forgot-password" className='text-primary-200'>Forgot your password?</Link>
                 </div>
                 <div className=''>
                     <button type='submit' className='bg-primary-200 text-white rounded-md w-full py-2 font-medium'>Sign in</button>

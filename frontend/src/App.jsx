@@ -22,6 +22,7 @@ import NotFound from "./pages/NotFound";
 import MoreInfo from "./components/MoreInfo";
 import UpdatePassword from "./pages/auth/UpdatePassword";
 import ForgotPassword from "./pages/auth/ForgotPassword";
+import Feed from "./pages/Feed";
 function App() {
   return (
     <div className="">
@@ -54,6 +55,8 @@ function App() {
         {/* foget password */}
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/update-password/:token" element={<UpdatePassword />} />
+        {/* feed */}
+        <Route path="/:userType/feed" element={<Feed />} />
         {/* not found */}
         <Route path="*" element={<NotFound />} />
       </Routes>
