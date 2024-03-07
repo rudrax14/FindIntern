@@ -20,6 +20,8 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import NotFound from "./pages/NotFound";
 // redirector
 import MoreInfo from "./components/MoreInfo";
+import UpdatePassword from "./pages/auth/UpdatePassword";
+import ForgotPassword from "./pages/auth/ForgotPassword";
 function App() {
   return (
     <div className="">
@@ -49,6 +51,9 @@ function App() {
         {/* admin */}
         <Route path="/sign-in/:userType" element={<Login />} />
         <Route path="/:userType/dashboard" element={<AdminDashboard />} />
+        {/* foget password */}
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/update-password/:token" element={<UpdatePassword />} />
         {/* not found */}
         <Route path="*" element={<NotFound />} />
       </Routes>
