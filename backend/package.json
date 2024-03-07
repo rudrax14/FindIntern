@@ -19,6 +19,7 @@
     "is-type-of": "^2.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.3",
+    "nodemailer": "^6.9.10",
     "nodemon": "^3.0.2",
     "redis": "^4.6.12"
   }

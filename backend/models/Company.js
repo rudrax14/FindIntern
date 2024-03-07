@@ -37,7 +37,9 @@ const companySchema = new mongoose.Schema({
   updatedAt: {
     type: Date,
     default: Date.now
-  }
+  },
+  resetPasswordToken:String,
+  resetPasswordExpires:Date
 });
 
 companySchema.pre('save', async function (next) {
