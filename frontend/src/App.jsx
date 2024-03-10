@@ -52,9 +52,9 @@ function App() {
         {/* admin */}
         <Route path="/sign-in/:userType" element={<Login />} />
         <Route path="/:userType/dashboard" element={<AdminDashboard />} />
-        {/* foget password */}
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/update-password/:token" element={<UpdatePassword />} />
+        {/* forget password */}
+        <Route path="/forgot-password/:userType" element={<ForgotPassword />} />
+        <Route path="/update-password/:userType/:token" element={<UpdatePassword />} />
         {/* feed */}
         <Route path="/:userType/feed" element={<Feed />} />
         {/* not found */}

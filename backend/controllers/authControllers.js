@@ -126,7 +126,7 @@ exports.login = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.resetPasswordToken = catchAsync(async (req, res) => {
+exports.resetPasswordToken = catchAsync(async (req, res,next) => {
   let Model = "";
   const role = req.body.role;
   if (!role) {
@@ -171,14 +171,15 @@ exports.resetPasswordToken = catchAsync(async (req, res) => {
   const updateDetails = await Model.findOneAndUpdate(
     { email: email },
     {
-      resetPasswordtoken: token,
+      resetPasswordToken: token,
       resetPasswordExpires: Date.now() + 5 * 60 * 1000,
     },
     { new: true }
   );
 
   // create url
-  const url = `${FRONTEND_URL}/update-password/${token}`;
+  const FRONTEND_URL = process.env.FRONTEND_URL;  
+  const url = `${FRONTEND_URL}/update-password/${role}/${token}`;
   console.log("url send to mail : - >", url);
 
   // send mail containing url
@@ -191,7 +192,7 @@ exports.resetPasswordToken = catchAsync(async (req, res) => {
   });
 });
 
-exports.resetPassword = catchAsync(async (req, res) => {
+exports.resetPassword = catchAsync(async (req, res,next) => {
   let Model = "";
   const role = req.body.role;
   if (!role) {
@@ -221,8 +222,8 @@ exports.resetPassword = catchAsync(async (req, res) => {
   }
 
   // get user detail from database
-  const userDetails = await Model.findOne({ token });
-
+  const userDetails = await Model.findOne({ resetPasswordToken:token });
+  console.log(userDetails)
   // token verify
   if (!userDetails) {
     // return res.status(403).json({
@@ -241,17 +242,20 @@ exports.resetPassword = catchAsync(async (req, res) => {
     next(new AppError("Token is Expired", 401));
   }
 
+  userDetails.password = password
+  userDetails.save()
+
   // hash password
-  const hashedPassword = await bcrypt.hash(password, 10);
+  //const hashedPassword = await bcrypt.hash(password, 10);
 
   // update password
-  await Model.findOneAndUpdate(
-    { token },
-    {
-      password: hashedPassword,
-    },
-    { new: true }
-  );
+  // await Model.findOneAndUpdate(
+  //   { token },
+  //   {
+  //     password: hashedPassword,
+  //   },
+  //   { new: true }
+  // );
 
   // return success response
   return res.status(200).json({

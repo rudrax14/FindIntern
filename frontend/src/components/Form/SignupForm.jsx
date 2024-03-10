@@ -51,19 +51,19 @@ function SignupForm() {
             userType === "recruiter";
             navigate(`/${userType}/more-info`);
         }
-        // axios.post(`http://localhost:5000/api/v1/auth/register`, accountData)
-        //     .then((response) => {
-        //         // console.log(response.data);
-        //         setSignupData(response.data);
-        //         toast.success("Account Created");
+        axios.post(`http://localhost:5000/api/v1/auth/register`, accountData)
+            .then((response) => {
+                // console.log(response.data);
+                setSignupData(response.data);
+                toast.success("Account Created");
 
 
-        //     })
-        //     .catch((err) => {
-        //         console.log("signup-error", err.response);
-        //         const error = err.response.data.message;
-        //         toast.error(error)
-        //     })
+            })
+            .catch((err) => {
+                console.log("signup-error", err.response);
+                const error = err.response.data.message;
+                toast.error(error)
+            })
 
     };
 

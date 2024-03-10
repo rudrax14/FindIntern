@@ -1,17 +1,31 @@
 import React, { useState } from 'react'
 import InputField from '../../components/Form/InputField'
-import { Link } from 'react-router-dom';
-
+import { Link,useParams } from 'react-router-dom';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 function ForgotPassword() {
 
-    const [email, setEmail] = useState('')
-
+    const [email, setEmail] = useState('');
+    const [disable,setDisable] = useState(false);
+    const {userType} = useParams();
+     
     function changeHandler(event) {
         setEmail(event.target.value);
     }
 
     function submitHandler(e) {
         e.preventDefault();
+        axios.post('http://localhost:5000/api/v1/auth/resetPasswordToken', {email,role:userType})
+        .then((response) => {
+            console.log(response)
+            toast.success('Email sent check your inbox for the password reset link')
+            
+        })
+        .catch((err) => {
+            console.log(err.response.data.message);
+            const error = err.response.data.message;
+            toast.error(error)
+        })
         console.log(email);
     }
 
@@ -24,7 +38,7 @@ function ForgotPassword() {
                 <form action="" className='flex flex-col gap-3' onSubmit={submitHandler}>
                     <InputField type='email' name='email' label='Email' ph='Email' event={changeHandler} />
                     <div className='mt-2'>
-                        <button type='submit' className='bg-primary-200 text-white rounded-md w-full py-2 font-medium'>Send Reset Link</button>
+                        <button  type='submit' className='bg-primary-200 text-white rounded-md w-full py-2 font-medium'>Send Reset Link</button>
                     </div>
                 </form>
                 <Link to="/onboarding/sign-in" className='text-primary-200 text-sm font-medium'>Back to Log-In</Link>

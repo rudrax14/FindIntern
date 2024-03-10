@@ -8,7 +8,7 @@ const mailSender = async (email, title, body) => {
             secure: true,
             auth: {
                 user: process.env.MAIL_USER,
-                pass: process.env.MAIL_PASSWORD
+                pass: process.env.MAIL_PASS
             }
         });
 
@@ -17,7 +17,7 @@ const mailSender = async (email, title, body) => {
             to: `${email}`,
             subject: `${title}`,
             html: `${body}`,
-        })
+        });
         console.log(`info : - > ${info}`);
         return info
 
