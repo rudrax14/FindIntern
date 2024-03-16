@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, Navigate, useParams, useNavigate } from 'react-router-dom'
 import InputField from '../../components/Form/InputField'
 import axios from "axios"
 import toast from 'react-hot-toast'
 function UpdatePassword() {
-    const { token,userType } = useParams()
+    const navigate = useNavigate();
+    const { token, userType } = useParams()
     const [formData, setFormData] = useState({
         password: '',
         confirmPassword: ''
@@ -19,18 +20,19 @@ function UpdatePassword() {
 
     function submitHandler(e) {
         e.preventDefault();
-        axios.post('http://localhost:5000/api/v1/auth/resetPassword',{...formData,role:userType,token:token})
-        .then((response) => {
-            console.log(response)
-            toast.success('Password Updated')
-            
-            
-        })
-        .catch((err) => {
-            console.log(err.response.data.message);
-            const error = err.response.data.message;
-            toast.error(error)
-        })
+        axios.post('http://localhost:5000/api/v1/auth/resetPassword', { ...formData, role: userType, token: token })
+            .then((response) => {
+                console.log(response)
+                toast.success('Password Updated')
+                navigate('/onboarding/sign-in')
+
+
+            })
+            .catch((err) => {
+                console.log(err.response.data.message);
+                const error = err.response.data.message;
+                toast.error(error)
+            })
         console.log(formData);
     }
 

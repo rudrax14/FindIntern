@@ -1,21 +1,35 @@
-import React, { useContext, useEffect } from 'react'
-import Navbar from '../../components/common/Navbar'
-import JobsCards from '../../components/common/JobsCard'
+import React, { useContext, useEffect, useState } from 'react';
+import Navbar from '../../components/common/Navbar';
+import JobsCards from '../../components/common/JobsCard';
 import { JobContext } from '../../context/JobContext';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { UserContext } from '../../context/UserContext';
 
 function SingleJobs() {
+    const navigate = useNavigate();
     const { fetchAJob, job, applyJob } = useContext(JobContext);
-    const { id } = useParams();
+    const { userDetails } = useContext(UserContext);
+    const { id, userType } = useParams();
+    const [isAlreadyApplied, setIsAlreadyApplied] = useState(false);
+
     useEffect(() => {
         fetchAJob(id);
-    }, [])
+    }, []);
 
+    useEffect(() => {
+        // Check if the user has already applied for this job
+        if (userDetails && userDetails.appliedJobs) {
+            const hasApplied = userDetails.appliedJobs.some(appliedJob => appliedJob.jobId === job._id);
+            setIsAlreadyApplied(hasApplied);
+        }
+    }, [userDetails, job]);
 
-    const appliedHandeler = () => {
+    const appliedHandler = () => {
         console.log('apply for this job', job._id);
         applyJob(job._id);
+        navigate(`/${userType}/profile`)
     }
+
     return (
         <>
             <Navbar />
@@ -94,7 +108,9 @@ function SingleJobs() {
                             </ul>
                         </div>
                         <div className=''>
-                            <button onClick={appliedHandeler} className='bg-primary-200 hover:bg-primary-400 text-white rounded-md w-full py-2 font-medium'>Apply For This Job</button>
+                            <button onClick={appliedHandler} className='bg-primary-200 hover:bg-primary-400 text-white rounded-md w-full py-2 font-medium' disabled={isAlreadyApplied}>
+                                {isAlreadyApplied ? 'Already Applied' : 'Apply For This Job'}
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -107,9 +123,8 @@ function SingleJobs() {
                     <JobsCards />
                 </div>
             </section>
-
         </>
     )
 }
 
-export default SingleJobs
+export default SingleJobs;

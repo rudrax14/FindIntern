@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { UserContext } from '../../context/UserContext'
 function Navbar() {
     const navigate = useNavigate();
+    const { userType } = useParams();
     const [isHover, setHover] = useState(false)
     const [isOpen, setOpen] = useState(false)
     const location = useLocation();
@@ -15,7 +16,15 @@ function Navbar() {
     const clickHandler = () => {
         localStorage.removeItem("userToken");
     }
-    const { userType } = useParams();
+
+    const navigateHandler = () => {
+        if (userType) {
+            navigate(`/${userType}/feed`);
+        } else {
+            navigate('/');
+        }
+    }
+
     useEffect(() => {
         userData(userType)
     }, []);
@@ -24,8 +33,8 @@ function Navbar() {
         <>
             <nav className='sticky top-0 bg-white z-20' >
                 <div className="flex h-14 shadow-md px-2">
-                    <div className="container md:px-24 flex justify-between items-center">
-                        <div className='flex items-center hover:cursor-pointer' onClick={() => { navigate('/') }}>
+                    <div className="container lg:px-24 flex justify-between items-center">
+                        <div className='flex items-center hover:cursor-pointer' onClick={navigateHandler} >
                             <img src={logo} className='w-48' alt="" />
                             {/* <Link to="/" className='font-bold text-xl text-primary-200 tracking-widest '>FINDINTERN</Link> */}
                         </div>

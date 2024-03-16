@@ -126,7 +126,7 @@ exports.login = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.resetPasswordToken = catchAsync(async (req, res,next) => {
+exports.resetPasswordToken = catchAsync(async (req, res, next) => {
   let Model = "";
   const role = req.body.role;
   if (!role) {
@@ -178,7 +178,7 @@ exports.resetPasswordToken = catchAsync(async (req, res,next) => {
   );
 
   // create url
-  const FRONTEND_URL = process.env.FRONTEND_URL;  
+  const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:4000";
   const url = `${FRONTEND_URL}/update-password/${role}/${token}`;
   console.log("url send to mail : - >", url);
 
@@ -192,7 +192,7 @@ exports.resetPasswordToken = catchAsync(async (req, res,next) => {
   });
 });
 
-exports.resetPassword = catchAsync(async (req, res,next) => {
+exports.resetPassword = catchAsync(async (req, res, next) => {
   let Model = "";
   const role = req.body.role;
   if (!role) {
@@ -222,7 +222,7 @@ exports.resetPassword = catchAsync(async (req, res,next) => {
   }
 
   // get user detail from database
-  const userDetails = await Model.findOne({ resetPasswordToken:token });
+  const userDetails = await Model.findOne({ resetPasswordToken: token });
   console.log(userDetails)
   // token verify
   if (!userDetails) {
