@@ -9,9 +9,9 @@ const UserProvider = ({ children }) => {
     const [userType, setUserType] = useState("");
     const [userMode, setUserMode] = useState('sign-in');
     const [userDetails, setUserDetails] = useState({})
-    const [companyDetails, setCompanyDetails] = useState({})
-    const [loginData, setLoginData] = useState({})
-    const [signupData, setSignupData] = useState({})
+    // const [companyDetails, setCompanyDetails] = useState({})
+    // const [loginData, setLoginData] = useState({})
+    // const [signupData, setSignupData] = useState({})
 
     // fetch user information
     const userData = (userType) => {
@@ -62,10 +62,10 @@ const UserProvider = ({ children }) => {
 
 
     const value = {
-        loginData,
-        setLoginData,
-        signupData,
-        setSignupData,
+        // loginData,
+        // setLoginData,
+        // signupData,
+        // setSignupData,
         userDetails,
         setUserDetails,
         userData,

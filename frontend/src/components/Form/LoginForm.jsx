@@ -6,8 +6,8 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import { UserContext } from '../../context/UserContext';
 function LoginForm() {
 
-    const context = useContext(UserContext)
-    const { setLoginData, setUserType } = context
+
+    // const { setLoginData, setUserType } = useContext(UserContext)
 
 
     const navigate = useNavigate();
@@ -36,7 +36,7 @@ function LoginForm() {
         axios.post('http://localhost:5000/api/v1/auth/login', accountData)
             .then((response) => {
                 localStorage.setItem("userToken", response.data.token);
-                setLoginData(response.data);
+                // setLoginData(response.data);
                 toast.success('Login successful')
                 if (userType === 'admin') {
                     navigate(`/${userType}/dashboard`)

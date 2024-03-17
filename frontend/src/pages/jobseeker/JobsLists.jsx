@@ -21,9 +21,9 @@ function JobsLists() {
     return (
         <>
             <Navbar />
-            <section className="bg-secondary-100">
-                <div className="container mx-auto md:block flex justify-center py-12 md:px-28">
-                    <div className="w-4/6 flex flex-col gap-8">
+            <section className="bg-secondary-100 ">
+                <div className="lg:px-28 px-6 lg:block flex justify-center py-12">
+                    <div className="lg:w-4/6 flex flex-col gap-8">
                         <div className="">
                             <h1 className="text-secondary-300  font-bold text-4xl">
                                 Showing jobs for '
@@ -90,7 +90,7 @@ function JobsLists() {
                             </div>
                         </div>
                         <div className="col-span-3">
-                            <div className=" rounded-lg h-full mr-4">
+                            <div className=" rounded-lg h-full mx-4">
                                 {allJobs.map((job, index) => (
                                     // <JobsCards key={index} logo='https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-brand-logo/job-list-logo-1.svg' company='Software Engineer (Web3/Crypto)' role='Featured Job' experience='1 - 5 years' salary='12k - 18k' location='Ahmedabad, Gujarat' />
                                     <JobsCards

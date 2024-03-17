@@ -1,5 +1,5 @@
 import React from 'react';
-import LoginForm from '../../components/Form/SigninForm';
+import LoginForm from '../../components/Form/LoginForm';
 import { Link, useParams } from 'react-router-dom';
 function Login() {
     const { userType } = useParams();

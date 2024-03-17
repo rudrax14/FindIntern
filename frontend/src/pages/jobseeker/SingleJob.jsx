@@ -4,16 +4,21 @@ import JobsCards from '../../components/common/JobsCard';
 import { JobContext } from '../../context/JobContext';
 import { useParams, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
+import TimeTracker from '../../utils/TimeTracker';
+import { IoCalendarClearOutline, IoLocationOutline } from 'react-icons/io5';
+import { LiaRupeeSignSolid } from 'react-icons/lia';
+
 
 function SingleJobs() {
     const navigate = useNavigate();
-    const { fetchAJob, job, applyJob } = useContext(JobContext);
+    const { fetchAJob, job, applyJob, allJobs, fetchAllApprovedJobs } = useContext(JobContext);
     const { userDetails } = useContext(UserContext);
     const { id, userType } = useParams();
     const [isAlreadyApplied, setIsAlreadyApplied] = useState(false);
 
     useEffect(() => {
         fetchAJob(id);
+        fetchAllApprovedJobs();
     }, []);
 
     useEffect(() => {
@@ -44,23 +49,38 @@ function SingleJobs() {
                             <div className='flex flex-col w-full gap-10'>
                                 <div className='comp-description flex flex-col gap-1'>
                                     <div className='flex items-center'>
-                                        <h3 className='font-semibold text-2xl'>{job.title}</h3>
-                                        <span className='text-red-600 font-normal ml-2 mt-1 bg-red-50 px-3 rounded-lg'>Featured Job</span>
+                                        <h3 className='font-semibold text-2xl'>{job.title || "null"}</h3>
+                                        <span className='text-red-600 font-normal ml-2 mt-1 bg-red-50 px-3 rounded-lg'>{job.type || "null"}</span>
                                     </div>
                                     <div className='text-secondary-200 flex flex-row gap-3'>
-                                        <span>at HelpDesk </span>
+                                        <span>{job.company}</span>
                                         <span className='text-secondary-300'>4.5 ⭐</span>
                                         <span>(131 Reviews)</span>
                                     </div>
                                 </div>
                                 <div className=''>
                                     <div className='sm:flex justify-between text-secondary-200'>
-                                        <div className='flex flex-row gap-3'>
-                                            <span>{job.experience}</span>
-                                            <span>{job.salary}</span>
-                                            <span>{job.location}</span>
+                                        <div className="flex flex-row gap-3">
+                                            <div className="flex items-center gap-1">
+                                                <span className="">
+                                                    <IoCalendarClearOutline />
+                                                </span>
+                                                <span>{job.period || "null"}</span>
+                                            </div>
+                                            <div className="flex items-center gap-1">
+                                                <span>
+                                                    <LiaRupeeSignSolid />
+                                                </span>
+                                                <span>{job.salary || "null"}</span>
+                                            </div>
+                                            <div className="flex items-center gap-1">
+                                                <span>
+                                                    <IoLocationOutline />
+                                                </span>
+                                                <span>{job.location || "null"}</span>
+                                            </div>
                                         </div>
-                                        <div className=''>21 hours ago</div>
+                                        <div className=''>{TimeTracker(job.createdAt)}</div>
                                     </div>
                                 </div>
                             </div>
@@ -117,10 +137,21 @@ function SingleJobs() {
                 {/* related jobs */}
                 <div className='container mx-auto  max-w-4xl mt-12'>
                     <h2 className='text-secondary-300 text-2xl font-semibold mb-6 ml-6'>Similar Jobs</h2>
-                    <JobsCards />
-                    <JobsCards />
-                    <JobsCards />
-                    <JobsCards />
+                    {allJobs.map((job, index) => (
+                        // <JobsCards key={index} logo='https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-brand-logo/job-list-logo-1.svg' company='Software Engineer (Web3/Crypto)' role='Featured Job' experience='1 - 5 years' salary='12k - 18k' location='Ahmedabad, Gujarat' />
+                        <JobsCards
+                            key={index}
+                            logo="https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-brand-logo/job-list-logo-1.svg"
+                            title={job.title}
+                            type={job.type}
+                            company={job.company}
+                            salary={job.salary}
+                            location={job.location}
+                            id={job._id}
+                            period={job.period}
+                            timeAgo={TimeTracker(job.createdAt)}
+                        />
+                    ))}
                 </div>
             </section>
         </>

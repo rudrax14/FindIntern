@@ -3,10 +3,9 @@ import InputField from "./InputField";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { UserContext } from "../../context/UserContext";
+// import { UserContext } from "../../context/UserContext";
 function SignupForm() {
-    const context = useContext(UserContext);
-    const { setSignupData, setUserType } = context;
+    // const { setSignupData, setUserType } = useContext(UserContext);
     const [formData, setFormData] = useState({
         username: "",
         name: "",
@@ -51,20 +50,18 @@ function SignupForm() {
             userType === "recruiter";
             navigate(`/${userType}/more-info`);
         }
-        axios.post(`http://localhost:5000/api/v1/auth/register`, accountData)
+        axios
+            .post(`http://localhost:5000/api/v1/auth/register`, accountData)
             .then((response) => {
                 // console.log(response.data);
-                setSignupData(response.data);
+                // setSignupData(response.data);
                 toast.success("Account Created");
-
-
             })
             .catch((err) => {
                 console.log("signup-error", err.response);
                 const error = err.response.data.message;
-                toast.error(error)
-            })
-
+                toast.error(error);
+            });
     };
 
     return (

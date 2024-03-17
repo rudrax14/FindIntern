@@ -5,6 +5,8 @@ function ProfileHeader() {
     const context = useContext(UserContext)
     const { userDetails, userData } = context;
     const { userType } = useParams();
+
+    
     // navbar ke through run ho rhaa hai 
     // useEffect(() => {
     //     userData(userType)
