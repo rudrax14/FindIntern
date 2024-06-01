@@ -2,15 +2,18 @@ import React from "react";
 import Navbar from "../../components/common/Navbar";
 import JobsCards from "../../components/common/JobsCard";
 import ProfileHeader from "../../components/Profile/ProfileHeader";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { JobContext } from "../../context/JobContext";
 import { useParams } from "react-router-dom";
 import TimeTracker from "../../utils/TimeTracker";
 import { UserContext } from "../../context/UserContext";
+import { useSelector } from "react-redux";
+import useJobHooks from "../../hooks/jobHooks";
 function User() {
     const { userType } = useParams();
-    const { allJobs, fetchAllCompanyJobs, fetchAllAppliedJobs } = useContext(JobContext);
-    const { userDetails } = useContext(UserContext);
+    const { fetchAllCompanyJobs, fetchAllAppliedJobs } = useJobHooks();
+    const allJobs = useSelector(state => state.job.allJobs);
+    const userDetails = useSelector((state) => state.user.userDetails);
 
     useEffect(() => {
         if (userType === "jobseeker") {

@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import InputField from "./InputField";
 import { LiaUserSolid } from "react-icons/lia";
 import { useParams } from "react-router-dom";
-import { useContext } from "react";
-import { UserContext } from "../../context/UserContext";
 import AvatarUploader from "./AvatarUploader";
 import axios from "axios";
+import { useSelector } from "react-redux";
 function CompanyDetailsForm() {
     const [formData, setFormData] = useState({
         industry: "",
@@ -17,7 +16,7 @@ function CompanyDetailsForm() {
     });
 
     const { userType } = useParams();
-    const { userDetails, userData } = useContext(UserContext);
+    const userDetails = useSelector((state) => state.user.userDetails);
 
     useEffect(() => {
         if (userDetails) {

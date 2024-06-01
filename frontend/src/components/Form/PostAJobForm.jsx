@@ -1,10 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { LiaUserSolid } from "react-icons/lia";
 import InputField from "./InputField";
 import { useNavigate } from "react-router-dom";
 import { JobContext } from "../../context/JobContext";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+// import { job } from "../../store/jobSlice";
 
 function PostAJobForm() {
     const navigate = useNavigate();
@@ -19,7 +21,7 @@ function PostAJobForm() {
         type: "Full-Time",
         period: "",
     });
-    const { job, setJob } = useContext(JobContext);
+    const job = useSelector((state) => state.job.job);
     function changeHandler(event) {
         const { name, value } = event.target;
         if (name === "requirements") {
@@ -47,7 +49,8 @@ function PostAJobForm() {
                 },
             })
             .then((response) => {
-                setJob(response.data.newJob);
+                // setJob(response.data.newJob);
+                dispatch(job(response.data.newJob));
                 navigate(`/recruiter/job-profile/${response.data.newJob._id}`);
             })
             .catch((err) => {

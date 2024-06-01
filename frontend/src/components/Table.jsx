@@ -1,11 +1,16 @@
 import React, { useContext, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { JobContext } from '../context/JobContext'
 import TimeTracker from '../utils/TimeTracker'
 import { AdminContext } from '../context/AdminContext'
+import useJobHooks from '../hooks/jobHooks'
+import { useSelector } from 'react-redux'
+
+
+
 function Table() {
 
-    const { allJobs, fetchAllJobs } = useContext(JobContext);
+    const allJobs = useSelector(state => state.job.allJobs);
+    const { fetchAllJobs } = useJobHooks();
+
     const { AdminApprove, AdminReject } = useContext(AdminContext);
     useEffect(() => {
         fetchAllJobs();

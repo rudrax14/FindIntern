@@ -1,12 +1,13 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { UserContext } from '../../context/UserContext'
+import { useSelector } from 'react-redux'
 function ProfileHeader() {
-    const context = useContext(UserContext)
-    const { userDetails, userData } = context;
+
+    const userDetails = useSelector((state) => state.user.userDetails);
+    const userData = useSelector((state) => state.user.userData);
     const { userType } = useParams();
 
-    
+
     // navbar ke through run ho rhaa hai 
     // useEffect(() => {
     //     userData(userType)

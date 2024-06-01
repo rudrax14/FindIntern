@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { JobContext } from "../../context/JobContext";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { IoLocationOutline, IoCalendarClearOutline } from "react-icons/io5";
 import { LiaRupeeSignSolid } from "react-icons/lia";
 import { FaRegTrashAlt } from "react-icons/fa";
+import useJobHooks from "../../hooks/jobHooks";
 
 function JobsCards({
   logo,
@@ -22,7 +23,7 @@ function JobsCards({
   const navigate = useNavigate();
   const routerlocation = useLocation();
   const { userType } = useParams();
-  const { deleteJob } = useContext(JobContext);
+  const { deleteJob } = useJobHooks();
 
 
   const handleDelete = (e) => {

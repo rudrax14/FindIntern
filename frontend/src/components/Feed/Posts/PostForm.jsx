@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import { useContext } from 'react'
-import { UserContext } from '../../../context/UserContext'
+import { useSelector } from 'react-redux';
 
 function PostForm() {
-    const { userDetails } = useContext(UserContext)
+    const userDetails = useSelector((state) => state.user.userDetails);
     const [postContent, setPostContent] = useState('');
     const handleInputChange = (event) => {
         setPostContent(event.target.value);
