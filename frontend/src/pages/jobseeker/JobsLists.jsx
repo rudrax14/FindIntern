@@ -24,11 +24,11 @@ function JobsLists() {
     return (
         <>
             <Navbar />
-            <section className="bg-secondary-100 ">
-                <div className="lg:px-28 px-6 lg:block flex justify-center py-12">
-                    <div className="lg:w-4/6 flex flex-col gap-8">
+            <section className="bg-secondary-100 dark:bg-dark-secondary-100">
+                <div className="lg:px-28 px-6 lg:block flex justify-center py-12 container ">
+                    <div className="lg:w-4/6 flex flex-col gap-8 ">
                         <div className="">
-                            <h1 className="text-secondary-300  font-bold text-4xl">
+                            <h1 className="text-secondary-300 font-bold text-4xl dark:text-secondary-100">
                                 Showing jobs for '
                                 <span className="text-primary-200">it manager</span>, India
                             </h1>
@@ -39,7 +39,7 @@ function JobsLists() {
                     </div>
                 </div>
             </section>
-            <section className="py-7">
+            <section className="py-7 dark:bg-secondary-500 dark:text-secondary-100">
                 <div className="container mx-auto max-w-[1320px]">
                     <div className="md:grid grid-cols-4 gap-3 lg:space-y-0 space-y-6">
                         {/* compo todo */}
@@ -51,11 +51,11 @@ function JobsLists() {
                                 </div>
                                 <CardBody />
                                 <div className="card-body p-5 space-y-3 border-b">
-                                    <a href="" className="text-secondary-300 font-semibold">
+                                    <a href="" className="text-secondary-300 font-semibold dark:text-secondary-100">
                                         Stipend
                                     </a>
                                     <div className="">
-                                        <form action="" className="text-secondary-200 space-y-1">
+                                        <form action="" className="text-secondary-200 space-y-1 ">
                                             <FilterBoxJobs h1="0 - 3 Lakhs" />
                                             <FilterBoxJobs h1="3 - 6 Lakhs" />
                                             <FilterBoxJobs h1="6 - 10 Lakhs" />
@@ -63,7 +63,7 @@ function JobsLists() {
                                     </div>
                                 </div>
                                 <div className="card-body p-5 space-y-3 border-b">
-                                    <a href="" className="text-secondary-300 font-semibold">
+                                    <a href="" className="text-secondary-300 font-semibold dark:text-secondary-100">
                                         Period
                                     </a>
                                     <div className="">
@@ -81,7 +81,7 @@ function JobsLists() {
                                                         valueLabelDisplay="on"
                                                         valueLabelFormat={valuetext}
                                                     />
-                                                    <div className="flex justify-between">
+                                                    <div className="flex justify-between dark:text-secondary-100">
                                                         <span>1 Months</span>
                                                         <span>12 Months</span>
                                                     </div>

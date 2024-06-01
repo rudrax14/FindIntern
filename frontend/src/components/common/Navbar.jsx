@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import logo from "../../../public/logo.png";
 import { Twirl as Hamburger } from "hamburger-react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux';
-import { setUserMode, fetchUserData } from '../../redux/Slice/userSlice'; // Adjust the import path as necessary
+import { useSelector, useDispatch } from "react-redux";
+import { setUserMode, fetchUserData } from "../../redux/Slice/userSlice";
+import { ThemeContext } from "../../context/ThemeContext"; // Import ThemeContext
+import { FaSun, FaMoon } from "react-icons/fa"; // Import icons
 
 function Navbar() {
     const navigate = useNavigate();
@@ -14,6 +16,8 @@ function Navbar() {
 
     const dispatch = useDispatch();
     const userDetails = useSelector((state) => state.user.userDetails);
+
+    const { theme, toggleTheme } = useContext(ThemeContext); // Use ThemeContext
 
     if (location.pathname === "/") {
         localStorage.removeItem("userToken");
@@ -40,7 +44,7 @@ function Navbar() {
 
     return (
         <>
-            <nav className="sticky top-0 bg-white z-20">
+            <nav className="sticky top-0 bg-white z-20 dark:bg-secondary-300">
                 <div className="flex h-14 shadow-md px-2">
                     <div className="container xl:px-24 flex justify-between items-center">
                         <div
@@ -50,7 +54,7 @@ function Navbar() {
                             <img src={logo} className="w-48" alt="" />
                         </div>
                         <div className="flex gap-3 items-center">
-                            <ul className="lg:flex gap-4 justify-between text-lg font-medium hidden text-secondary-300">
+                            <ul className="lg:flex gap-4 justify-between text-lg font-medium hidden text-secondary-300 dark:text-dark-secondary-300">
                                 <Link
                                     to="/jobseeker/feed"
                                     className="hover:text-primary-200 hover:cursor-pointer"
@@ -82,6 +86,13 @@ function Navbar() {
                                     Contact Us
                                 </Link>
                             </ul>
+                            {/* Theme Toggle Button */}
+                            <button
+                                onClick={toggleTheme}
+                                className="flex items-center justify-center p-2 rounded-full bg-primary-200 text-white hover:bg-primary-300 focus:outline-none"
+                            >
+                                {theme === "light" ? <FaMoon /> : <FaSun />}
+                            </button>
                             {/* login signup button */}
                             <div
                                 className={`buttons flex text-center font-medium text-lg ${location.pathname == "/" ? "" : "hidden"}`}
@@ -127,7 +138,7 @@ function Navbar() {
                                     <div
                                         onMouseEnter={() => setHover(true)}
                                         onMouseLeave={() => setHover(false)}
-                                        className={`${!isHover ? "fixed left-[-100%]" : " bg-white rounded-lg transition-all ease-in-out duration-300 text-secondary-200  absolute mt-2 right-0 w-40 top-auto shadow-lg border"}`}
+                                        className={`${!isHover ? "fixed left-[-100%]" : " bg-white dark:bg-dark-secondary-400 dark:text-secondary-100 rounded-lg transition-all ease-in-out duration-300 text-secondary-200  absolute mt-2 right-0 w-40 top-auto shadow-lg border"}`}
                                     >
                                         <Link
                                             className="block px-4 py-1  hover:text-primary-200 hover:cursor-pointer"
@@ -158,9 +169,14 @@ function Navbar() {
                                         </Link>
                                     </div>
                                 </div>
+
                                 {/* mobile device hamburger */}
                                 <div className="block sm:hidden">
-                                    <Hamburger toggled={isOpen} toggle={setOpen} color="#754ffe" />
+                                    <Hamburger
+                                        toggled={isOpen}
+                                        toggle={setOpen}
+                                        color="#754ffe"
+                                    />
                                 </div>
                             </div>
                         </div>

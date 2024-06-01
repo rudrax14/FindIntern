@@ -5,7 +5,7 @@ function CardBody() {
     const [visible, setVisible] = useState(true)
     return (
         <div className="card-body p-5 space-y-3 border-b ">
-            <a href="" onClick={(e) => { e.preventDefault(), setVisible(!visible) }} className='text-secondary-300 font-semibold'>Locations</a>
+            <a href="" onClick={(e) => { e.preventDefault(), setVisible(!visible) }} className='text-secondary-300 font-semibold dark:text-secondary-100'>Locations</a>
             <div className={` transition-all duration-300 ease-in-out ${visible
                 ? ""
                 : "fixed left-[-100%]"

@@ -42,7 +42,7 @@ function SingleJobs() {
     return (
         <>
             <Navbar />
-            <section className='lg:py-24 py-12'>
+            <section className='lg:py-24 py-12 dark:bg-dark-secondary-100 dark:text-secondary-100'>
                 <div className="container mx-auto max-w-4xl">
                     {/* job card */}
                     <div className='jobs-card flex flex-col items-center pb-4 gap-6'>
@@ -58,7 +58,7 @@ function SingleJobs() {
                                     </div>
                                     <div className='text-secondary-200 flex flex-row gap-3'>
                                         <span>{job.company}</span>
-                                        <span className='text-secondary-300'>4.5 ⭐</span>
+                                        <span className='text-secondary-300 dark:text-secondary-100'>4.5 ⭐</span>
                                         <span>(131 Reviews)</span>
                                     </div>
                                 </div>
@@ -92,16 +92,16 @@ function SingleJobs() {
                     </div>
                     <div className='space-y-12 px-6'>
                         <div>
-                            <p className='text-secondary-200'>Job Applicants: <span className='text-secondary-300'>306</span></p>
+                            <p className='text-secondary-200 dark:text-secondary-100'>Job Applicants: <span className='text-secondary-300 dark:text-secondary-100'>306</span></p>
                         </div>
                         {/* text */}
                         <div className='space-y-3'>
-                            <h2 className='text-secondary-300 text-xl font-semibold'>Job description</h2>
+                            <h2 className='text-secondary-300 text-xl font-semibold dark:text-secondary-100'>Job description</h2>
                             <p className='text-secondary-200 '>Maintains information technology strategies by managing staff researching, Budgeting and implementing technological strategic solutions.
                             </p>
                         </div>
                         <div className='space-y-3'>
-                            <h2 className='text-secondary-300 text-xl font-semibold'>Role</h2>
+                            <h2 className='text-secondary-300 text-xl font-semibold dark:text-secondary-100'>Role</h2>
                             <p className='text-secondary-200 '>Aliquam pellentesque mollis interdum. Proin ligula lacus, maximus quis ante a, luctus sodales
                                 sapien. Donec ut
                                 tristique nisi. Nulla a quam sit amet turpis convallis porttitor vel sed quam. Ut in odio
@@ -112,7 +112,7 @@ function SingleJobs() {
                         </div>
                         {/* list */}
                         <div className='space-y-3 '>
-                            <h2 className='text-secondary-300 text-xl font-semibold'>Responsibilities</h2>
+                            <h2 className='text-secondary-300 text-xl dark:text-secondary-100 font-semibold'>Responsibilities</h2>
                             <ul className='text-secondary-200 pl-8'>
                                 <li className='list-disc'>Lorem ipsum dolor sit amet, consectetur adipiscing elitì</li>
                                 <li className='list-disc'>Lorem ipsum dolor sit amet, consectetur adipiscing elitì</li>
@@ -122,7 +122,7 @@ function SingleJobs() {
                             </ul>
                         </div>
                         <div className='space-y-3'>
-                            <h2 className='text-secondary-300 text-xl font-semibold'>Desired Candidate Profile</h2>
+                            <h2 className='text-secondary-300 text-xl dark:text-secondary-100 font-semibold'>Desired Candidate Profile</h2>
                             <ul className='text-secondary-200 pl-8'>
                                 <li className='list-disc'>Lorem ipsum dolor sit amet, consectetur adipiscing elitì</li>
                                 <li className='list-disc'>Lorem ipsum dolor sit amet, consectetur adipiscing elitì</li>

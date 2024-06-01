@@ -39,9 +39,9 @@ function JobsCards({
         onClick={() => {
           navigate(`/${userType}/job-profile/${id}`);
         }}
-        className="jobs-card flex flex-col items-center pb-4 gap-6"
+        className="jobs-card flex flex-col items-center pb-4 gap-6 "
       >
-        <div className="card-body border sm:flex w-full p-6 rounded-lg hover:shadow-md hover:cursor-pointer">
+        <div className="card-body border sm:flex w-full p-6 rounded-lg hover:shadow-md hover:cursor-pointer dark:bg-dark-secondary-400 dark:border-none">
           <div className="comp-logo ">
             <img src={logo} alt="" className="border rounded-full mr-6 mb-3 w-14" />
           </div>
@@ -49,7 +49,7 @@ function JobsCards({
             <div className="comp-description flex flex-col gap-1">
               <div className="flex justify-between">
                 <div className="flex items-center">
-                  <h3 className="font-semibold text-base">{title || "null"}</h3>
+                  <h3 className="font-semibold text-base dark:text-secondary-100">{title || "null"}</h3>
                   <span className="text-red-600 font-normal sm:ml-2 mt-1 bg-red-50 px-3 rounded-lg">
                     {type || "null"}
                   </span>
@@ -63,7 +63,7 @@ function JobsCards({
               </div>
               <div className="text-secondary-200 flex flex-row gap-3">
                 <span>at {company}</span>
-                <span className="text-secondary-300">4.5 ⭐</span>
+                <span className="text-secondary-300 dark:text-secondary-200">4.5 ⭐</span>
                 <span>(131 Reviews)</span>
               </div>
             </div>

@@ -88,16 +88,16 @@ function UserDetailsForm() {
 
     return (
         <>
-            <div className='border border-gray-300 rounded-lg col-span-2'>
+            <div className='border border-gray-300 rounded-lg col-span-2 dark:bg-dark-secondary-400 '>
                 <div className="card-header border-b p-6 space-y-1">
-                    <h3 className='text-xl font-semibold text-secondary-300'>Profile Details</h3>
-                    <p className='text-secondary-200'>You have full control to manage your own account setting.</p>
+                    <h3 className='text-xl font-semibold text-secondary-300 dark:text-secondary-100'>Profile Details</h3>
+                    <p className='text-secondary-200 '>You have full control to manage your own account setting.</p>
                 </div>
                 <div className="card-body p-6">
                     <AvatarUploader profile={userDetails.profileImgUrl} />
                     <hr className='my-5' />
                     <div>
-                        <h3 className='text-xl font-semibold text-secondary-300'>Personal Details</h3>
+                        <h3 className='text-xl font-semibold text-secondary-300 dark:text-secondary-100'>Personal Details</h3>
                         <p className='text-secondary-200'>
                             Edit your personal information and address.
                         </p>
