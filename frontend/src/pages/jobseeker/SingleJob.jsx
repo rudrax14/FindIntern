@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../../components/common/Navbar';
 import JobsCards from '../../components/common/JobsCard';
 import { JobContext } from '../../context/JobContext';
@@ -7,12 +7,16 @@ import { UserContext } from '../../context/UserContext';
 import TimeTracker from '../../utils/TimeTracker';
 import { IoCalendarClearOutline, IoLocationOutline } from 'react-icons/io5';
 import { LiaRupeeSignSolid } from 'react-icons/lia';
+import useJobHooks from '../../hooks/jobHooks';
+import { useSelector } from 'react-redux';
 
 
 function SingleJobs() {
     const navigate = useNavigate();
-    const { fetchAJob, job, applyJob, allJobs, fetchAllApprovedJobs } = useContext(JobContext);
-    const { userDetails } = useContext(UserContext);
+    const { fetchAllJobs, fetchAJob, applyJob, fetchAllApprovedJobs } = useJobHooks();
+    const allJobs = useSelector(state => state.job.allJobs);
+    const job = useSelector(state => state.job.job);
+    const userDetails = useSelector(state => state.user.userDetails);
     const { id, userType } = useParams();
     const [isAlreadyApplied, setIsAlreadyApplied] = useState(false);
 

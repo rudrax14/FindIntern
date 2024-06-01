@@ -1,8 +1,10 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../../../public/logo.png";
 import { Twirl as Hamburger } from "hamburger-react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { UserContext } from "../../context/UserContext";
+import { useSelector, useDispatch } from 'react-redux';
+import { setUserMode, fetchUserData } from '../../redux/Slice/userSlice'; // Adjust the import path as necessary
+
 function Navbar() {
     const navigate = useNavigate();
     const { userType } = useParams();
@@ -10,11 +12,13 @@ function Navbar() {
     const [isOpen, setOpen] = useState(false);
     const location = useLocation();
 
-    const { setUserMode, userDetails, userData } = useContext(UserContext);
+    const dispatch = useDispatch();
+    const userDetails = useSelector((state) => state.user.userDetails);
 
     if (location.pathname === "/") {
         localStorage.removeItem("userToken");
     }
+
     const clickHandler = () => {
         localStorage.removeItem("userToken");
     };
@@ -29,9 +33,11 @@ function Navbar() {
 
     useEffect(() => {
         if (location.pathname === "/") return;
-        userData(userType);
-    }, []);
+        dispatch(fetchUserData(userType));
+    }, [dispatch, userType, location.pathname]);
+
     const isRecruiterPostJob = location.pathname === "/recruiter/post-a-job";
+
     return (
         <>
             <nav className="sticky top-0 bg-white z-20">
@@ -42,7 +48,6 @@ function Navbar() {
                             onClick={navigateHandler}
                         >
                             <img src={logo} className="w-48" alt="" />
-                            {/* <Link to="/" className='font-bold text-xl text-primary-200 tracking-widest '>FINDINTERN</Link> */}
                         </div>
                         <div className="flex gap-3 items-center">
                             <ul className="lg:flex gap-4 justify-between text-lg font-medium hidden text-secondary-300">
@@ -84,7 +89,7 @@ function Navbar() {
                                 <Link
                                     to="/onboarding/sign-in"
                                     onClick={() => {
-                                        setUserMode("sign-in");
+                                        dispatch(setUserMode("sign-in"));
                                     }}
                                     className="text-primary-200 border-primary-200 hover:bg-primary-200 hover:text-white rounded-md border px-2 py-1 mr-2"
                                 >
@@ -93,7 +98,7 @@ function Navbar() {
                                 <Link
                                     to="/onboarding/sign-up"
                                     onClick={() => {
-                                        setUserMode("sign-up");
+                                        dispatch(setUserMode("sign-up"));
                                     }}
                                     className="bg-primary-200 text-white border-primary-200 hover:bg-primary-300 rounded-md border px-2 py-1"
                                 >

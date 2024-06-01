@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/common/Navbar";
 import { FaSistrix } from "react-icons/fa";
 import { IoLocationOutline, IoFilterSharp } from "react-icons/io5";
@@ -10,11 +10,14 @@ import Searchbar from "../../components/common/Searchbar";
 import CardBody from "../../components/common/CardBody";
 import { JobContext } from "../../context/JobContext";
 import TimeTracker from "../../utils/TimeTracker";
+import { useSelector } from "react-redux";
+import useJobHooks from "../../hooks/jobHooks";
 function JobsLists() {
     function valuetext(value) {
         return `${value}`;
     }
-    const { allJobs, fetchAllJobs, fetchAllApprovedJobs, allApprovedJobs } = useContext(JobContext);
+    const allJobs = useSelector(state => state.job.allJobs);
+    const { fetchAllJobs, fetchAllApprovedJobs } = useJobHooks();
     useEffect(() => {
         fetchAllApprovedJobs();
     }, []);

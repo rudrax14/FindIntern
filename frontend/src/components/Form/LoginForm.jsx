@@ -1,13 +1,11 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useState } from 'react'
 import InputField from './InputField';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import { useNavigate, useParams, Link } from "react-router-dom";
-import { UserContext } from '../../context/UserContext';
 function LoginForm() {
 
 
-    // const { setLoginData, setUserType } = useContext(UserContext)
 
 
     const navigate = useNavigate();

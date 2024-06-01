@@ -1,10 +1,10 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import InputField from './InputField'
-import { UserContext } from '../../context/UserContext';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 import AvatarUploader from './AvatarUploader';
+import { useSelector } from 'react-redux';
 function UserDetailsForm() {
 
 
@@ -19,7 +19,7 @@ function UserDetailsForm() {
         skills: [],
     });
     const { userType } = useParams();
-    const { userDetails, userData } = useContext(UserContext);
+    const userDetails = useSelector((state) => state.user.userDetails);
 
     useEffect(() => {
         if (userDetails) {

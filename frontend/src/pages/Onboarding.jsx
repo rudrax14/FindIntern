@@ -1,23 +1,27 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserType } from '../redux/Slice/userSlice';
 
-import React, { useContext, useEffect } from 'react'
-import { Link, useNavigate, useParams, useLocation } from 'react-router-dom'
-import { UserContext } from '../context/UserContext'
 function Onboarding() {
-    const { userType, setUserType, userMode } = useContext(UserContext)
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const userType = useSelector((state) => state.user.userType);
+    const userMode = useSelector((state) => state.user.userMode);
+
     const userClickHandler = () => {
-        setUserType('jobseeker')
-        console.log(userType);
-        navigate(`/onboarding/${userMode}/jobseeker`)
-    }
+        dispatch(setUserType('jobseeker'));
+        console.log(userType);  // Note: This might log the previous value due to async nature of state update
+        navigate(`/onboarding/${userMode}/jobseeker`);
+    };
 
     const recruiterClickHandler = () => {
-        setUserType('recruiter')
-        console.log(userType)
-        navigate(`/onboarding/${userMode}/recruiter`)
-    }
+        dispatch(setUserType('recruiter'));
+        console.log(userType);  // Note: This might log the previous value due to async nature of state update
+        navigate(`/onboarding/${userMode}/recruiter`);
+    };
 
-   
+
     return (
         <>
             <div className='bg-secondary-100 h-screen flex justify-center items-center'>
