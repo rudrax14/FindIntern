@@ -32,22 +32,6 @@ function LoginForm() {
         };
         console.log(userType);
 
-        // axios.post('http://localhost:5000/api/v1/auth/login', accountData)
-        //     .then((response) => {
-        //         localStorage.setItem("userToken", response.data.token);
-        //         // setLoginData(response.data);
-        //         toast.success('Login successful')
-        //         if (userType === 'admin') {
-        //             navigate(`/${userType}/dashboard`)
-        //         } else {
-        //             navigate(`/${userType}/all-jobs`)
-        //         }
-        //     })
-        //     .catch((err) => {
-        //         console.log(err.response.data.message);
-        //         const error = err.response.data.message;
-        //         toast.error(error)
-        //     })
         authService.login(accountData).then((userData)=>{
             if(userData){
                 toast.success('Login successful')
@@ -65,10 +49,6 @@ function LoginForm() {
         // console.log(accountData);
 
     }
-
-    // const redirectHandler = (e) => {
-    //     navigate('/user/signup');
-    // }
 
     return (
         <>

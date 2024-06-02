@@ -1,11 +1,13 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
+import { updateProfileImage } from '../../redux/Slice/userSlice'; // Ensure the correct path to userSlice
 
 const AvatarUploader = ({ profile }) => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [imageUrl, setImageUrl] = useState(profile);
-
+    const dispatch = useDispatch();
     const { userType } = useParams();
 
     useEffect(() => {
@@ -35,16 +37,13 @@ const AvatarUploader = ({ profile }) => {
             }
         })
             .then((response) => {
-                console.log(response)
+                const newImageUrl = response.data.imageUrl; // Assuming the response contains the new image URL
+                dispatch(updateProfileImage(newImageUrl));
             })
             .catch((err) => {
                 console.log(err);
-
             });
     };
-
-
-
 
     const handleDelete = () => {
         setImageUrl(profile);
@@ -54,7 +53,6 @@ const AvatarUploader = ({ profile }) => {
         <div className="profile xl:flex md:justify-between space-y-6 items-center w-full">
             <div className='xl:flex items-center gap-4'>
                 <div className='w-fit flex-shrink-0'>
-
                     <img className='w-20 h-20 object-cover overflow-hidden rounded-full border-white border-4' src={imageUrl} alt="profile-img" />
                 </div>
                 <div className='space-y-1'>

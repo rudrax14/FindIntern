@@ -1,23 +1,21 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import InputField from "./InputField";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
 import authService from "../../services/authService";
-// import { UserContext } from "../../context/UserContext";
+
 function SignupForm() {
-    // const { setSignupData, setUserType } = useContext(UserContext);
     const [formData, setFormData] = useState({
         username: "",
         name: "",
         email: "",
         password: "",
         cPassword: "",
-        // accountType: '',
     });
 
     const navigate = useNavigate();
     const { userType } = useParams();
+
     const changeHandler = (event) => {
         const { name, value } = event.target;
         setFormData((prev) => ({
@@ -26,53 +24,27 @@ function SignupForm() {
         }));
     };
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
 
-        // if (formData.password !== formData.cPassword) {
-        //     toast.error("Passwords do not match");
-        //     return;
-        // }
-
-        // if (!formData.username || !formData.email || !formData.password) {
-        //     toast.error("Enter All Details");
-        //     return;
-        // }
-        // formData.accountType = accountType;
         const accountData = {
             ...formData,
             role: userType,
         };
-        console.log(accountData);
-        if (userType === "jobseeker") {
-            userType === "jobseeker";
-            navigate(`/${userType}/more-info`);
-        } else {
-            userType === "recruiter";
-            navigate(`/${userType}/more-info`);
-        }
-        // axios
-        //     .post(`http://localhost:5000/api/v1/auth/register`, accountData)
-        //     .then((response) => {
-        //         // console.log(response.data);
-        //         // setSignupData(response.data);
-        //         toast.success("Account Created");
-        //     })
-        //     .catch((err) => {
-        //         console.log("signup-error", err.response);
-        //         const error = err.response.data.message;
-        //         toast.error(error);
-        //     });
 
-        authService.createAccount(accountData).then((accData)=>{
-            if(accData){
+        try {
+            const accData = await authService.createAccount(accountData);
+            if (accData) {
                 toast.success("Account Created");
-            }else{
-                toast.error("Something went wrong")
+
+                // Navigate to more-info page after successful account creation
+                navigate(`/${userType}/more-info`);
+            } else {
+                toast.error("Something went wrong");
             }
-        }).catch((err)=>{
-            toast.error(err)
-        })
+        } catch (err) {
+            toast.error(err.message || "An error occurred");
+        }
     };
 
     return (
@@ -122,13 +94,6 @@ function SignupForm() {
                 type="password"
                 imp="*"
             />
-            {/* <div className='flex gap-2 text-secondary-200'>
-                <input type="checkbox" name="" id="" className='' onClick={() => {
-                    const newAccountType = accountType === 'company' ? 'jobseeker' : 'company';
-                    setAccountType(newAccountType);
-                }} />
-                <span>Check if you want to register a company.</span>
-            </div> */}
             <div className="">
                 <button
                     type="submit"

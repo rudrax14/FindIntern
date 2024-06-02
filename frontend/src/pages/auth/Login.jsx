@@ -12,7 +12,7 @@ function Login() {
                         <h1 className='text-[2rem] font-bold text-secondary-300 dark:text-secondary-100'>Sign in</h1>
                         <div className={`flex gap-3 ${userType == 'admin' ? 'hidden' : 'block'}`}>
                             <span className='text-secondary-200'>Don't have an account? </span>
-                            <Link to="/signup" className='text-primary-200'>Sign up</Link>
+                            <Link to={`/onboarding/sign-up/${userType}`} className='text-primary-200'>Sign up</Link>
                         </div>
                     </div>
                     <LoginForm />

@@ -3,9 +3,11 @@ import logo from "../../../public/logo.png";
 import { Twirl as Hamburger } from "hamburger-react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setUserMode, fetchUserData } from "../../redux/Slice/userSlice";
+import { setUserMode, fetchUserData, clearUserDetails } from "../../redux/Slice/userSlice"; // Ensure clearUserDetails is imported
 import { ThemeContext } from "../../context/ThemeContext"; // Import ThemeContext
 import { FaSun, FaMoon } from "react-icons/fa"; // Import icons
+import authService from "../../services/authService";
+import { toast } from "react-hot-toast";
 
 function Navbar() {
     const navigate = useNavigate();
@@ -23,8 +25,15 @@ function Navbar() {
         localStorage.removeItem("userToken");
     }
 
-    const clickHandler = () => {
+    const signOutHandler = () => {
+        dispatch(clearUserDetails()); // Dispatch clearUserDetails action
         localStorage.removeItem("userToken");
+        authService.logout().then(() => {
+            navigate("/");
+            toast.success("Logged out successfully");
+        }).catch((err) => {
+            console.log(err);
+        });
     };
 
     const navigateHandler = () => {
@@ -38,7 +47,7 @@ function Navbar() {
     useEffect(() => {
         if (location.pathname === "/") return;
         dispatch(fetchUserData(userType));
-    }, [dispatch, userType, location.pathname]);
+    }, [userType, location.pathname, dispatch]);
 
     const isRecruiterPostJob = location.pathname === "/recruiter/post-a-job";
 
@@ -163,7 +172,7 @@ function Navbar() {
                                         <Link
                                             className="block px-4 py-1 hover:text-primary-200 hover:cursor-pointer"
                                             to="/"
-                                            onClick={clickHandler}
+                                            onClick={signOutHandler}
                                         >
                                             Sign Out
                                         </Link>

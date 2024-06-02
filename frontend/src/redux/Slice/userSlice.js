@@ -12,8 +12,10 @@ export const fetchUserData = createAsyncThunk(
                     Authorization: `Bearer ${jwtToken}`,
                 }
             });
+            console.log("fetchUserDataSlice", response.data.profile);
             return response.data.profile;
         } catch (err) {
+            console.log(err);
             return rejectWithValue(err.response.data);
         }
     }
@@ -34,7 +36,13 @@ const userSlice = createSlice({
         },
         setUserMode: (state, action) => {
             state.userMode = action.payload;
-        }
+        },
+        clearUserDetails: (state) => {
+            state.userDetails = {};
+        },
+        updateProfileImage: (state, action) => {
+            state.userDetails.profileImgUrl = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -53,5 +61,5 @@ const userSlice = createSlice({
     }
 });
 
-export const { setUserType, setUserMode } = userSlice.actions;
+export const { setUserType, setUserMode, clearUserDetails, updateProfileImage } = userSlice.actions;
 export default userSlice.reducer;
