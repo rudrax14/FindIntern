@@ -283,6 +283,8 @@ exports.verifyToken = catchAsync(async (req, res, next) => {
 
   // Check if token is in Redis blacklist
   const find = await redisClient.get(token);
+  
+  await redisClient.quit();
 
   // If token is in the blacklist, send an error response
   if (find) {
@@ -312,6 +314,8 @@ exports.logout = catchAsync(async (req, res, next) => {
 
   // Add token to Redis blacklist
   await addToBlacklist(redisClient, token);
+
+  await redisClient.quit();
 
   // Send response with success message
   res.status(200).json({

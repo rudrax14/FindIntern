@@ -3,6 +3,7 @@ import InputField from "./InputField";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import authService from "../../services/authService";
 // import { UserContext } from "../../context/UserContext";
 function SignupForm() {
     // const { setSignupData, setUserType } = useContext(UserContext);
@@ -50,18 +51,28 @@ function SignupForm() {
             userType === "recruiter";
             navigate(`/${userType}/more-info`);
         }
-        axios
-            .post(`http://localhost:5000/api/v1/auth/register`, accountData)
-            .then((response) => {
-                // console.log(response.data);
-                // setSignupData(response.data);
+        // axios
+        //     .post(`http://localhost:5000/api/v1/auth/register`, accountData)
+        //     .then((response) => {
+        //         // console.log(response.data);
+        //         // setSignupData(response.data);
+        //         toast.success("Account Created");
+        //     })
+        //     .catch((err) => {
+        //         console.log("signup-error", err.response);
+        //         const error = err.response.data.message;
+        //         toast.error(error);
+        //     });
+
+        authService.createAccount(accountData).then((accData)=>{
+            if(accData){
                 toast.success("Account Created");
-            })
-            .catch((err) => {
-                console.log("signup-error", err.response);
-                const error = err.response.data.message;
-                toast.error(error);
-            });
+            }else{
+                toast.error("Something went wrong")
+            }
+        }).catch((err)=>{
+            toast.error(err)
+        })
     };
 
     return (
