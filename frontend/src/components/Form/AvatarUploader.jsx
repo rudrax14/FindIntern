@@ -48,12 +48,12 @@ const AvatarUploader = ({ profile }) => {
     const handleDelete = () => {
         setImageUrl(profile);
     };
-
+    const defaultImageUrl = 'https://res.cloudinary.com/dipv5sufo/image/upload/v1708846305/FindIntern/Assets/stock-profile.jpg';
     return (
         <div className="profile xl:flex md:justify-between space-y-6 items-center w-full">
             <div className='xl:flex items-center gap-4'>
                 <div className='w-fit flex-shrink-0'>
-                    <img className='w-20 h-20 object-cover overflow-hidden rounded-full border-white border-4' src={imageUrl} alt="profile-img" />
+                    <img className='w-20 h-20 object-cover overflow-hidden rounded-full border-white border-4' src={imageUrl || defaultImageUrl} alt="profile-img" />
                 </div>
                 <div className='space-y-1'>
                     <h3 className='text-xl font-semibold text-secondary-300'>Your avatar</h3>

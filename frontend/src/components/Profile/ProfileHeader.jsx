@@ -12,7 +12,7 @@ function ProfileHeader() {
     // useEffect(() => {
     //     userData(userType)
     // }, []);
-
+    const defaultImageUrl = 'https://res.cloudinary.com/dipv5sufo/image/upload/v1708846305/FindIntern/Assets/stock-profile.jpg';
     return (
         <div className="container mx-auto max-w-7xl rounded-lg">
             <div className="header">
@@ -22,7 +22,7 @@ function ProfileHeader() {
                         </div> */}
                 <div className='bg-white flex md:h-20 px-6 items-center rounded-b-lg w-full dark:bg-dark-secondary-100 border-b border-x dark:border-secondary-200'>
                     <div className='relative -mt-12'>
-                        <img src={userDetails.profileImgUrl} alt="" className='w-20 rounded-full border-white border-4 ' />
+                        <img src={userDetails.profileImgUrl || defaultImageUrl} alt="" className='w-20 rounded-full border-white border-4 ' />
                     </div>
                     <div className="flex justify-between px-2 sm:px-3 sm:justify-between items-center w-full ">
                         <div className="flex flex-col">

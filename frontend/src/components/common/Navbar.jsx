@@ -50,7 +50,7 @@ function Navbar() {
     }, [userType, location.pathname, dispatch]);
 
     const isRecruiterPostJob = location.pathname === "/recruiter/post-a-job";
-
+    const defaultImageUrl = 'https://res.cloudinary.com/dipv5sufo/image/upload/v1708846305/FindIntern/Assets/stock-profile.jpg';
     return (
         <>
             <nav className="sticky top-0 bg-white z-20 dark:bg-secondary-300">
@@ -136,7 +136,7 @@ function Navbar() {
                                     >
                                         <img
                                             className={` h-12 w-12 border-2 rounded-full object-cover ${isHover ? "border-primary-200" : ""} hover:outline-none`}
-                                            src={userDetails.profileImgUrl}
+                                            src={userDetails.profileImgUrl || defaultImageUrl}
                                             alt="nav-prof"
                                         />
                                     </div>
