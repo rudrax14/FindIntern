@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, {  useState, useEffect } from 'react';
 import JobsCards from '../components/common/JobsCard';
 import Navbar from '../components/common/Navbar';
 import Searchbar from '../components/common/Searchbar';
@@ -6,17 +6,15 @@ import TimeTracker from '../utils/TimeTracker';
 import { useParams } from 'react-router-dom';
 import useJobHooks from '../hooks/jobHooks';
 import { useSelector } from 'react-redux';
-import { ThemeContext } from '../context/ThemeContext';
 
 function StartupPage() {
     const { userType } = useParams();
-    const { fetchAllJobs, fetchAllApprovedJobs } = useJobHooks();
+    const { fetchAllJobs } = useJobHooks();
     const allJobs = useSelector(state => state.job.allJobs);
 
     // State to hold the userType
     const [currentUserType, setCurrentUserType] = useState(userType);
 
-    const { theme, toggleTheme } = useContext(ThemeContext); // Use ThemeContext
 
     useEffect(() => {
         fetchAllJobs(true);

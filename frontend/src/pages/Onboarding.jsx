@@ -24,7 +24,7 @@ function Onboarding() {
 
     return (
         <>
-            <div className='bg-secondary-100 h-screen flex justify-center items-center dark:bg-dark-secondary-500'>
+            <div className='bg-secondary-100 flex justify-center h-screen items-center dark:bg-dark-secondary-500'>
                 <div className='bg-white dark:bg-dark-secondary-400 rounded-lg shadow-lg'>
                     <h1 className='text-center font-semibold text-secondary-300 dark:text-secondary-100 text-2xl mt-4'>Who are you ?</h1>
                     <div className='flex flex-col md:flex-row p-12 gap-12'>

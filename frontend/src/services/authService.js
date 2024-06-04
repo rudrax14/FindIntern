@@ -36,7 +36,7 @@ class AuthService {
             }
         } catch (err) {
             const error = err.response?.data?.message || "An error occurred";
-            console.log(err)
+            console.log(err.response.data.message);
             throw new Error(error);
         }
     }

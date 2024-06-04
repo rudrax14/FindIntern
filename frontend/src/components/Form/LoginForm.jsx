@@ -32,8 +32,8 @@ function LoginForm() {
         };
         console.log(userType);
 
-        authService.login(accountData).then((userData)=>{
-            if(userData){
+        authService.login(accountData).then((userData) => {
+            if (userData) {
                 toast.success('Login successful')
                 if (userType === 'admin') {
                     navigate(`/${userType}/dashboard`)
@@ -41,9 +41,9 @@ function LoginForm() {
                     navigate(`/${userType}/all-jobs`)
                 }
             }
-        }).catch((err)=>{
-            //toast.error(err)
-            console.log(err)
+        }).catch((err) => {
+            toast.error(err.response.data.message);
+            console.log(err);
         });
 
         // console.log(accountData);
@@ -53,7 +53,7 @@ function LoginForm() {
     return (
         <>
             <form action="" className='flex flex-col gap-4 ' onSubmit={submitHandler}>
-                <InputField name='email' data={formData.email} event={changeHandler} label='Email' ph='Email address here' type='email'/>
+                <InputField name='email' data={formData.email} event={changeHandler} label='Email' ph='Email address here' type='email' />
                 <InputField name='password' data={formData.password} event={changeHandler} label='Password' ph='**************' type='password' />
                 <div className='flex justify-end'>
                     <Link to={`/forgot-password/${userType}`} className='text-primary-200'>Forgot your password?</Link>

@@ -12,7 +12,7 @@ function Feed() {
     return (
         <>
             <Navbar />
-            <div className='bg-secondary-100 min-h-screen'>
+            <div className='bg-secondary-100'>
                 <section className='container px-4 xl:px-24 pt-12 h-full'>
                     <div className='lg:grid grid-cols-5 gap-3 lg:space-y-0 space-y-6 h-full'>
                         <div className='left-profile'>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 function NotFound() {
     return (
         <div className='dark:bg-dark-secondary-100 '>
-            <section className='container h-screen flex flex-col mx-auto justify-between'>
+            <section className='container flex flex-col mx-auto justify-between'>
 
                 <div className='head pt-6'>
                     <div className='font-bold text-primary-200 text-2xl ml-28'>
@@ -29,7 +29,7 @@ function NotFound() {
                         </div>
                     </div>
                 </div>
-                <div className='foot'>Foot</div>
+                {/* <div className='foot'>Foot</div> */}
             </section>
         </div>
     )

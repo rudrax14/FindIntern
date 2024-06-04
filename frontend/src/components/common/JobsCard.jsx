@@ -56,9 +56,12 @@ function JobsCards({
                 </div>
                 {/* // delete button */}
                 <div className={routerlocation.pathname === "/recruiter/profile" ? "delete-button block" : "delete-button hidden"} onClick={handleDelete}>
-                  <a href="/">
-                    <FaRegTrashAlt />
-                  </a>
+
+                  <div className="dark:text-secondary-100">
+                    <a href="/">
+                      <FaRegTrashAlt />
+                    </a>
+                  </div>
                 </div>
               </div>
               <div className="text-secondary-200 flex flex-row gap-3">

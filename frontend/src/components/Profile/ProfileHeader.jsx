@@ -33,7 +33,7 @@ function ProfileHeader() {
                             <p className='text-secondary-200'>@{userDetails.username || "null"}</p>
                         </div>
                         <div className=''>
-                            <Link className="bg-primary-200 hover:bg-primary-400 text-white rounded-md w-fit px-2 py-1 sm:font-medium" to="">Account Settings</Link>
+                            <Link className="bg-primary-200 hover:bg-primary-400 text-white rounded-md w-fit px-2 py-1 sm:font-medium" to={userType == "recruiter" ? "/recruiter/edit-info" : "/jobseeker/edit-info"}>Account Settings</Link>
                         </div>
                     </div>
                 </div>

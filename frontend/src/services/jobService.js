@@ -57,16 +57,6 @@ class JobService{
         }
     }
 
-    // async getAllApprovedJobs(){
-    //     try{
-    //         const authHeader = authService.requestAuthHeaders();
-    //         await axios.get(`${this.backend}/${this.jobUrl}?approved=true`,jobData,authHeader);
-    //     }catch(err){
-    //         console.log("Get All Jobs error :: ",err);
-    //         throw err;
-    //     }
-    // }
-
     async deleteJob(id){
         try{
             const authHeader = authService.requestAuthHeaders();

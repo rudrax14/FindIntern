@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <AdminProvider>
       <ThemeProvider>
         <BrowserRouter scrollRestoration={true}>
-          <Toaster position="top-right" reverseOrder={false} />
+          <Toaster />
           {/* <React.StrictMode> */}
           <App />
           {/* </React.StrictMode> */}

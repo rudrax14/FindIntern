@@ -62,15 +62,15 @@ function PostAJobForm() {
         //         console.log(err);
         //     });
 
-        try{
+        try {
             const newJob = await jobService.postJob(formData)
             dispatch(setJob(newJob));
             navigate(`/recruiter/job-profile/${newJob._id}`);
-        }catch(err){
+        } catch (err) {
             console.log(err);
             toast.error(err);
         }
-        
+
     }
 
     return (
@@ -83,10 +83,10 @@ function PostAJobForm() {
                 <div className="text-5xl text-primary-200">
                     <HiOutlineBuildingOffice2 />
                 </div>
-                <h3 className="text-xl font-semibold text-secondary-300">
+                <h3 className="text-xl font-semibold text-secondary-300 dark:text-secondary-100">
                     Job information
                 </h3>
-                <p>
+                <p className="dark:text-secondary-200">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit lacerat amet
                     ac.
                 </p>
@@ -142,14 +142,14 @@ function PostAJobForm() {
                     event={changeHandler}
                 />
                 <div className="space-y-2">
-                    <label htmlFor="" className="text-secondary-300 font-semibold">
+                    <label htmlFor="" className="text-secondary-300 font-semibold dark:text-secondary-100">
                         Job Type
                     </label>
                     <span className="text-red-500 ml-1">*</span>
                     <select
                         name="type"
                         id=""
-                        className="border text-secondary-200 border-[#cbd5e1] w-full py-2 px-4 rounded-md placeholder:text-secondary-200 focus:border-primary-100 focus:shadow-sm focus:shadow-primary-100 focus:outline-none"
+                        className="border dark:bg-dark-secondary-300 text-secondary-200 border-[#cbd5e1] w-full py-2 px-4 rounded-md placeholder:text-secondary-200 focus:border-primary-100 focus:shadow-sm focus:shadow-primary-100 focus:outline-none"
                         onChange={changeHandler}
                     >
                         <option value="Full-Time">Full Time</option>
@@ -157,7 +157,7 @@ function PostAJobForm() {
                     </select>
                 </div>
                 <div className="flex flex-col gap-2">
-                    <label htmlFor="" className="text-secondary-300 font-semibold">
+                    <label htmlFor="" className="text-secondary-300 font-semibold dark:text-secondary-100">
                         Job description
                     </label>
                     <textarea
@@ -166,12 +166,12 @@ function PostAJobForm() {
                         cols=""
                         rows="3"
                         placeholder="Write about job"
-                        className="border text-secondary-200 border-[#cbd5e1] w-full py-2 px-4 rounded-md placeholder:text-secondary-200 focus:border-primary-100 focus:shadow-sm focus:shadow-primary-100 focus:outline-none"
+                        className="border text-secondary-200 dark:bg-dark-secondary-300 border-[#cbd5e1] w-full py-2 px-4 rounded-md placeholder:text-secondary-200 focus:border-primary-100 focus:shadow-sm focus:shadow-primary-100 focus:outline-none"
                         onChange={changeHandler}
                     ></textarea>
                 </div>
                 <div className="flex flex-col gap-2">
-                    <label htmlFor="" className="text-secondary-300 font-semibold">
+                    <label htmlFor="" className="text-secondary-300 font-semibold dark:text-secondary-100">
                         Job Requirements
                     </label>
                     <textarea
@@ -180,7 +180,7 @@ function PostAJobForm() {
                         cols=""
                         rows="3"
                         placeholder="Write about job"
-                        className="border text-secondary-200 border-[#cbd5e1] w-full py-2 px-4 rounded-md placeholder:text-secondary-200 focus:border-primary-100 focus:shadow-sm focus:shadow-primary-100 focus:outline-none"
+                        className="border dark:bg-dark-secondary-300 text-secondary-200 border-[#cbd5e1] w-full py-2 px-4 rounded-md placeholder:text-secondary-200 focus:border-primary-100 focus:shadow-sm focus:shadow-primary-100 focus:outline-none"
                         onChange={changeHandler}
                     ></textarea>
                 </div>

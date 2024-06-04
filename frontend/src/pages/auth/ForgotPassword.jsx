@@ -30,10 +30,10 @@ function ForgotPassword() {
     }
 
     return (
-        <div className='flex items-center justify-center h-screen bg-secondary-100 p-5'>
-            <div className="max-w-[30rem] w-full rounded overflow-hidden shadow-2xl bg-white flex flex-col gap-6 px-10 py-6">
+        <div className='flex items-center justify-center h-screen bg-secondary-100 dark:bg-dark-secondary-500 p-5'>
+            <div className="max-w-[30rem] w-full rounded dark:bg-dark-secondary-100  overflow-hidden shadow-2xl bg-white flex flex-col gap-6 px-10 py-6">
                 <div className='flex flex-col gap-3'>
-                    <h1 className='text-[2rem] font-bold text-secondary-300'>Forgot Password</h1>
+                    <h1 className='text-[2rem] font-bold text-secondary-300 dark:text-secondary-100'>Forgot Password</h1>
                 </div>
                 <form action="" className='flex flex-col gap-3' onSubmit={submitHandler}>
                     <InputField type='email' name='email' label='Email' ph='Email' event={changeHandler} />
