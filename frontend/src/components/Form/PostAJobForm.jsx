@@ -5,8 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { JobContext } from "../../context/JobContext";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import axios from "axios";
+import toast from "react-hot-toast"
 import { useDispatch, useSelector } from "react-redux";
+import jobService from "../../services/jobService";
+import { setJob } from "../../redux/Slice/jobSlice";
 // import { job } from "../../store/jobSlice";
+
 
 function PostAJobForm() {
     const navigate = useNavigate();
@@ -21,6 +25,7 @@ function PostAJobForm() {
         type: "Full-Time",
         period: "",
     });
+    const dispatch = useDispatch()
     const job = useSelector((state) => state.job.job);
     function changeHandler(event) {
         const { name, value } = event.target;
@@ -39,23 +44,33 @@ function PostAJobForm() {
         }
     }
 
-    function submitHandler(e) {
+    async function submitHandler(e) {
         e.preventDefault();
-        const jwtToken = localStorage.getItem("userToken");
-        axios
-            .post(`http://localhost:5000/api/v1/job`, formData, {
-                headers: {
-                    Authorization: `Bearer ${jwtToken}`,
-                },
-            })
-            .then((response) => {
-                // setJob(response.data.newJob);
-                dispatch(job(response.data.newJob));
-                navigate(`/recruiter/job-profile/${response.data.newJob._id}`);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        // const jwtToken = localStorage.getItem("userToken");
+        // axios
+        //     .post(`http://localhost:5000/api/v1/job`, formData, {
+        //         headers: {
+        //             Authorization: `Bearer ${jwtToken}`,
+        //         },
+        //     })
+        //     .then((response) => {
+        //         // setJob(response.data.newJob);
+        //         dispatch(job(response.data.newJob));
+        //         navigate(`/recruiter/job-profile/${response.data.newJob._id}`);
+        //     })
+        //     .catch((err) => {
+        //         console.log(err);
+        //     });
+
+        try{
+            const newJob = await jobService.postJob(formData)
+            dispatch(setJob(newJob));
+            navigate(`/recruiter/job-profile/${newJob._id}`);
+        }catch(err){
+            console.log(err);
+            toast.error(err);
+        }
+        
     }
 
     return (

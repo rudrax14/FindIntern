@@ -19,7 +19,7 @@ function StartupPage() {
     const { theme, toggleTheme } = useContext(ThemeContext); // Use ThemeContext
 
     useEffect(() => {
-        fetchAllApprovedJobs();
+        fetchAllJobs(true);
         // Set userType to "guest" when at the "/" page
         if (window.location.pathname === "/") {
             setCurrentUserType("guest");

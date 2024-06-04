@@ -20,9 +20,14 @@ const filteredObj =  Object.keys(jobObj)
 
 // Get All Jobs
 exports.getAllJobs = catchAsync(async (req, res) => {
- 
+    let query={};
+    if(req.query){
+      if(req.query.approved){
+        query = req.query;
+      }
+    }
     // Fetch all jobs
-    const jobs = await Job.find();
+    const jobs = await Job.find(query);
 
     res.status(200).json({
       status: 'Success',

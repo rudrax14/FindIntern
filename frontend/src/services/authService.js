@@ -36,6 +36,7 @@ class AuthService {
             }
         } catch (err) {
             const error = err.response?.data?.message || "An error occurred";
+            console.log(err)
             throw new Error(error);
         }
     }
@@ -52,6 +53,26 @@ class AuthService {
         } catch (err) {
             const error = err.response?.data?.message || "An error occurred";
             throw new Error(error);
+        }
+    }
+
+     requestAuthHeaders() {
+        try{
+            const token = localStorage.getItem("userToken");
+            if(token){
+                const header = {
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                }
+                return header;
+            }
+            else{
+                return null;
+            }
+        } catch(err){
+            const error = "Error in creating header or something is wrong with the token";
+            throw error;
         }
     }
 }

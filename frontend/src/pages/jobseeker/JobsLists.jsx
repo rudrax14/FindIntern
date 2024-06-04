@@ -19,7 +19,7 @@ function JobsLists() {
     const allJobs = useSelector(state => state.job.allJobs);
     const { fetchAllJobs, fetchAllApprovedJobs } = useJobHooks();
     useEffect(() => {
-        fetchAllApprovedJobs();
+        fetchAllJobs(true);
     }, []);
     return (
         <>

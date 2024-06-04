@@ -42,7 +42,7 @@ function LoginForm() {
                 }
             }
         }).catch((err)=>{
-            toast.error(err)
+            //toast.error(err)
             console.log(err)
         });
 

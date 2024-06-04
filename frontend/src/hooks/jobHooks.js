@@ -1,27 +1,41 @@
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setJob, setAllJobs, setLoading, setError } from '../redux/Slice/jobSlice'; // adjust the path as necessary
+import jobService from "../services/jobService";
+
 
 function useJobHooks() {
     const dispatch = useDispatch();
 
-    const fetchAllJobs = () => {
-        const jwtToken = localStorage.getItem("userToken");
-        dispatch(setLoading(true));
-        axios.get(`http://localhost:5000/api/v1/job`, {
-            headers: {
-                Authorization: `Bearer ${jwtToken}`,
-            }
-        }).then((response) => {
-            console.log("context-fetchAllJobs", response.data.jobs);
-            const approvedJobs = response.data.jobs.filter(job => job.approved === false);
-            dispatch(setAllJobs(approvedJobs));
-            dispatch(setLoading(false));
-        }).catch((err) => {
+    const fetchAllJobs = async (status) => {
+        // const jwtToken = localStorage.getItem("userToken");
+        
+        // axios.get(`http://localhost:5000/api/v1/job`, {
+        //     headers: {
+        //         Authorization: `Bearer ${jwtToken}`,
+        //     }
+        // }).then((response) => {
+        //     console.log("context-fetchAllJobs", response.data.jobs);
+        //     const approvedJobs = response.data.jobs.filter(job => job.approved === false);
+        //     dispatch(setAllJobs(approvedJobs));
+        //     dispatch(setLoading(false));
+        // }).catch((err) => {
+        //     console.log(err);
+        //     dispatch(setError(err));
+        //     dispatch(setLoading(false));
+        // });
+        try{
+          dispatch(setLoading(true));
+          const allJobs = await jobService.getAllJobs(status);
+          console.log("fetchJobs",allJobs);
+          dispatch(setAllJobs(allJobs));
+          dispatch(setLoading(false));
+
+        }catch(err){
             console.log(err);
             dispatch(setError(err));
             dispatch(setLoading(false));
-        });
+        }
     };
 
     const fetchAllAppliedJobs = () => {
@@ -40,6 +54,9 @@ function useJobHooks() {
             dispatch(setError(err));
             dispatch(setLoading(false));
         });
+
+        
+
     };
 
     const fetchAllApprovedJobs = () => {
@@ -59,24 +76,40 @@ function useJobHooks() {
             dispatch(setError(err));
             dispatch(setLoading(false));
         });
+
+
+        
+
+
     };
 
-    const fetchAJob = (id) => {
-        const jwtToken = localStorage.getItem("userToken");
-        dispatch(setLoading(true));
-        axios.get(`http://localhost:5000/api/v1/job/${id}`, {
-            headers: {
-                Authorization: `Bearer ${jwtToken}`,
-            }
-        }).then((response) => {
-            console.log("context-fetchAJob", response.data.job);
-            dispatch(setJob(response.data.job));
+    const fetchAJob = async (id) => {
+        // const jwtToken = localStorage.getItem("userToken");
+        // dispatch(setLoading(true));
+        // axios.get(`http://localhost:5000/api/v1/job/${id}`, {
+        //     headers: {
+        //         Authorization: `Bearer ${jwtToken}`,
+        //     }
+        // }).then((response) => {
+        //     console.log("context-fetchAJob", response.data.job);
+        //     dispatch(setJob(response.data.job));
+        //     dispatch(setLoading(false));
+        // }).catch((err) => {
+            // console.log(err);
+            // dispatch(setError(err));
+            // dispatch(setLoading(false));
+        // });
+
+        try{
+            dispatch(setLoading(true));
+            const job = await jobService.getSingleJob(id);
+            dispatch(setJob(job));
             dispatch(setLoading(false));
-        }).catch((err) => {
+        }catch(err){
             console.log(err);
             dispatch(setError(err));
             dispatch(setLoading(false));
-        });
+        }
     };
 
     const fetchAllCompanyJobs = () => {
