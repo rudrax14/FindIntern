@@ -23,6 +23,7 @@ import MoreInfo from "./components/MoreInfo";
 import UpdatePassword from "./pages/auth/UpdatePassword";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import Feed from "./pages/Feed";
+import EditJob from "./pages/recruiter/EditJob";
 function App() {
   return (
     <div className="">
@@ -46,6 +47,7 @@ function App() {
         <Route path="/:userType/edit-info" element={<MoreInfo />} />
         {/* recruiter-post */}
         <Route path="/:userType/post-a-job" element={<PostJobs />} />
+        <Route path="/:userType/edit-a-job/:id" element={<EditJob />} />
         {/* jobs */}
         <Route path="/:userType/all-jobs" element={<JobsLists />} />
         <Route path="/:userType/job-profile/:id" element={<SingleJobs />} />

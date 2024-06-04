@@ -60,7 +60,7 @@ class JobService{
     async deleteJob(id){
         try{
             const authHeader = authService.requestAuthHeaders();
-            await axios.delete(`${this.backend}/${this.jobUrl}/${id}`,jobData,authHeader);
+            await axios.delete(`${this.backend}/${this.jobUrl}/${id}`,authHeader);
         }catch(err){
             console.log("Delete Job error :: ",err);
             throw err;

@@ -1,34 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/common/Navbar";
 import JobsCards from "../../components/common/JobsCard";
 import ProfileHeader from "../../components/Profile/ProfileHeader";
-import { useEffect } from "react";
-import { JobContext } from "../../context/JobContext";
 import { useParams } from "react-router-dom";
-import TimeTracker from "../../utils/TimeTracker";
-import { UserContext } from "../../context/UserContext";
 import { useSelector } from "react-redux";
 import useJobHooks from "../../hooks/jobHooks";
+import { toast } from "react-hot-toast";
+import TimeTracker from "../../utils/TimeTracker";
+
 function User() {
     const { userType } = useParams();
     const { fetchAllCompanyJobs, fetchAllAppliedJobs } = useJobHooks();
     const allJobs = useSelector(state => state.job.allJobs);
-    const userDetails = useSelector((state) => state.user.userDetails);
+    const [jobDeleted, setJobDeleted] = useState(false); // State to track job deletion
 
     useEffect(() => {
-        if (userType === "jobseeker") {
-            console.log('jobseekers ---');
-            fetchAllAppliedJobs();
-        } else {
-            console.log('recruiters ---');
-            fetchAllCompanyJobs();
-        }
-    }, []);
+        const fetchJobs = async () => {
+            try {
+                if (userType === "jobseeker") {
+                    console.log('jobseekers ---');
+                    await fetchAllAppliedJobs();
+                } else {
+                    console.log('recruiters ---');
+                    await fetchAllCompanyJobs();
+                }
+            } catch (err) {
+                toast.error("Failed to fetch jobs");
+            }
+        };
+
+        fetchJobs();
+    }, [userType, jobDeleted]); // Include jobDeleted in dependency array
+
     return (
         <>
             <Navbar />
-
-
             <section className="bg-secondary-100 dark:text-secondary-100 py-12 px-3 dark:bg-dark-secondary-500">
                 <ProfileHeader />
                 <div className="container mx-auto max-w-7xl rounded-lg bg-white mt-6 dark:bg-dark-secondary-100 dark:border dark:border-secondary-200">
@@ -55,13 +61,13 @@ function User() {
                                     id={job._id}
                                     period={job.period}
                                     timeAgo={TimeTracker(job.createdAt)}
+                                    setJobDeleted={setJobDeleted} // Pass setJobDeleted to JobsCards
                                 />
                             ))}
                         </div>
                     )}
                 </div>
             </section>
-
         </>
     );
 }
