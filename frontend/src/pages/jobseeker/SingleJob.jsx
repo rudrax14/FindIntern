@@ -9,6 +9,9 @@ import { IoCalendarClearOutline, IoLocationOutline } from 'react-icons/io5';
 import { LiaRupeeSignSolid } from 'react-icons/lia';
 import useJobHooks from '../../hooks/jobHooks';
 import { useSelector } from 'react-redux';
+import ButtonGroup from '@mui/material/ButtonGroup'
+import Button from '@mui/material/Button'
+import adminService from '../../services/adminService';
 
 
 function SingleJobs() {
@@ -23,6 +26,7 @@ function SingleJobs() {
     useEffect(() => {
         fetchAJob(id);
         fetchAllApprovedJobs();
+        if (userType === 'jobseeker') fetchAllJobs(true);
     }, []);
 
     useEffect(() => {
@@ -37,6 +41,16 @@ function SingleJobs() {
         console.log('apply for this job', job._id);
         applyJob(job._id);
         navigate(`/${userType}/profile`)
+    }
+
+    const approveHandler = () => {
+        console.log('approve job', job._id);
+        adminService.approveJob(job._id);
+    }
+
+    const rejectHander = () => {
+        console.log('reject job', job._id);
+        adminService.rejectJob(job._id);
     }
 
     return (
@@ -131,15 +145,25 @@ function SingleJobs() {
                                 <li className='list-disc'>Lorem ipsum dolor sit amet, consectetur adipiscing elitì</li>
                             </ul>
                         </div>
-                        <div className=''>
-                            <button onClick={appliedHandler} className='bg-primary-200 hover:bg-primary-400 text-white rounded-md w-full py-2 font-medium' disabled={isAlreadyApplied}>
-                                {isAlreadyApplied ? 'Already Applied' : 'Apply For This Job'}
-                            </button>
-                        </div>
+                        {
+                            userType == 'jobseeker' ? (<div>
+                                <button onClick={appliedHandler} className='bg-primary-200 hide hover:bg-primary-400 text-white rounded-md w-full py-2 font-medium' disabled={isAlreadyApplied}>
+                                    {isAlreadyApplied ? 'Already Applied' : 'Apply For This Job'}
+                                </button>
+                            </div>) : (<div className='flex gap-12 justify-between'>
+                                <button onClick={approveHandler} className='bg-green-400 hide hover:bg-green-500 text-white rounded-md w-full py-2 font-medium'>Approve</button>
+                                <button onClick={rejectHander} className='bg-red-400 hide hover:bg-red-500 text-white rounded-md w-full py-2 font-medium'>Reject</button>
+                            </div>)
+                        }
+
+
+
+
+
                     </div>
                 </div>
                 {/* related jobs */}
-                <div className='container mx-auto  max-w-4xl mt-12'>
+                {/* <div className='container mx-auto  max-w-4xl mt-12'>
                     <h2 className='text-secondary-300 text-2xl font-semibold mb-6 ml-6'>Similar Jobs</h2>
                     {allJobs.map((job, index) => (
                         // <JobsCards key={index} logo='https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-brand-logo/job-list-logo-1.svg' company='Software Engineer (Web3/Crypto)' role='Featured Job' experience='1 - 5 years' salary='12k - 18k' location='Ahmedabad, Gujarat' />
@@ -156,7 +180,7 @@ function SingleJobs() {
                             timeAgo={TimeTracker(job.createdAt)}
                         />
                     ))}
-                </div>
+                </div> */}
             </section>
         </>
     )

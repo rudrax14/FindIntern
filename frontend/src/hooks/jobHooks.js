@@ -8,22 +8,6 @@ function useJobHooks() {
     const dispatch = useDispatch();
 
     const fetchAllJobs = async (status) => {
-        // const jwtToken = localStorage.getItem("userToken");
-        
-        // axios.get(`http://localhost:5000/api/v1/job`, {
-        //     headers: {
-        //         Authorization: `Bearer ${jwtToken}`,
-        //     }
-        // }).then((response) => {
-        //     console.log("context-fetchAllJobs", response.data.jobs);
-        //     const approvedJobs = response.data.jobs.filter(job => job.approved === false);
-        //     dispatch(setAllJobs(approvedJobs));
-        //     dispatch(setLoading(false));
-        // }).catch((err) => {
-        //     console.log(err);
-        //     dispatch(setError(err));
-        //     dispatch(setLoading(false));
-        // });
         try{
           dispatch(setLoading(true));
           const allJobs = await jobService.getAllJobs(status);
