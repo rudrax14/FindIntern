@@ -24,6 +24,7 @@ import UpdatePassword from "./pages/auth/UpdatePassword";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import Feed from "./pages/Feed";
 import EditJob from "./pages/recruiter/EditJob";
+import Chat from "./pages/Chat/Chat";
 function App() {
   return (
     <div className="">
@@ -56,13 +57,17 @@ function App() {
         <Route path="/:userType/dashboard" element={<AdminDashboard />} />
         {/* forget password */}
         <Route path="/forgot-password/:userType" element={<ForgotPassword />} />
-        <Route path="/update-password/:userType/:token" element={<UpdatePassword />} />
+        <Route
+          path="/update-password/:userType/:token"
+          element={<UpdatePassword />}
+        />
+        {/* chat */}
+        <Route path="/:userType/chat" element={<Chat />} />
         {/* feed */}
         <Route path="/:userType/feed" element={<Feed />} />
         {/* not found */}
         <Route path="*" element={<NotFound />} />
       </Routes>
-
     </div>
   );
 }
