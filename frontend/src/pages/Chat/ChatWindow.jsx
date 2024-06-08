@@ -49,22 +49,31 @@ const messages = [
     time: "1h",
     isSent: true,
   },
+  {
+    sender: "You",
+    text: "I'll message you on Saturday.",
+    time: "1h",
+    isSent: true,
+  },
   // Add more messages here if needed
 ];
 
-const ChatWindow = () => {
+const ChatWindow = ({ conversation, onBack }) => {
   return (
-    <div className="flex flex-1 flex-col h-screen">
+    <div className="flex flex-1 flex-col h-full">
       {/* Chat header */}
-      <div className="p-4 bg-gray-100 dark:bg-gray-700 flex items-center rounded-t-lg z-10">
+      <div className="p-4 bg-gray-100 dark:bg-gray-700 flex items-center sticky top-0 shadow rounded-t-lg z-10">
+        <button className="sm:hidden mr-4 text-gray-600 dark:text-gray-300" onClick={onBack}>
+          Back
+        </button>
         <div className="flex items-center flex-1">
           <div className="w-10 h-10 bg-gray-300 dark:bg-gray-600 rounded-full mr-4"></div>
           <div>
             <h3 className="font-bold text-gray-700 dark:text-gray-300">
-              Sofia Davis
+              {conversation.name}
             </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              Active 2h ago
+              Active {conversation.time} ago
             </p>
           </div>
         </div>
@@ -79,11 +88,10 @@ const ChatWindow = () => {
               className={`flex ${message.isSent ? "justify-end" : "justify-start"}`}
             >
               <div
-                className={`p-4 rounded-lg max-w-xs ${
-                  message.isSent
+                className={`p-4 rounded-lg max-w-xs ${message.isSent
                     ? "bg-blue-500 text-white"
                     : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
-                }`}
+                  }`}
               >
                 <p>{message.text}</p>
                 <p className="text-sm text-gray-400 dark:text-gray-500 mt-2">
@@ -96,7 +104,7 @@ const ChatWindow = () => {
       </div>
 
       {/* Chat input */}
-      <div className="p-4 bg-gray-100 dark:bg-gray-700 flex items-center  rounded-b-lg z-10 mb-20">
+      <div className="p-4 bg-gray-100 sticky bottom-0 dark:bg-gray-700 flex items-center rounded-b-lg z-10">
         <input
           type="text"
           placeholder="Type your message..."

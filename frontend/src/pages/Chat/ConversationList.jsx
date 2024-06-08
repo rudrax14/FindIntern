@@ -88,27 +88,10 @@ const conversations = [
     time: "30m",
     avatar: defaultAvatar,
   },
-  {
-    name: "Lily White",
-    message: "Morning coffee is the best!",
-    time: "30m",
-    avatar: defaultAvatar,
-  },
-  {
-    name: "Lily White",
-    message: "Morning coffee is the best!",
-    time: "30m",
-    avatar: defaultAvatar,
-  },
-  {
-    name: "Lily White",
-    message: "Morning coffee is the best!",
-    time: "30m",
-    avatar: defaultAvatar,
-  },
+  // Add more conversations here if needed
 ];
 
-const ConversationList = () => {
+const ConversationList = ({ onSelectConversation }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const filteredConversations = conversations.filter((conversation) =>
@@ -116,8 +99,9 @@ const ConversationList = () => {
   );
 
   return (
-    <div className="w-full sm:w-1/3 rounded-lg border-r border-gray-200 dark:border-gray-700 h-screen bg-gray-50 dark:bg-gray-900 overflow-y-auto">
-      <div className="p-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+    <div className="flex flex-1 flex-col h-full w-full sm:w-1/3 rounded-lg border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
+      {/* search bar */}
+      <div className="p-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 sticky top-0 z-10">
         <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300">
           Conversations
         </h2>
@@ -129,11 +113,13 @@ const ConversationList = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
-      <div>
+      {/* conversation list */}
+      <div className="flex-1 overflow-y-auto">
         {filteredConversations.map((conversation, index) => (
           <div
             key={index}
             className="p-4 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition duration-200"
+            onClick={() => onSelectConversation(conversation)}
           >
             <div className="flex justify-between items-center">
               <div className="flex items-center">
