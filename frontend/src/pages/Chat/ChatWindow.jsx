@@ -55,12 +55,60 @@ const messages = [
     time: "1h",
     isSent: true,
   },
+  {
+    sender: "You",
+    text: "I'll message you on Saturday.",
+    time: "1h",
+    isSent: true,
+  },
+  {
+    sender: "You",
+    text: "I'll message you on Saturday.",
+    time: "1h",
+    isSent: true,
+  },
+  {
+    sender: "You",
+    text: "I'll message you on Saturday.",
+    time: "1h",
+    isSent: true,
+  },
+  {
+    sender: "You",
+    text: "I'll message you on Saturday.",
+    time: "1h",
+    isSent: true,
+  },
+  {
+    sender: "You",
+    text: "I'll message you on Saturday.",
+    time: "1h",
+    isSent: true,
+  },
+  {
+    sender: "You",
+    text: "I'll message you on Saturday.",
+    time: "1h",
+    isSent: true,
+  },
+  {
+    sender: "You",
+    text: "I'll message you on Saturday.",
+    time: "1h",
+    isSent: true,
+  },
+  {
+    sender: "You",
+    text: "I'll message you on Saturday.",
+    time: "1h",
+    isSent: true,
+  },
   // Add more messages here if needed
 ];
 
 const ChatWindow = ({ conversation, onBack }) => {
   return (
-    <div className="flex flex-1 flex-col h-full">
+    <div className="flex flex-1 flex-col h-full sticky">
       {/* Chat header */}
       <div className="p-4 bg-gray-100 dark:bg-gray-700 flex items-center sticky top-0 shadow rounded-t-lg z-10">
         <button className="sm:hidden mr-4 text-gray-600 dark:text-gray-300" onClick={onBack}>

@@ -9,7 +9,7 @@ function Chat() {
   return (
     <>
       <Navbar />
-      <div className="container mx-auto flex flex-col sm:flex-row mt-4 space-y-4 sm:space-y-0 sm:space-x-4 px-4 h-[calc(100vh-64px)]">
+      <div className="container sm:p-4 mx-auto flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 px-4 h-[calc(100vh-64px)]">
         <div className={`sm:flex ${selectedConversation ? 'hidden' : 'flex'} sm:flex w-full sm:w-1/3`}>
           <ConversationList onSelectConversation={setSelectedConversation} />
         </div>
