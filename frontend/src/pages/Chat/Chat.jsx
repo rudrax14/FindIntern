@@ -22,7 +22,7 @@ function Chat() {
         <div
           className={`sm:flex ${selectedConversation ? "flex" : "hidden"} sm:w-2/3 w-full relative`}
         >
-          {selectedConversation ? (
+          {!selectedConversation ? (
             <ChatWindow
               conversation={selectedConversation}
               onBack={() => setSelectedConversation(null)}
