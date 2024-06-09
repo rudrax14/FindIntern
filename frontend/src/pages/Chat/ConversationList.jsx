@@ -5,36 +5,42 @@ const defaultAvatar = "https://via.placeholder.com/40";
 
 const conversations = [
   {
+    id: 1,
     name: "Sofia Davis",
     message: "hey what’s going on?",
     time: "2h",
     avatar: defaultAvatar,
   },
   {
+    id: 2,
     name: "Alex Johnson",
     message: "Just finished a great book!",
     time: "45m",
     avatar: defaultAvatar,
   },
   {
+    id: 3,
     name: "Maria Gonzalez",
     message: "Excited for the weekend!",
     time: "1h",
     avatar: defaultAvatar,
   },
   {
+    id: 4,
     name: "Kevin Brown",
     message: "Who’s up for a movie night?",
     time: "3h",
     avatar: defaultAvatar,
   },
   {
+    id: 5,
     name: "Lily White",
     message: "Morning coffee is the best!",
     time: "30m",
     avatar: defaultAvatar,
   },
   {
+    id: 6,
     name: "Lily White",
     message: "Morning coffee is the best!",
     time: "30m",
@@ -93,6 +99,7 @@ const conversations = [
 
 const ConversationList = ({ onSelectConversation }) => {
   const [searchTerm, setSearchTerm] = useState("");
+  // const [highlightChat, setHighlightChat] = useState(null);
 
   const filteredConversations = conversations.filter((conversation) =>
     conversation.name.toLowerCase().includes(searchTerm.toLowerCase())

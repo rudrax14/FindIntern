@@ -62,7 +62,7 @@ function App() {
           element={<UpdatePassword />}
         />
         {/* chat */}
-        <Route path="/:userType/chat" element={<Chat />} />
+        <Route path="/:userType/chat/:sendId" element={<Chat />} />
         {/* feed */}
         <Route path="/:userType/feed" element={<Feed />} />
         {/* not found */}

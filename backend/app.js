@@ -28,7 +28,7 @@ const adminRouter = require('./routers/adminRouters');
 
 
 const errorControllers = require('./controllers/errorControllers');
-const setupSocket = require('./utils/setupSocket');
+// const setupSocket = require('./utils/setupSocket');
 
 
 app.use(express.json());
