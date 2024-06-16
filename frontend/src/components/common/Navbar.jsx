@@ -91,7 +91,7 @@ function Navbar() {
                   Categories
                 </Link>
                 <Link
-                  to="/:userType/chat"
+                  to={`/${userType}/chat/${userDetails._id}`}
                   className="hover:text-primary-200 hover:cursor-pointer"
                 >
                   Messages

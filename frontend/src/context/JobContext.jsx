@@ -32,6 +32,7 @@ const JobProvider = ({ children }) => {
 
     const fetchAllAppliedJobs = () => {
         const jwtToken = localStorage.getItem("userToken");
+        
         axios.get(`http://localhost:5000/api/v1/jobseeker/getAllAppliedJobs`, {
             headers: {
                 Authorization: `Bearer ${jwtToken}`,

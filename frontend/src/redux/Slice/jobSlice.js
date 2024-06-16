@@ -5,6 +5,7 @@ const jobSlice = createSlice({
     initialState: {
         job: [],
         allJobs: [],
+        userChatList: [],
         loading: false,
         error: null
     },
@@ -15,6 +16,9 @@ const jobSlice = createSlice({
         setAllJobs: (state, action) => {
             state.allJobs = action.payload;
         },
+        setUserChatList: (state,action) => {
+            state.userChatList = action.payload
+        },
         setLoading: (state, action) => {
             state.loading = action.payload;
         },
@@ -24,5 +28,5 @@ const jobSlice = createSlice({
     }
 });
 
-export const { setJob, setAllJobs, setLoading, setError } = jobSlice.actions;
+export const { setJob, setAllJobs,setUserChatList ,setLoading, setError } = jobSlice.actions;
 export default jobSlice.reducer;

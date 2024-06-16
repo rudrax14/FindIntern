@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import useJobHooks from "../../hooks/jobHooks"
+import { useSelector } from "react-redux";
 const defaultAvatar = "https://via.placeholder.com/40";
 
 const conversations = [
@@ -17,6 +18,12 @@ const ConversationList = ({ onSelectConversation }) => {
   const filteredConversations = conversations.filter((conversation) =>
     conversation.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+  const {fetchAllAppliedJobs} = useJobHooks();
+  useEffect(()=>{
+     fetchAllAppliedJobs("chat");
+  },[])
+
+  const companiesToChat = useSelector((state)=>state.job.userChatList);
 
   return (
     <div className="flex flex-1 flex-col h-full w-full sm:w-1/3 rounded-lg border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
@@ -31,20 +38,20 @@ const ConversationList = ({ onSelectConversation }) => {
         />
       </div>
       <div className="flex-1 overflow-y-auto">
-        {filteredConversations.map((conversation) => (
+        {companiesToChat.map((company,i) => (
           <div
-            key={conversation.id}
+            key={i}
             className="p-4 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition duration-200"
             onClick={() => onSelectConversation(conversation)}
           >
             <div className="flex justify-between items-center">
               <div className="flex items-center">
-                <img src={conversation.avatar} alt={`${conversation.name}'s avatar`} className="w-10 h-10 rounded-full mr-3" />
-                <h3 className="font-semibold text-gray-800 dark:text-gray-300">{conversation.name}</h3>
+                <img src={defaultAvatar} alt={`${company}'s avatar`} className="w-10 h-10 rounded-full mr-3" />
+                <h3 className="font-semibold text-gray-800 dark:text-gray-300">{company}</h3>
               </div>
-              <p className="text-sm text-gray-500 dark:text-gray-400">{conversation.time}</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">2h</p>
             </div>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{conversation.message}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">We recently recieved your application</p>
           </div>
         ))}
       </div>

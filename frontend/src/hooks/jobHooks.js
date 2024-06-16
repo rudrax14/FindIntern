@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { setJob, setAllJobs, setLoading, setError } from '../redux/Slice/jobSlice'; // adjust the path as necessary
+import { setJob, setAllJobs, setLoading, setError, setUserChatList } from '../redux/Slice/jobSlice'; // adjust the path as necessary
 import jobService from "../services/jobService";
 
 
@@ -22,7 +22,7 @@ function useJobHooks() {
         }
     };
 
-    const fetchAllAppliedJobs = () => {
+    const fetchAllAppliedJobs = (value) => {
         const jwtToken = localStorage.getItem("userToken");
         dispatch(setLoading(true));
         axios.get(`http://localhost:5000/api/v1/jobseeker/getAllAppliedJobs`, {
@@ -32,6 +32,15 @@ function useJobHooks() {
         }).then((response) => {
             console.log("context-fetchAllAppliedJobs", response.data.appliedJobs);
             dispatch(setAllJobs(response.data.appliedJobs));
+            const appliedJobs = response.data.appliedJobs;
+            if(value === "chat"){
+                console.log(appliedJobs)
+                const appliedCompanies = [];
+                appliedJobs.map((job)=>{
+                    appliedCompanies.push(job.company);
+                })
+                dispatch(setUserChatList(appliedCompanies))
+            }
             dispatch(setLoading(false));
         }).catch((err) => {
             console.log(err);
