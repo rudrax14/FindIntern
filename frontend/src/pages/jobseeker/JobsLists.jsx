@@ -1,23 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Navbar from "../../components/common/Navbar";
-import { FaSistrix } from "react-icons/fa";
-import { IoLocationOutline, IoFilterSharp } from "react-icons/io5";
 import JobsCards from "../../components/common/JobsCard";
-import FilterBoxJobs from "../../components/Filter/FilterBoxJobs";
-import Box from "@mui/material/Box";
-import Slider from "@mui/material/Slider";
 import Searchbar from "../../components/common/Searchbar";
-import CardBody from "../../components/common/CardBody";
-import { JobContext } from "../../context/JobContext";
 import TimeTracker from "../../utils/TimeTracker";
 import { useSelector } from "react-redux";
 import useJobHooks from "../../hooks/jobHooks";
+import FilterComponent from "../../components/common/FilterComponent";
 function JobsLists() {
-    function valuetext(value) {
-        return `${value}`;
-    }
-    const allJobs = useSelector(state => state.job.allJobs);
-    const { fetchAllJobs, fetchAllApprovedJobs } = useJobHooks();
+    const allJobs = useSelector((state) => state.job.allJobs);
+    const { fetchAllJobs } = useJobHooks();
     useEffect(() => {
         fetchAllJobs(true);
     }, []);
@@ -43,55 +34,10 @@ function JobsLists() {
                 <div className="container mx-auto max-w-[1320px]">
                     <div className="md:grid grid-cols-4 gap-3 lg:space-y-0 space-y-6">
                         {/* compo todo */}
-                        <div className="border rounded-lg ml-4 h-fit lg:sticky top-20">
-                            <div className="">
-                                <div className="card-header flex items-center gap-2 border-b p-5">
-                                    <IoFilterSharp />
-                                    <h1 className="text-sm">All Filters</h1>
-                                </div>
-                                <CardBody />
-                                <div className="card-body p-5 space-y-3 border-b">
-                                    <a href="" className="text-secondary-300 font-semibold dark:text-secondary-100">
-                                        Stipend
-                                    </a>
-                                    <div className="">
-                                        <form action="" className="text-secondary-200 space-y-1 ">
-                                            <FilterBoxJobs h1="0 - 3 Lakhs" />
-                                            <FilterBoxJobs h1="3 - 6 Lakhs" />
-                                            <FilterBoxJobs h1="6 - 10 Lakhs" />
-                                        </form>
-                                    </div>
-                                </div>
-                                <div className="card-body p-5 space-y-3 border-b">
-                                    <a href="" className="text-secondary-300 font-semibold dark:text-secondary-100">
-                                        Period
-                                    </a>
-                                    <div className="">
-                                        <form action="" className="text-secondary-200">
-                                            <div className="flex w-full">
-                                                <Box sx={{ width: 300 }}>
-                                                    <Slider
-                                                        aria-label="Always visible"
-                                                        defaultValue={6}
-                                                        getAriaValueText={valuetext}
-                                                        step={1}
-                                                        min={1}
-                                                        max={12}
-                                                        sx={{ color: "#754ffe" }}
-                                                        valueLabelDisplay="on"
-                                                        valueLabelFormat={valuetext}
-                                                    />
-                                                    <div className="flex justify-between dark:text-secondary-100">
-                                                        <span>1 Months</span>
-                                                        <span>12 Months</span>
-                                                    </div>
-                                                </Box>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+                        <FilterComponent />
+
+                        {/* job card fetch  */}
                         <div className="col-span-3">
                             <div className=" rounded-lg h-full mx-4">
                                 {allJobs.map((job, index) => (
