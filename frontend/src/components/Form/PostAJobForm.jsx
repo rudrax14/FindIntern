@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import { LiaUserSolid } from "react-icons/lia";
 import InputField from "./InputField";
 import { useNavigate } from "react-router-dom";
-import { JobContext } from "../../context/JobContext";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
-import axios from "axios";
 import toast from "react-hot-toast"
 import { useDispatch, useSelector } from "react-redux";
 import jobService from "../../services/jobService";
@@ -20,7 +17,7 @@ function PostAJobForm() {
         location: "",
         salary: "",
         description: "",
-        requirements: [],
+        requirements: "",
         department: "",
         type: "Full-Time",
         period: "",
@@ -29,39 +26,23 @@ function PostAJobForm() {
     const job = useSelector((state) => state.job.job);
     function changeHandler(event) {
         const { name, value } = event.target;
-        if (name === "requirements") {
-            const requirementsArray = value.split(",").map((skill) => skill.trim());
+        // if (name === "requirements") {
+        //     const requirementsArray = value.split(",").map((skill) => skill.trim());
 
-            setFormData((prev) => ({
-                ...prev,
-                [name]: requirementsArray,
-            }));
-        } else {
-            setFormData((prev) => ({
-                ...prev,
-                [name]: value,
-            }));
-        }
+        //     setFormData((prev) => ({
+        //         ...prev,
+        //         [name]: requirementsArray,
+        //     }));
+        // } else {
+        // }
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
     }
 
     async function submitHandler(e) {
         e.preventDefault();
-        // const jwtToken = localStorage.getItem("userToken");
-        // axios
-        //     .post(`http://localhost:5000/api/v1/job`, formData, {
-        //         headers: {
-        //             Authorization: `Bearer ${jwtToken}`,
-        //         },
-        //     })
-        //     .then((response) => {
-        //         // setJob(response.data.newJob);
-        //         dispatch(job(response.data.newJob));
-        //         navigate(`/recruiter/job-profile/${response.data.newJob._id}`);
-        //     })
-        //     .catch((err) => {
-        //         console.log(err);
-        //     });
-
         try {
             const newJob = await jobService.postJob(formData)
             dispatch(setJob(newJob));

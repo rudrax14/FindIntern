@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import ChatWindow from "./ChatWindow";
-import ConversationList from "./ConversationList";
 import Navbar from "../../components/common/Navbar";
+import ChatWindow from "../../components/Chat Compo/ChatWindow";
+import ConversationList from "../../components/Chat Compo/ConversationList";
 
 function Chat() {
   const [selectedConversation, setSelectedConversation] = useState(null);
