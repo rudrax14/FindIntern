@@ -32,7 +32,7 @@ const ChatWindow = ({ conversation, onBack }) => {
   useEffect(() => {
     if (selectedUserId) {
       axios.get(`/api/chat/history/${currentUserId}/${selectedUserId}`)
-        .then(response => setMessages(prevMessages => [...prevMessages, ...response.data]))
+        .then(response => setMessages(response.data))
         .catch(error => console.error('Error fetching chat history:', error));
 
       const newSocket = io('http://localhost:4000');
@@ -64,13 +64,13 @@ const ChatWindow = ({ conversation, onBack }) => {
   };
 
   return (
-    <div className="flex flex-1 flex-col h-full sticky">
+    <div className="flex flex-1 flex-col h-full">
       <div className="p-4 bg-gray-100 dark:bg-gray-700 flex items-center sticky top-0 shadow rounded-t-lg z-10">
         <button className="sm:hidden mr-4 text-gray-600 dark:text-gray-300" onClick={onBack}>
           Back
         </button>
         <div className="flex items-center flex-1">
-          <div className="w-10 h-10 bg-gray-300 dark:bg-gray-600 rounded-full mr-4"></div>
+          <img src={conversation.profileImage || defaultAvatar} alt="avatar" className="w-10 h-10 rounded-full mr-4" />
           <div>
             <h3 className="font-bold text-gray-700 dark:text-gray-300">
               {conversation.name}
