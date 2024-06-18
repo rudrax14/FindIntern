@@ -27,8 +27,12 @@ exports.getAllJobs = catchAsync(async (req, res) => {
       }
     }
     // Fetch all jobs
-    const jobs = await Job.find(query);
+    const jobs = await Job.find(query).populate({
+      path: "postedBy",
+      select: "name profileImgUrl"
+    });
 
+  
     res.status(200).json({
       status: 'Success',
       jobs
