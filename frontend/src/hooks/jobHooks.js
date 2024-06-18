@@ -8,6 +8,7 @@ import {
   setUserChatList,
 } from "../redux/Slice/jobSlice"; // adjust the path as necessary
 import jobService from "../services/jobService";
+import { setUserList } from "../redux/Slice/chatSlice";
 
 function useJobHooks() {
   const dispatch = useDispatch();
@@ -39,6 +40,16 @@ function useJobHooks() {
         console.log("hooks-fetchAllAppliedJobs", response.data.appliedJobs);
         dispatch(setAllJobs(response.data.appliedJobs));
         dispatch(setLoading(false));
+        // chat-jobseeker
+        const chatList = response.data.appliedJobs.map((job) => {
+          return {
+            name: job.company,
+            title: job.title,
+            profileImage: job.postedBy.profileImgUrl,
+            userId: job.postedBy._id,
+          };
+        });
+        dispatch(setUserList(chatList));
       })
       .catch((err) => {
         console.log(err);
@@ -72,22 +83,6 @@ function useJobHooks() {
   };
 
   const fetchAJob = async (id) => {
-    // const jwtToken = localStorage.getItem("userToken");
-    // dispatch(setLoading(true));
-    // axios.get(`http://localhost:5000/api/v1/job/${id}`, {
-    //     headers: {
-    //         Authorization: `Bearer ${jwtToken}`,
-    //     }
-    // }).then((response) => {
-    //     console.log("context-fetchAJob", response.data.job);
-    //     dispatch(setJob(response.data.job));
-    //     dispatch(setLoading(false));
-    // }).catch((err) => {
-    // console.log(err);
-    // dispatch(setError(err));
-    // dispatch(setLoading(false));
-    // });
-
     try {
       dispatch(setLoading(true));
       const job = await jobService.getSingleJob(id);
@@ -113,6 +108,18 @@ function useJobHooks() {
         console.log("context-fetchAllCompanyJobs", response.data.jobs);
         dispatch(setAllJobs(response.data.jobs));
         dispatch(setLoading(false));
+        // chat-company
+        const chatList = response.data.jobs.flatMap((job) => {
+          return job.appliedUsers.map((appliedUser) => {
+            return {
+              name: appliedUser.userId.name,
+              title: appliedUser.userId.location,
+              profileImage: appliedUser.userId.profileImgUrl,
+              userId: appliedUser.userId._id,
+            };
+          });
+        });
+        dispatch(setUserList(chatList));
       })
       .catch((err) => {
         console.log(err);

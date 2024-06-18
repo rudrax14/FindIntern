@@ -9,12 +9,30 @@ const ChatWindow = ({ conversation, onBack }) => {
   const selectedUserId = sendId || conversation.id;
   const currentUserId = useSelector((state) => state.user.userDetails._id);
   const [socket, setSocket] = useState(null);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([
+    {
+      sender: selectedUserId,
+      message: "Welcome to the chat! This is a demo message.",
+    },
+    {
+      receiver: currentUserId,
+      message: "Hi there! How are you?",
+    },
+    {
+      sender: selectedUserId,
+      message: "I'm good, thanks! How about you?",
+
+    },
+    {
+      receiver: currentUserId,
+      message: "I'm doing great, thanks for asking!",
+    }
+  ]);
 
   useEffect(() => {
     if (selectedUserId) {
       axios.get(`/api/chat/history/${currentUserId}/${selectedUserId}`)
-        .then(response => setMessages(response.data))
+        .then(response => setMessages(prevMessages => [...prevMessages, ...response.data]))
         .catch(error => console.error('Error fetching chat history:', error));
 
       const newSocket = io('http://localhost:4000');
@@ -37,7 +55,8 @@ const ChatWindow = ({ conversation, onBack }) => {
       const messageData = {
         sender: currentUserId,
         receiver: selectedUserId,
-        message: messageText
+        message: messageText,
+        time: new Date().toLocaleTimeString()
       };
       socket.emit('sendMessage', messageData);
       setMessages(prevMessages => [...prevMessages, messageData]);

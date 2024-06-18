@@ -73,19 +73,19 @@ function Navbar() {
             <div className="flex gap-3 items-center">
               <ul className="lg:flex gap-4 justify-between text-lg font-medium hidden text-secondary-300 dark:text-dark-secondary-300">
                 <Link
-                  to="/jobseeker/feed"
+                  to={`/${userType}/all-jobs`}
                   className="hover:text-primary-200 hover:cursor-pointer"
                 >
                   Home
                 </Link>
-                <Link
+                {/* <Link
                   to={`/${userType}/all-jobs`}
                   className="hover:text-primary-200 hover:cursor-pointer"
                 >
                   Jobs
-                </Link>
+                </Link> */}
                 <Link
-                  to="/"
+                  to={`/${userType}/category`}
                   className="hover:text-primary-200 hover:cursor-pointer"
                 >
                   Categories
@@ -96,12 +96,12 @@ function Navbar() {
                 >
                   Messages
                 </Link>
-                <Link
+                {/* <Link
                   to="/"
                   className="hover:text-primary-200 hover:cursor-pointer"
                 >
                   Contact Us
-                </Link>
+                </Link> */}
               </ul>
               {/* Theme Toggle Button */}
               <button

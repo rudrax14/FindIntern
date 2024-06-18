@@ -16,10 +16,9 @@ import { IoIosSend } from "react-icons/io";
 
 function SingleJobs() {
   const navigate = useNavigate();
-  const { fetchAllJobs, fetchAJob, applyJob, fetchAllApprovedJobs } =
-    useJobHooks();
-  const allJobs = useSelector((state) => state.job.allJobs);
+  const { fetchAllJobs, fetchAJob, applyJob, fetchAllApprovedJobs } = useJobHooks();
   const job = useSelector((state) => state.job.job);
+  console.log("job", job);
   const userDetails = useSelector((state) => state.user.userDetails);
   const { id, userType } = useParams();
   const [isAlreadyApplied, setIsAlreadyApplied] = useState(false);
@@ -71,9 +70,9 @@ function SingleJobs() {
             <div className="card-body border-b sm:flex w-full p-6">
               <div className="comp-logo ">
                 <img
-                  src="https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-brand-logo/job-list-logo-1.svg"
+                  src={job.postedBy && job.postedBy.profileImgUrl}
                   alt=""
-                  className="border rounded-full mr-6 mb-3"
+                  className="border rounded-full mr-6 mb-3 h-16"
                 />
               </div>
               <div className="flex flex-col w-full gap-10">
@@ -137,7 +136,7 @@ function SingleJobs() {
               <p className="text-secondary-200 dark:text-secondary-100">
                 Job Applicants:{" "}
                 <span className="text-secondary-300 dark:text-secondary-100">
-                  306
+                  {job.appliedUsers && job.appliedUsers.length}
                 </span>
               </p>
             </div>
@@ -147,9 +146,7 @@ function SingleJobs() {
                 Job description
               </h2>
               <p className="text-secondary-200 ">
-                Maintains information technology strategies by managing staff
-                researching, Budgeting and implementing technological strategic
-                solutions.
+                {job.description || "null"}
               </p>
             </div>
             <div className="space-y-3">
@@ -157,12 +154,7 @@ function SingleJobs() {
                 Role
               </h2>
               <p className="text-secondary-200 ">
-                Aliquam pellentesque mollis interdum. Proin ligula lacus,
-                maximus quis ante a, luctus sodales sapien. Donec ut tristique
-                nisi. Nulla a quam sit amet turpis convallis porttitor vel sed
-                quam. Ut in odio enim. Maecenas eu tellus erat. Maecenas nec
-                maximus elit, ac suscipit justo. Maecenas nisl tellus, sodales
-                non gravida eget, placerat sit amet erat.
+                {job.department || "null"}
               </p>
             </div>
             {/* list */}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useJobHooks from "../../hooks/jobHooks";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 const defaultAvatar = "https://via.placeholder.com/40";
 
 const conversations = [
@@ -45,18 +46,24 @@ const conversations = [
 const ConversationList = ({ onSelectConversation }) => {
   // search chat list
   const [searchTerm, setSearchTerm] = useState("");
-  const filteredConversations = conversations.filter((conversation) =>
-    conversation.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
+  // const filteredConversations = conversations.filter((conversation) =>
+  //   conversation.name.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
+  const { userType } = useParams();
   // fetch all companies name to chat
-  const { fetchAllAppliedJobs } = useJobHooks();
+  const { fetchAllAppliedJobs, fetchAllCompanyJobs } = useJobHooks();
+
   useEffect(() => {
-    fetchAllAppliedJobs();
+    if (userType === "jobseeker") fetchAllAppliedJobs();
+    fetchAllCompanyJobs()
   }, []);
 
   // fetch companies name from redux
-  const companies = useSelector((state) => state.job.allJobs);
+  const userChatList = useSelector((state) => state.userChat.userList);
+  if (userChatList.length > 0) {
+    console.log("userChatList", userChatList);
+  }
+
 
   return (
     <div className="flex flex-1 flex-col h-full w-full sm:w-1/3 rounded-lg border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
@@ -73,25 +80,27 @@ const ConversationList = ({ onSelectConversation }) => {
         />
       </div>
       <div className="flex-1 overflow-y-auto">
-        {companies?.map((company, i) => (
+        {userChatList.length > 0 && userChatList?.map((chat, i) => (
           <div
             key={i}
             className="p-4 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition duration-200"
-            onClick={() => onSelectConversation(conversations)}
+            onClick={() => {
+              onSelectConversation(conversations)
+            }}
           >
             <div className="flex justify-between items-center">
               <div className="flex items-center">
                 <img
-                  src={defaultAvatar}
-                  alt={`${company}'s avatar`}
+                  src={chat.profileImage}
+                  alt={defaultAvatar}
                   className="w-10 h-10 rounded-full mr-3"
                 />
                 <div className="flex flex-col">
                   <h3 className="font-semibold text-gray-800 dark:text-gray-300">
-                    {company.company}
+                    {chat.name}
                   </h3>
                   <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 ">
-                    {company.title}
+                    {chat.title}
                   </p>
                 </div>
               </div>

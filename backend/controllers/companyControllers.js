@@ -55,7 +55,7 @@ exports.getAllJobsPostedByCompany = catchAsync(async (req, res, next) => {
     path: "jobs",
     populate: {
       path: "appliedUsers.userId",
-      select: "name",
+      select: "name profileImgUrl location",
     },
   });
 

@@ -111,8 +111,15 @@ exports.getAllAppliedJobsByUser = async (req, res, next) => {
     next(new AppError("User not found", 404));
   }
 
+  let query = {};
   // Populate the appliedJobs array of the user
-  await user.populate("appliedJobs.jobId");
+  await user.populate({
+    path: "appliedJobs.jobId",
+    populate: {
+      path: "postedBy",
+      select: "name profileImgUrl",
+    },
+  });
 
   // Extract the applied jobs from the populated user object
   const appliedJobs = user.appliedJobs.map((job) => job.jobId);

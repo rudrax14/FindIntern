@@ -50,9 +50,10 @@ function User() {
                     ) : (
                         <div className="grid xl:grid-cols-2 gap-3 mx-6">
                             {allJobs.map((job, index) => (
+                                console.log('all',allJobs),
                                 <JobsCards
                                     key={index}
-                                    logo="https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-brand-logo/job-list-logo-1.svg"
+                                    logo={job.postedBy.profileImgUrl}
                                     title={job.title}
                                     type={job.type}
                                     company={job.company}
