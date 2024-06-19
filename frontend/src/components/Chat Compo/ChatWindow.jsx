@@ -5,49 +5,49 @@ import axios from "axios";
 import { io } from "socket.io-client";
 
 const ChatWindow = ({ conversation, onBack }) => {
-  const { sendId } = useParams();
-  const selectedUserId = sendId || conversation.id;
+  const { receiverId } = useParams();
+  const selectedUserId = receiverId;
   const currentUserId = useSelector((state) => state.user.userDetails._id);
   const [socket, setSocket] = useState(null);
   const [messages, setMessages] = useState([
     {
-      sender: selectedUserId,
+      receiver: selectedUserId,
       message: "Welcome to the chat! This is a demo message.",
     },
     {
-      receiver: currentUserId,
+      sender: currentUserId,
       message: "Hi there! How are you?",
     },
     {
-      sender: selectedUserId,
+      receiver: selectedUserId,
       message: "I'm good, thanks! How about you?",
 
     },
     {
-      receiver: currentUserId,
+      sender: currentUserId,
       message: "I'm doing great, thanks for asking!",
     }
   ]);
 
   useEffect(() => {
-    if (selectedUserId) {
-      axios.get(`/api/chat/history/${currentUserId}/${selectedUserId}`)
-        .then(response => setMessages(response.data))
-        .catch(error => console.error('Error fetching chat history:', error));
+    // if (selectedUserId) {
+    //   axios.get(`/api/chat/history/${currentUserId}/${selectedUserId}`)
+    //     .then(response => setMessages(response.data))
+    //     .catch(error => console.error('Error fetching chat history:', error));
 
-      const newSocket = io('http://localhost:4000');
-      setSocket(newSocket);
+    //   const newSocket = io('http://localhost:4000');
+    //   setSocket(newSocket);
 
-      newSocket.emit('join', currentUserId);
+    //   newSocket.emit('join', currentUserId);
 
-      newSocket.on('receiveMessage', (message) => {
-        setMessages(prevMessages => [...prevMessages, message]);
-      });
+    //   newSocket.on('receiveMessage', (message) => {
+    //     setMessages(prevMessages => [...prevMessages, message]);
+    //   });
 
-      return () => {
-        newSocket.disconnect();
-      };
-    }
+    //   return () => {
+    //     newSocket.disconnect();
+    //   };
+    // }
   }, [selectedUserId, currentUserId]);
 
   const sendMessage = (messageText) => {

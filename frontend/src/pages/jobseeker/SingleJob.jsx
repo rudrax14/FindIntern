@@ -57,7 +57,7 @@ function SingleJobs() {
 
   const sendHandler = () => {
     console.log("send-message", job.postedBy);
-    navigate(`/jobseeker/chat/${job.postedBy}`);
+    navigate(`/jobseeker/chat/${job.postedBy._id}`);
   };
 
   return (
