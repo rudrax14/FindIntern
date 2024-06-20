@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import axios from "axios";
-import { io } from "socket.io-client";
+import  io  from "socket.io-client";
 
 const ChatWindow = ({ conversation, onBack }) => {
-  const { receiverId } = useParams();
+  const { userType, receiverId } = useParams();
   const selectedUserId = receiverId;
   const currentUserId = useSelector((state) => state.user.userDetails._id);
   const [socket, setSocket] = useState(null);
@@ -30,24 +30,25 @@ const ChatWindow = ({ conversation, onBack }) => {
   ]);
 
   useEffect(() => {
-    // if (selectedUserId) {
-    //   axios.get(`/api/chat/history/${currentUserId}/${selectedUserId}`)
-    //     .then(response => setMessages(response.data))
-    //     .catch(error => console.error('Error fetching chat history:', error));
+    if (selectedUserId) {
+      // axios.get(`/api/chat/history/${currentUserId}/${selectedUserId}`)
+      //   .then(response => setMessages(response.data))
+      //   .catch(error => console.error('Error fetching chat history:', error));
 
-    //   const newSocket = io('http://localhost:4000');
-    //   setSocket(newSocket);
+      const newSocket = io('http://localhost:5000');
+      console.log(newSocket)
+      setSocket(newSocket);
+      const senderDetails = {userType,currentUserId}
+      newSocket.emit('join', senderDetails);
 
-    //   newSocket.emit('join', currentUserId);
+      newSocket.on('receiveMessage', (message) => {
+        setMessages(prevMessages => [...prevMessages, message]);
+      });
 
-    //   newSocket.on('receiveMessage', (message) => {
-    //     setMessages(prevMessages => [...prevMessages, message]);
-    //   });
-
-    //   return () => {
-    //     newSocket.disconnect();
-    //   };
-    // }
+      return () => {
+        newSocket.disconnect();
+      };
+    }
   }, [selectedUserId, currentUserId]);
 
   const sendMessage = (messageText) => {

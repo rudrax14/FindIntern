@@ -6,8 +6,14 @@ const http = require('http')
 const cors = require('cors')
 const app = express();
 const server = http.createServer(app)
-const setupSocket = require('./utils/setupSocket');
-setupSocket(server);
+const socketio = require('socket.io')
+const io = socketio(server,{
+  cors: {
+    origin: "http://localhost:4000",
+    methods: ["GET", "POST"],
+    credentials: true
+  }
+})
 connectDB();
 // file upload methord // server pe upload karna hai
 const fileUpload = require('express-fileupload');
@@ -18,7 +24,9 @@ app.use(fileUpload({
 }));
 const cloudinary = require('./cloudinary');
 cloudinary.cloudinaryConnect();
-app.use(cors())
+app.use(cors({
+    origin: "http://localhost:4000"
+  }))
 
 const authRouter = require('./routers/authRouters');
 const userRouter = require('./routers/userRouters');
@@ -28,6 +36,7 @@ const adminRouter = require('./routers/adminRouters');
 
 
 const errorControllers = require('./controllers/errorControllers');
+const Message = require('./models/Message');
 // const setupSocket = require('./utils/setupSocket');
 
 
@@ -51,10 +60,38 @@ app.use("/api/v1/admin/", adminRouter);
 app.use(errorControllers);
 
 
-app.listen(5000, () => {
+server.listen(5000, () => {
     console.log("Listening");
 })
 
+
+
+
+
+
+io.on("connection", (socket) => {
+    console.log("New client connected");
+
+    socket.on("join", ({ currentUserId, userType }) => {
+      socket.join(`${userType}:${currentUserId}`);
+      console.log(`User joined: ${userType}:${currentUserId}`);
+    });
+
+    socket.on("sendMessage", async (data) => {
+      const { sender, receiver, message, role } = data;
+      const newMessage = new Message({ sender, receiver, message });
+      await newMessage.save();
+
+      io.to(`${receiver.type}:${receiver.id}`).emit(
+        "receiveMessage",
+        newMessage
+      );
+    });
+
+    socket.on("disconnect", () => {
+      console.log("Client disconnected");
+    });
+});
 
 
 
