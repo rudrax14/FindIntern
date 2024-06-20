@@ -9,6 +9,7 @@ const ChatWindow = ({ conversation, onBack }) => {
   const selectedUserId = receiverId;
   const currentUserId = useSelector((state) => state.user.userDetails._id);
   const [socket, setSocket] = useState(null);
+  const [message,setMessage] = useState("")
   const [messages, setMessages] = useState([
     {
       receiver: selectedUserId,
@@ -31,9 +32,11 @@ const ChatWindow = ({ conversation, onBack }) => {
 
   useEffect(() => {
     if (selectedUserId) {
-      // axios.get(`/api/chat/history/${currentUserId}/${selectedUserId}`)
-      //   .then(response => setMessages(response.data))
-      //   .catch(error => console.error('Error fetching chat history:', error));
+      const receiverRole = userType === "jobseeker"?"recruiter":"jobseeker";
+      //`/history?senderType=${userType}&senderId=${currentUserId}&receiverType=${receiverRole}&receiverId=${selectedUserId}`
+       axios.get(`${import.meta.env.VITE_BACKEND_URL}/chat/history?senderType=${userType}&senderId=${currentUserId}&receiverType=${receiverRole}&receiverId=${selectedUserId}`)
+         .then(response => setMessages(response.data))
+         .catch(error => console.error('Error fetching chat history:', error));
 
       const newSocket = io('http://localhost:5000');
       console.log(newSocket)
@@ -52,12 +55,14 @@ const ChatWindow = ({ conversation, onBack }) => {
   }, [selectedUserId, currentUserId]);
 
   const sendMessage = (messageText) => {
-    if (socket && messageText.trim()) {
+    console.log(messageText)
+    if (socket) {
+      console.log("hello")
       const messageData = {
         sender: currentUserId,
         receiver: selectedUserId,
         message: messageText,
-        time: new Date().toLocaleTimeString()
+        role:userType
       };
       socket.emit('sendMessage', messageData);
       setMessages(prevMessages => [...prevMessages, messageData]);
@@ -103,17 +108,18 @@ const ChatWindow = ({ conversation, onBack }) => {
           type="text"
           placeholder="Type your message..."
           className="flex-1 p-2 rounded-l-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 placeholder-gray-500 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          onChange={(e)=>setMessage(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
-              sendMessage(e.target.value);
-              e.target.value = '';
+              sendMessage(message);
+              
             }
           }}
         />
         <button className="bg-blue-500 text-white p-2 rounded-r-lg hover:bg-blue-600 transition duration-200" onClick={() => {
-          const input = document.querySelector('input[type="text"]');
-          sendMessage(input.value);
-          input.value = '';
+          
+          sendMessage(message);
+          
         }}>
           Send
         </button>

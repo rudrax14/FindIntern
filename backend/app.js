@@ -32,6 +32,7 @@ const authRouter = require('./routers/authRouters');
 const userRouter = require('./routers/userRouters');
 const companyRouter = require('./routers/companyRouters');
 const jobRouter = require('./routers/jobRouters');
+const chatRouter = require('./routers/chatRouters')
 const adminRouter = require('./routers/adminRouters');
 
 
@@ -52,6 +53,7 @@ app.use("/api/v1/jobseeker/", userRouter);
 app.use("/api/v1/recruiter/", companyRouter);
 app.use("/api/v1/job", jobRouter);
 //companyRouter.use('/:companyId', jobRouter);
+app.use("/api/v1/chat",chatRouter)
 app.use("/api/v1/admin/", adminRouter);
 
 
@@ -79,9 +81,12 @@ io.on("connection", (socket) => {
 
     socket.on("sendMessage", async (data) => {
       const { sender, receiver, message, role } = data;
-      const newMessage = new Message({ sender, receiver, message });
+      console.log(message)
+      const senderObj = { id:sender,type:(role==="jobseeker"?"User":"Company")} 
+      const receiverObj = { id:receiver,type:(role==="jobseeker"?"Company":"User")} 
+      const newMessage = new Message({ sender:senderObj, receiver:receiverObj, message });
       await newMessage.save();
-
+      
       io.to(`${receiver.type}:${receiver.id}`).emit(
         "receiveMessage",
         newMessage
