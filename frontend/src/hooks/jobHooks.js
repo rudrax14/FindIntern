@@ -49,7 +49,17 @@ function useJobHooks() {
             userId: job.postedBy._id,
           };
         });
-        dispatch(setUserList(chatList));
+        // Use a Set to track unique userIds
+        const uniqueUsers = new Set();
+        const uniqueChatList = [];
+
+        chatList.forEach((user) => {
+          if (!uniqueUsers.has(user.userId)) {
+            uniqueUsers.add(user.userId);
+            uniqueChatList.push(user);
+          }
+        });
+        dispatch(setUserList(uniqueChatList));
       })
       .catch((err) => {
         console.log(err);
@@ -108,18 +118,6 @@ function useJobHooks() {
         console.log("context-fetchAllCompanyJobs", response.data.jobs);
         dispatch(setAllJobs(response.data.jobs));
         dispatch(setLoading(false));
-        // chat-company
-        // const chatList = response.data.jobs.flatMap((job) => {
-        //   return job.appliedUsers.map((appliedUser) => {
-        //     return {
-        //       name: appliedUser.userId.name,
-        //       title: appliedUser.userId.location,
-        //       profileImage: appliedUser.userId.profileImgUrl,
-        //       userId: appliedUser.userId._id,
-        //     };
-        //   });
-        // });
-        // dispatch(setUserList(chatList));
         const chatList = response.data.jobs.flatMap((job) => {
           return job.appliedUsers.map((appliedUser) => {
             return {

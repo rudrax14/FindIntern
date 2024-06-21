@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -12,11 +12,11 @@ const ChatWindow = ({ conversation, onBack }) => {
   const [socket, setSocket] = useState(null);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const chatWindowRef = useRef(null);
 
   useEffect(() => {
     if (selectedUserId) {
       const receiverRole = userType === "jobseeker" ? "recruiter" : "jobseeker";
-      //`/history?senderType=${userType}&senderId=${currentUserId}&receiverType=${receiverRole}&receiverId=${selectedUserId}`
       axios
         .get(
           `${import.meta.env.VITE_BACKEND_URL}/chat/history?senderType=${userType}&senderId=${currentUserId}&receiverType=${receiverRole}&receiverId=${selectedUserId}`
@@ -24,6 +24,7 @@ const ChatWindow = ({ conversation, onBack }) => {
         .then((response) => {
           console.log(response.data);
           setMessages(response.data);
+          scrollToBottom();
         })
         .catch((error) => console.error("Error fetching chat history:", error));
 
@@ -35,6 +36,7 @@ const ChatWindow = ({ conversation, onBack }) => {
 
       newSocket.on("receiveMessage", (message) => {
         setMessages((prevMessages) => [...prevMessages, message]);
+        scrollToBottom();
       });
 
       return () => {
@@ -43,19 +45,24 @@ const ChatWindow = ({ conversation, onBack }) => {
     }
   }, [selectedUserId, currentUserId]);
 
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   const scrollToBottom = () => {
-    const chatWindow = document.querySelector(".flex-1");
-    chatWindow.scrollTop = chatWindow.scrollHeight;
-  }
+    if (chatWindowRef.current) {
+      chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
+    }
+  };
 
   const sendMessage = (messageText) => {
-    console.log(messageText);
+    // console.log(messageText);
     if (socket) {
       const messageData = {
         sender: currentUserId,
         receiver: selectedUserId,
         message: messageText,
-        timestamp: new Date().toLocaleTimeString(),
+        timestamp: new Date().toISOString(), // Use ISO string for proper timestamp
         role: userType,
       };
       if (messageText.trim() === "") return;
@@ -92,7 +99,7 @@ const ChatWindow = ({ conversation, onBack }) => {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-900">
+      <div className="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-900" ref={chatWindowRef}>
         <div className="p-4 space-y-4">
           {messages.length == 0 ? (
             <div className="text-white text-center ">No message here</div>
@@ -106,7 +113,7 @@ const ChatWindow = ({ conversation, onBack }) => {
                   className={`p-4 rounded-lg max-w-xs ${message.receiver.id === currentUserId ? "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300" : "bg-blue-500 text-white"}`}
                 >
                   <p>{message.message}</p>
-                  <p className="text-sm text-gray-400 dark:text-gray-500 mt-2">
+                  <p className="text-sm text-gray-200 dark:text-gray-300 mt-2 text-end">
                     {timeAgo(message.timestamp)}
                   </p>
                 </div>

@@ -67,7 +67,7 @@ function SingleJobs() {
     const messageData = {
       sender: currentUserId,
       receiver: selectedUserId,
-      message: "I have applied for this job",
+      message: `I have applied for this job (${job.title})`,
       role: userType,
     };
     socket.emit("sendMessage", messageData);
