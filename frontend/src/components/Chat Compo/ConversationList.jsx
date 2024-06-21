@@ -19,6 +19,7 @@ const ConversationList = ({ onSelectConversation }) => {
   }, []);
 
   const userChatList = useSelector((state) => state.userChat.userList);
+  console.log("userChatList", userChatList);
   const navigate = useNavigate();
   return (
     <div className="flex flex-1 flex-col h-full w-full sm:w-1/3 rounded-lg border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">

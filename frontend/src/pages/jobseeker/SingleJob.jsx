@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 // import Button from "@mui/material/Button";
 import adminService from "../../services/adminService";
 import { IoIosSend } from "react-icons/io";
+import { io } from "socket.io-client";
 
 function SingleJobs() {
   const navigate = useNavigate();
@@ -22,6 +23,8 @@ function SingleJobs() {
   const userDetails = useSelector((state) => state.user.userDetails);
   const { id, userType } = useParams();
   const [isAlreadyApplied, setIsAlreadyApplied] = useState(false);
+  const [socket, setSocket] = useState(null);
+  const [applied, setApplied] = useState(false);
 
   useEffect(() => {
     fetchAJob(id);
@@ -31,18 +34,44 @@ function SingleJobs() {
 
   useEffect(() => {
     // Check if the user has already applied for this job
-    if (userDetails && userDetails.appliedJobs) {
-      const hasApplied = userDetails.appliedJobs.some(
-        (appliedJob) => appliedJob.jobId === job._id
-      );
-      setIsAlreadyApplied(hasApplied);
-    }
+    // if (userDetails && userDetails.appliedJobs) {
+    //   const hasApplied = userDetails.appliedJobs.some(
+    //     (appliedJob) => appliedJob.jobId === job._id
+    //   );
+    //   setIsAlreadyApplied(hasApplied);
+    // }
   }, [userDetails, job]);
 
+  useEffect(() => {
+    const newSocket = io("http://localhost:5000");
+    setSocket(newSocket);
+    console.log("useEffect");
+    return () => {
+      if (newSocket) {
+        newSocket.disconnect();
+      }
+    };
+  }, []);
+
   const appliedHandler = () => {
+
     console.log("apply for this job", job._id);
-    applyJob(job._id);
-    navigate(`/${userType}/profile`);
+    // applyJob(job._id);
+    // socket
+    const selectedUserId = job.postedBy._id;
+    const currentUserId = userDetails._id;
+    const senderDetails = { userType, currentUserId };
+    console.log('socket', socket);
+    console.log("currentUserId", currentUserId);
+    socket.emit("join", senderDetails);
+    const messageData = {
+      sender: currentUserId,
+      receiver: selectedUserId,
+      message: "I have applied for this job",
+      role: userType,
+    };
+    socket.emit("sendMessage", messageData);
+    navigate(`/${userType}/chat/`);
   };
 
   const approveHandler = () => {

@@ -53,10 +53,16 @@ exports.getAllJobsPostedByCompany = catchAsync(async (req, res, next) => {
   // Find the company by ID and populate the jobs array
   const company = await Company.findById(companyId).populate({
     path: "jobs",
-    populate: {
-      path: "appliedUsers.userId",
-      select: "name profileImgUrl location",
-    },
+    populate: [
+      {
+        path: "appliedUsers.userId",
+        select: "name profileImgUrl location",
+      },
+      {
+        path: "postedBy",
+        select: "profileImgUrl",
+      },
+    ],
   });
 
   if (!company) {
