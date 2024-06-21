@@ -69,7 +69,3 @@ export function timeAgo(query) {
     return timeAgo;
   }
   
-  // Example usage:
-  const query = "2024-06-21T13:10:19.213Z";
-  console.log(timeAgo(query)); // Output will depend on the current time
-  

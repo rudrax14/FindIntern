@@ -14,7 +14,7 @@ import RecruiterProfile from "./pages/recruiter/RecruiterProfile";
 import JobseekerMoreInfo from "./pages/jobseeker/JobseekerMoreInfo";
 import JobsLists from "./pages/jobseeker/JobsLists";
 import SingleJobs from "./pages/jobseeker/SingleJob";
-import JobseekerProfile from "./pages/jobseeker/JobseekerProfile";
+import JobseekerProfile from "./pages/jobseeker/Profile";
 // admin
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import NotFound from "./pages/NotFound";
@@ -41,7 +41,7 @@ function App() {
         <Route path="/onboarding/sign-in/:userType" element={<Login />} />
         <Route path="/onboarding/sign-up/:userType" element={<Signup />} />
         {/*profile */}
-        <Route path="/:userType/profile/" element={<JobseekerProfile />} />
+        <Route path="/:userType/profile/:userId" element={<JobseekerProfile />} />
         {/* <Route path="/:userType/profile/" element={<RecruiterProfile />} /> */}
         {/* more-info */}
         <Route path="/:userType/more-info" element={<MoreInfo />} />
@@ -53,7 +53,7 @@ function App() {
         {/* jobs */}
         <Route path="/:userType/all-jobs" element={<JobsLists />} />
         <Route path="/:userType/job-profile/:id" element={<SingleJobs />} />
-        {/* {category} */}
+        {/* category */}
         <Route path="/:userType/category" element={<Category />} />
         {/* admin */}
         <Route path="/sign-in/:userType" element={<Login />} />

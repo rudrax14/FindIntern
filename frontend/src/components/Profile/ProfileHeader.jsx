@@ -1,17 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 function ProfileHeader() {
 
     const userDetails = useSelector((state) => state.user.userDetails);
-    const userData = useSelector((state) => state.user.userData);
     const { userType } = useParams();
-
-
-    // navbar ke through run ho rhaa hai 
-    // useEffect(() => {
-    //     userData(userType)
-    // }, []);
     const defaultImageUrl = 'https://res.cloudinary.com/dipv5sufo/image/upload/v1708846305/FindIntern/Assets/stock-profile.jpg';
     return (
         <div className="container mx-auto max-w-7xl rounded-lg">

@@ -159,7 +159,7 @@ function Navbar() {
                   >
                     <Link
                       className="block px-4 py-1  hover:text-primary-200 hover:cursor-pointer"
-                      to={`/${userType}/profile`}
+                      to={`/${userType}/profile/${userDetails._id}`}
                     >
                       Profile
                     </Link>

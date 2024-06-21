@@ -19,7 +19,6 @@ function SingleJobs() {
   const navigate = useNavigate();
   const { fetchAllJobs, fetchAJob, applyJob, fetchAllApprovedJobs } = useJobHooks();
   const job = useSelector((state) => state.job.job);
-  console.log("job", job);
   const userDetails = useSelector((state) => state.user.userDetails);
   const { id, userType } = useParams();
   const [isAlreadyApplied, setIsAlreadyApplied] = useState(false);
