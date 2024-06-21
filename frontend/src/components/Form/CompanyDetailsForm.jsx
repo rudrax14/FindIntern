@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import InputField from "./InputField";
 import { LiaUserSolid } from "react-icons/lia";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import AvatarUploader from "./AvatarUploader";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -17,6 +17,7 @@ function CompanyDetailsForm() {
 
     const { userType } = useParams();
     const userDetails = useSelector((state) => state.user.userDetails);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (userDetails) {
@@ -57,6 +58,7 @@ function CompanyDetailsForm() {
                 console.log(err);
                 const error = err.response.data.message;
             });
+        navigate(`/${userType}/profile/${userDetails._id}`)
     };
 
     return (

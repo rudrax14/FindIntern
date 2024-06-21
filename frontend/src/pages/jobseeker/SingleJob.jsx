@@ -14,11 +14,13 @@ import { useSelector } from "react-redux";
 import adminService from "../../services/adminService";
 import { IoIosSend } from "react-icons/io";
 import { io } from "socket.io-client";
+import AppliedUsers from "../../components/AppliedUsers";
 
 function SingleJobs() {
   const navigate = useNavigate();
   const { fetchAllJobs, fetchAJob, applyJob, fetchAllApprovedJobs } = useJobHooks();
   const job = useSelector((state) => state.job.job);
+  console.log("job", job);
   const userDetails = useSelector((state) => state.user.userDetails);
   const { id, userType } = useParams();
   const [isAlreadyApplied, setIsAlreadyApplied] = useState(false);
@@ -258,6 +260,7 @@ function SingleJobs() {
             )}
           </div>
         </div>
+        {userType == "recruiter" && <AppliedUsers user={job.appliedUsers} />}
         {/* related jobs */}
         {/* <div className='container mx-auto  max-w-4xl mt-12'>
                     <h2 className='text-secondary-300 text-2xl font-semibold mb-6 ml-6'>Similar Jobs</h2>
