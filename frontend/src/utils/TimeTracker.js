@@ -1,4 +1,4 @@
-function TimeTracker(dateString) {
+export default function TimeTracker(dateString) {
     const currentDate = new Date();
     const pastDate = new Date(dateString);
 
@@ -22,4 +22,54 @@ function TimeTracker(dateString) {
     }
 }
 
-export default TimeTracker;
+
+export function timeAgo(query) {
+    // Parse the input datetime string
+    const inputTime = new Date(query);
+  
+    // Get the current time
+    const currentTime = new Date();
+  
+    // Calculate the difference in milliseconds
+    const diff = currentTime - inputTime;
+  
+    // Define time units in milliseconds
+    const msPerSecond = 1000;
+    const msPerMinute = 60 * msPerSecond;
+    const msPerHour = 60 * msPerMinute;
+    const msPerDay = 24 * msPerHour;
+    const msPerMonth = 30 * msPerDay; // Approximate
+    const msPerYear = 365 * msPerDay; // Approximate
+  
+    let timeAgo;
+  
+    // Calculate the time difference in a human-readable format
+    if (diff < msPerSecond) {
+      timeAgo = 'just now';
+    } else if (diff < msPerMinute) {
+      const seconds = Math.round(diff / msPerSecond);
+      timeAgo = `${seconds} s${seconds !== 1 ? '' : ''} ago`;
+    } else if (diff < msPerHour) {
+      const minutes = Math.round(diff / msPerMinute);
+      timeAgo = `${minutes} m${minutes !== 1 ? '' : ''} ago`;
+    } else if (diff < msPerDay) {
+      const hours = Math.round(diff / msPerHour);
+      timeAgo = `${hours} hour${hours !== 1 ? '' : ''} ago`;
+    } else if (diff < msPerMonth) {
+      const days = Math.round(diff / msPerDay);
+      timeAgo = `${days} day${days !== 1 ? '' : ''} ago`;
+    } else if (diff < msPerYear) {
+      const months = Math.round(diff / msPerMonth);
+      timeAgo = `${months} month${months !== 1 ? '' : ''} ago`;
+    } else {
+      const years = Math.round(diff / msPerYear);
+      timeAgo = `${years} year${years !== 1 ? '' : ''} ago`;
+    }
+  
+    return timeAgo;
+  }
+  
+  // Example usage:
+  const query = "2024-06-21T13:10:19.213Z";
+  console.log(timeAgo(query)); // Output will depend on the current time
+  

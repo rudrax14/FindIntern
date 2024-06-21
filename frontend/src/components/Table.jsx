@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import TimeTracker from '../utils/TimeTracker'
+import {TimeTracker} from '../utils/TimeTracker'
 import { AdminContext } from '../context/AdminContext'
 import useJobHooks from '../hooks/jobHooks'
 import { useSelector } from 'react-redux'
