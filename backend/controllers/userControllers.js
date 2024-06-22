@@ -101,31 +101,36 @@ exports.applyJob = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getAllAppliedJobsByUser = async (req, res, next) => {
+exports.getAllAppliedJobsByUser = catchAsync(async (req, res, next) => {
   const userId = req.user.id; // Assuming user ID is provided in the request parameters
 
   // Find the user by ID
   const user = await User.findById(userId);
 
   if (!user) {
-    next(new AppError("User not found", 404));
+    return next(new AppError("User not found", 404));
   }
 
-  let query = {};
   // Populate the appliedJobs array of the user
   await user.populate({
-    path: "appliedJobs.jobId",
-    populate: {
-      path: "postedBy",
-      select: "name profileImgUrl",
-    },
+    path: 'appliedJobs.jobId',
+    populate: [
+      {
+        path: 'postedBy',
+        select: 'name profileImgUrl',
+      },
+      {
+        path: 'appliedUsers.userId',
+        select: 'name email profileImgUrl',
+      }
+    ]
   });
 
   // Extract the applied jobs from the populated user object
-  const appliedJobs = user.appliedJobs.map((job) => job.jobId);
+  const appliedJobs = user.appliedJobs.map(job => job.jobId);
 
   res.status(200).json({
     status: "Success",
-    appliedJobs,
+    appliedJobs
   });
-};
+});
