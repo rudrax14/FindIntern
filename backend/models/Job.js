@@ -41,6 +41,10 @@ const jobSchema = new mongoose.Schema({
     dateApplied: {
       type: Date,
       default: Date.now
+    },
+    isSelected:{
+      type:Boolean,
+      default:false
     }
 
   }],

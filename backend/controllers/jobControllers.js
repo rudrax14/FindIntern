@@ -174,3 +174,45 @@ exports.deleteJob = catchAsync(async (req, res) => {
 
 // Example usage in a route
 // router.delete('/jobs/:jobId', deleteJob);
+
+
+exports.toggleSelection = catchAsync(async (req, res, next) => {
+  const jobId = req.params.jobId; // Replace with the actual job ID
+  const { status } = req.body;
+  
+  // Check if the user is the one who posted the job
+  const job = await Job.findById(jobId);
+  if (!job || job.postedBy.toString() !== req.user.id) {
+    return next(
+      new AppError("You don't have the permission to perform this action", 403)
+    );
+  }
+
+  if (status) {
+    // Set isSelected to true for all users who applied to the job
+    await Job.updateOne(
+      { _id: jobId },
+      { $set: { 'appliedUsers.$[].isSelected': true } }
+    );
+
+    return res.status(200).json({
+      status: "Success",
+      message: "All applicants have been selected",
+    });
+  } else {
+    // Delete the job
+    await Job.findByIdAndDelete(jobId);
+
+    // Remove the job ID from the associated company's jobs array
+    const companyId = job.postedBy;
+    await Company.findByIdAndUpdate(companyId, {
+      $pull: { jobs: jobId },
+      $set: { updatedAt: Date.now() },
+    });
+
+    return res.status(200).json({
+      status: "Success",
+      message: "Job deleted successfully",
+    });
+  }
+});
