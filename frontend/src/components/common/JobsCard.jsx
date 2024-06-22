@@ -5,6 +5,8 @@ import { LiaRupeeSignSolid } from "react-icons/lia";
 import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
 import jobService from "../../services/jobService";
 import { toast } from "react-hot-toast";
+import Avatar from '@mui/material/Avatar';
+import AvatarGroup from '@mui/material/AvatarGroup';
 
 function JobsCards({
   logo,
@@ -17,9 +19,17 @@ function JobsCards({
   id,
   timeAgo,
   setJobDeleted,
+  employees = [
+    { name: "User 1", avatarUrl: "https://randomuser.me/api" },
+    { name: "User 2", avatarUrl: "https://randomuser.me/api" },
+    { name: "User 3", avatarUrl: "https://randomuser.me/api" },
+    { name: "User 3", avatarUrl: "https://randomuser.me/api" },
+    { name: "User 3", avatarUrl: "https://randomuser.me/api" },
+    { name: "User 3", avatarUrl: "https://randomuser.me/api" },
+  ], 
 }) {
   const navigate = useNavigate();
-  const routerlocation = useLocation();
+  const routerLocation = useLocation();
   const { userType } = useParams();
 
   const deleteHandler = async (e) => {
@@ -30,7 +40,7 @@ function JobsCards({
       try {
         await jobService.deleteJob(id);
         toast.success("Job deleted successfully");
-        setJobDeleted(prev => !prev); // Toggle jobDeleted state to trigger useEffect
+        setJobDeleted((prev) => !prev); // Toggle jobDeleted state to trigger useEffect
       } catch (err) {
         console.error(err);
         toast.error("Failed to delete job");
@@ -49,63 +59,67 @@ function JobsCards({
       onClick={() => {
         navigate(`/${userType}/job-profile/${id}`);
       }}
-      className="jobs-card flex flex-col items-center pb-4 gap-6"
+      className="jobs-card flex flex-col items-center pb-4 gap-6 cursor-pointer"
     >
-      <div className="card-body border sm:flex w-full p-6 rounded-lg hover:shadow-md hover:cursor-pointer dark:bg-dark-secondary-400 dark:border-none">
-        <div className="comp-logo">
-          <img src={logo} alt="comp-logo" className="border rounded-full mr-6 mb-3 w-14" />
-        </div>
-        <div className="flex flex-col w-full gap-10">
-          <div className="comp-description flex flex-col gap-1">
-            <div className="flex justify-between">
-              <div className="flex items-center">
-                <h3 className="font-semibold text-base dark:text-secondary-100">{title || "null"}</h3>
-                <span className="text-red-600 font-normal sm:ml-2 mt-1 bg-red-50 px-3 rounded-lg">
+      <div className="card-body border w-full p-6 rounded-lg shadow-sm hover:shadow-md dark:bg-dark-secondary-400 dark:border-none transition-shadow duration-300">
+        <div className="flex items-start">
+          <img
+            src={logo}
+            alt="comp-logo"
+            className="border rounded-full w-14 h-14 mr-6"
+          />
+          <div className="flex flex-col w-full gap-6">
+            <div className="flex justify-between items-center">
+              <div className="flex items-center gap-2">
+                <h3 className="font-semibold text-lg dark:text-secondary-100">
+                  {title || "null"}
+                </h3>
+                <span className="text-red-600 font-normal bg-red-50 px-3 py-1 rounded-lg text-sm">
                   {type || "null"}
                 </span>
               </div>
-              <div className={`flex space-x-4 ${routerlocation.pathname === "/recruiter/profile" ? "delete-button block" : "delete-button hidden"}`}>
-                <div className="dark:text-secondary-100">
-                  <a onClick={editHandler}>
+              {routerLocation.pathname === "/recruiter/profile" && (
+                <div className="flex space-x-4 text-secondary-100">
+                  <a onClick={editHandler} className="hover:text-blue-500">
                     <FaPencilAlt />
                   </a>
-                </div>
-                <div className="dark:text-secondary-100">
-                  <a onClick={deleteHandler}>
+                  <a onClick={deleteHandler} className="hover:text-red-500">
                     <FaRegTrashAlt />
                   </a>
                 </div>
-              </div>
+              )}
             </div>
-            <div className="text-secondary-200 flex flex-row gap-3">
-              <span>at {company}</span>
-              <span className="text-secondary-300 dark:text-secondary-200">4.5 ⭐</span>
-              <span>(131 Reviews)</span>
+            <div className="text-secondary-200 flex flex-row items-center gap-3">
+              <span className="text-sm">at {company}</span>
+              {employees.length > 0 && (
+                <AvatarGroup max={4} sx={{ '& .MuiAvatar-root': { width: 30, height: 30 } }}>
+                  {employees.map((employee, index) => (
+                    <Avatar
+                      key={index}
+                      alt={employee.name}
+                      src={employee.avatarUrl}
+                      title={employee.name} // Shows employee name on hover
+                    />
+                  ))}
+                </AvatarGroup>
+              )}
             </div>
-          </div>
-          <div className="">
-            <div className="sm:flex justify-between text-secondary-200">
-              <div className="flex flex-row gap-3">
+            <div className="flex flex-col sm:flex-row justify-between text-secondary-200">
+              <div className="flex flex-row gap-4 text-sm">
                 <div className="flex items-center gap-1">
-                  <span className="">
-                    <IoCalendarClearOutline />
-                  </span>
+                  <IoCalendarClearOutline />
                   <span>{period || "null"}</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <span>
-                    <LiaRupeeSignSolid />
-                  </span>
+                  <LiaRupeeSignSolid />
                   <span>{salary || "null"}</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <span>
-                    <IoLocationOutline />
-                  </span>
+                  <IoLocationOutline />
                   <span>{location || "null"}</span>
                 </div>
               </div>
-              <div className="">{timeAgo || "null"}</div>
+              <div className="text-sm">{timeAgo || "null"}</div>
             </div>
           </div>
         </div>

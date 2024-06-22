@@ -43,7 +43,7 @@ const FilterComponent = () => {
                     <div className="card-body p-5 space-y-3 border-b">
                         <div className="text-secondary-300 font-semibold dark:text-secondary-100">City</div>
                         <div>
-                            {['Mumbai', 'Delhi', 'Hyderabad'].map(city => (
+                            {['Mumbai', 'Delhi', 'Hyderabad', 'Remote'].map(city => (
                                 <div key={city} className="flex gap-2">
                                     <input
                                         type="checkbox"

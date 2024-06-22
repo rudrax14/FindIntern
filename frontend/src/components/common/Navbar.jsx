@@ -45,7 +45,7 @@ function Navbar() {
 
   const navigateHandler = () => {
     if (userType) {
-      navigate(`/${userType}/feed`);
+      navigate(`/${userType}/all-jobs`);
     } else {
       navigate("/");
     }
@@ -112,14 +112,14 @@ function Navbar() {
               </button>
               {/* login signup button */}
               <div
-                className={`buttons flex text-center font-medium text-lg ${location.pathname == "/" ? "" : "hidden"}`}
+                className={`buttons flex space-x-4 text-center font-medium text-lg ${location.pathname == "/" ? "" : "hidden"}`}
               >
                 <Link
                   to="/onboarding/sign-in"
                   onClick={() => {
                     dispatch(setUserMode("sign-in"));
                   }}
-                  className="text-primary-200 border-primary-200 hover:bg-primary-200 hover:text-white rounded-md border px-2 py-1 mr-2"
+                  className="text-primary-200 border-primary-200 hover:bg-primary-200 hover:text-white rounded-md border px-2 py-1"
                 >
                   Sign in
                 </Link>
@@ -131,6 +131,12 @@ function Navbar() {
                   className="bg-primary-200 text-white border-primary-200 hover:bg-primary-300 rounded-md border px-2 py-1"
                 >
                   Sign Up
+                </Link>
+                <Link
+                  to="/sign-in/admin"
+                  className="bg-primary-200 text-white border-primary-200 hover:bg-primary-300 rounded-md border px-2 py-1"
+                >
+                  Admin
                 </Link>
               </div>
               <div

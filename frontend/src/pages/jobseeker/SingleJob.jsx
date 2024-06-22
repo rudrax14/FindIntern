@@ -243,20 +243,22 @@ function SingleJobs() {
                 </button>
               </div>
             ) : (
-              <div className="flex gap-12 justify-between">
-                <button
-                  onClick={approveHandler}
-                  className="bg-green-400 hide hover:bg-green-500 text-white rounded-md w-full py-2 font-medium"
-                >
-                  Approve
-                </button>
-                <button
-                  onClick={rejectHander}
-                  className="bg-red-400 hide hover:bg-red-500 text-white rounded-md w-full py-2 font-medium"
-                >
-                  Reject
-                </button>
-              </div>
+              userType == "admin" && (
+                <div className="flex gap-12 justify-between">
+                  <button
+                    onClick={approveHandler}
+                    className="bg-green-400 hide hover:bg-green-500 text-white rounded-md w-full py-2 font-medium"
+                  >
+                    Approve
+                  </button>
+                  <button
+                    onClick={rejectHander}
+                    className="bg-red-400 hide hover:bg-red-500 text-white rounded-md w-full py-2 font-medium"
+                  >
+                    Reject
+                  </button>
+                </div>)
+
             )}
           </div>
         </div>
