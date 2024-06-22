@@ -117,7 +117,7 @@ function StartupPage() {
             {allJobs.slice(0, 3).map((job, index) => (
               <JobsCards
                 key={index}
-                logo="https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-brand-logo/job-list-logo-1.svg"
+                logo={job.postedBy.profileImgUrl}
                 title={job.title}
                 type={job.type}
                 company={job.company}
@@ -126,6 +126,7 @@ function StartupPage() {
                 id={job._id}
                 period={job.period}
                 timeAgo={TimeTracker(job.createdAt)}
+                appliedUsers={job.appliedUsers}
               />
             ))}
           </div>

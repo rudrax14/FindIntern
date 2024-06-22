@@ -19,6 +19,7 @@ function JobsCards({
   id,
   timeAgo,
   setJobDeleted,
+  appliedUsers,
   employees = [
     { name: "User 1", avatarUrl: "https://randomuser.me/api" },
     { name: "User 2", avatarUrl: "https://randomuser.me/api" },

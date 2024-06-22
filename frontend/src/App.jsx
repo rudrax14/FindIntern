@@ -25,7 +25,7 @@ import ForgotPassword from "./pages/auth/ForgotPassword";
 import Feed from "./pages/Feed";
 import EditJob from "./pages/recruiter/EditJob";
 import Chat from "./pages/Chat/Chat";
-import Category from "./pages/Category";
+import Categories from "./pages/Categories";
 function App() {
   return (
     <div className="">
@@ -54,7 +54,7 @@ function App() {
         <Route path="/:userType/all-jobs" element={<JobsLists />} />
         <Route path="/:userType/job-profile/:id" element={<SingleJobs />} />
         {/* category */}
-        <Route path="/:userType/category" element={<Category />} />
+        <Route path="/:userType/category" element={<Categories />} />
         {/* admin */}
         <Route path="/sign-in/:userType" element={<Login />} />
         <Route path="/:userType/dashboard" element={<AdminDashboard />} />

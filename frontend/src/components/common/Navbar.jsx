@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import logo from "../../../public/logo.png";
+import logoName from "../../../public/logo.png";
+import logo from "../../../public/logo.svg"
 import { Twirl as Hamburger } from "hamburger-react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -65,44 +66,48 @@ function Navbar() {
         <div className="flex h-14 shadow-md px-2">
           <div className="container xl:px-24 flex justify-between items-center">
             <div
-              className="flex items-center hover:cursor-pointer"
+              className="flex items-center hover:cursor-pointer gap-2"
               onClick={navigateHandler}
             >
-              <img src={logo} className="w-48" alt="" />
+              <img src={logo} className="w-10" alt="" />
+              <h1 className="text-4xl font-bold text-primary-200 hidden sm:block font-['Consolas'] ">
+                FINDINTERN
+              </h1>
             </div>
             <div className="flex gap-3 items-center">
-              <ul className="lg:flex gap-4 justify-between text-lg font-medium hidden text-secondary-300 dark:text-dark-secondary-300">
-                <Link
-                  to={`/${userType}/all-jobs`}
-                  className="hover:text-primary-200 hover:cursor-pointer"
-                >
-                  Home
-                </Link>
-                {/* <Link
+              {userDetails._id &&
+                <ul className="lg:flex gap-4 justify-between text-lg font-medium hidden text-secondary-300 dark:text-dark-secondary-300">
+                  <Link
+                    to={`/${userType}/all-jobs`}
+                    className="hover:text-primary-200 hover:cursor-pointer"
+                  >
+                    Home
+                  </Link>
+                  {/* <Link
                   to={`/${userType}/all-jobs`}
                   className="hover:text-primary-200 hover:cursor-pointer"
                 >
                   Jobs
                 </Link> */}
-                <Link
-                  to={`/${userType}/category`}
-                  className="hover:text-primary-200 hover:cursor-pointer"
-                >
-                  Categories
-                </Link>
-                <Link
-                  to={`/${userType}/chat/`}
-                  className="hover:text-primary-200 hover:cursor-pointer"
-                >
-                  Messages
-                </Link>
-                {/* <Link
+                  <Link
+                    to={`/${userType}/category`}
+                    className="hover:text-primary-200 hover:cursor-pointer"
+                  >
+                    Categories
+                  </Link>
+                  <Link
+                    to={`/${userType}/chat/`}
+                    className="hover:text-primary-200 hover:cursor-pointer"
+                  >
+                    Messages
+                  </Link>
+                  {/* <Link
                   to="/"
                   className="hover:text-primary-200 hover:cursor-pointer"
                 >
                   Contact Us
                 </Link> */}
-              </ul>
+                </ul>}
               {/* Theme Toggle Button */}
               <button
                 onClick={toggleTheme}
@@ -163,33 +168,37 @@ function Navbar() {
                     onMouseLeave={() => setHover(false)}
                     className={`${!isHover ? "fixed left-[-100%]" : " bg-white dark:bg-dark-secondary-400 dark:text-secondary-100 rounded-lg transition-all ease-in-out duration-300 text-secondary-200  absolute mt-2 right-0 w-40 top-auto shadow-lg border"}`}
                   >
-                    <Link
-                      className="block px-4 py-1  hover:text-primary-200 hover:cursor-pointer"
-                      to={`/${userType}/profile/${userDetails._id}`}
-                    >
-                      Profile
-                    </Link>
-                    {userType === "recruiter" && !isRecruiterPostJob && (
-                      <Link
-                        className="block px-4 py-1  hover:text-primary-200 hover:cursor-pointer"
-                        to={`/${userType}/post-a-job`}
-                      >
-                        Post A Job
-                      </Link>
+                    {userDetails._id && (
+                      <>
+                        <Link
+                          className="block px-4 py-1 hover:text-primary-200 hover:cursor-pointer"
+                          to={`/${userType}/profile/${userDetails._id}`}
+                        >
+                          Profile
+                        </Link>
+                        {userType === "recruiter" && !isRecruiterPostJob && (
+                          <Link
+                            className="block px-4 py-1 hover:text-primary-200 hover:cursor-pointer"
+                            to={`/${userType}/post-a-job`}
+                          >
+                            Post A Job
+                          </Link>
+                        )}
+                        <Link
+                          className="block px-4 py-1 hover:text-primary-200 hover:cursor-pointer"
+                          to={`/${userType}/edit-info`}
+                        >
+                          Account Settings
+                        </Link>
+                        <Link
+                          className="block px-4 py-1 hover:text-primary-200 hover:cursor-pointer"
+                          to="/"
+                          onClick={signOutHandler}
+                        >
+                          Sign Out
+                        </Link>
+                      </>
                     )}
-                    <Link
-                      className="block px-4 py-1  hover:text-primary-200 hover:cursor-pointer"
-                      to={`/${userType}/edit-info`}
-                    >
-                      Account Settings
-                    </Link>
-                    <Link
-                      className="block px-4 py-1 hover:text-primary-200 hover:cursor-pointer"
-                      to="/"
-                      onClick={signOutHandler}
-                    >
-                      Sign Out
-                    </Link>
                   </div>
                 </div>
 
@@ -210,17 +219,32 @@ function Navbar() {
       <div
         className={` ${isOpen ? " mt-14 fixed top-0 w-full h-full ease-in-out duration-500 md:hidden z-40" : "ease-in-out duration-500 fixed left-[-100%]"}`}
       >
-        <div className="bg-white py-4 border-primary-200 border transition-all">
-          <ul className="flex flex-col w-full justify-between text-lg font-medium px-6">
-            <li className="border-b-[2px] pb-1  hover:text-primary-200 hover:cursor-pointer">
+        <div className="bg-white dark:bg-dark-secondary-400 py-4 dark:border-none border-primary-200 border transition-all">
+          <ul className="flex flex-col w-full  justify-between text-lg font-medium px-6">
+            <Link
+              to={`/${userType}/all-jobs`}
+              className="hover:text-primary-200 hover:cursor-pointer"
+            >
               Home
-            </li>
-            <li className="border-b-[2px] pb-1  hover:text-primary-200 hover:cursor-pointer">
-              Jobs
-            </li>
-            <li className="border-b-[2px] pb-1  hover:text-primary-200 hover:cursor-pointer">
-              About Us
-            </li>
+            </Link>
+            <Link
+              to={`/${userType}/category`}
+              className="hover:text-primary-200 hover:cursor-pointer"
+            >
+              Categories
+            </Link>
+            <Link
+              to={`/${userType}/chat/`}
+              className="hover:text-primary-200 hover:cursor-pointer"
+            >
+              Messages
+            </Link>
+            {/* <Link
+              to="/"
+              className="hover:text-primary-200 hover:cursor-pointer"
+            >
+              Contact Us
+            </Link> */}
           </ul>
         </div>
         <div className="backdrop-blur-sm h-full"></div>

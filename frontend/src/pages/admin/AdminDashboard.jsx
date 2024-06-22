@@ -37,7 +37,7 @@ function Admin() {
                             {allJobs.map((job, index) => (
                                 <JobsCards
                                     key={index}
-                                    logo="https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-brand-logo/job-list-logo-1.svg"
+                                    logo={job.postedBy.profileImgUrl}
                                     title={job.title}
                                     type={job.type}
                                     company={job.company}
