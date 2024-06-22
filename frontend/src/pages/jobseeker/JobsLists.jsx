@@ -52,6 +52,7 @@ function JobsLists() {
                                         id={job._id}
                                         period={job.period}
                                         timeAgo={TimeTracker(job.createdAt)}
+                                        appliedUsers={job.appliedUsers}
                                     />
                                 ))}
                             </div>

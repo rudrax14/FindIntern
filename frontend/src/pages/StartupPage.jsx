@@ -113,7 +113,7 @@ function StartupPage() {
               Explore remote friendly, flexible job opportunities.
             </h2>
           </div>
-          <div className="">
+          <div className="mx-4">
             {allJobs.slice(0, 3).map((job, index) => (
               <JobsCards
                 key={index}

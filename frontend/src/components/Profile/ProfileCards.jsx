@@ -55,6 +55,7 @@ function ProfileCards({ userType}) {
                                 id={job._id}
                                 period={job.period}
                                 timeAgo={TimeTracker(job.createdAt)}
+                                appliedUsers={job.appliedUsers}
                                 setJobDeleted={setJobDeleted} // Pass setJobDeleted to JobsCards
                             />
                         ))}

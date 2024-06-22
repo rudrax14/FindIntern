@@ -21,12 +21,12 @@ function ProfileHeader() {
                         <div className="flex flex-col">
                             <div className='sm:flex items-center'>
                                 <h2 className='text-2xl font-semibold text-secondary-300 dark:text-secondary-100'>{userDetails.name || "null"}</h2>
-                                <span className='text-red-600 font-normal sm:ml-2 mt-1  bg-red-50 px-3 rounded-lg'>{userType || "null"}</span>
+                                <span className='text-red-600 font-normal sm:ml-2 mt-1 h-fit bg-red-50 px-3 rounded-lg'>{userType || "null"}</span>
                             </div>
                             <p className='text-secondary-200'>@{userDetails.username || "null"}</p>
                         </div>
                         <div className=''>
-                            <Link className="bg-primary-200 hover:bg-primary-400 text-white rounded-md w-fit px-2 py-1 sm:font-medium" to={userType == "recruiter" ? "/recruiter/edit-info" : "/jobseeker/edit-info"}>Account Settings</Link>
+                            <Link className="bg-primary-200 hover:bg-primary-400 text-white hidden sm:block rounded-md w-fit px-2 py-1 sm:font-medium" to={userType == "recruiter" ? "/recruiter/edit-info" : "/jobseeker/edit-info"}>Account Settings</Link>
                         </div>
                     </div>
                 </div>

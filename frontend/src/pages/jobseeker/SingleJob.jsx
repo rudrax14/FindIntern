@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../../components/common/Navbar";
-// import JobsCards from "../../components/common/JobsCard";
-// import { JobContext } from "../../context/JobContext";
 import { useParams, useNavigate } from "react-router-dom";
-// import { UserContext } from "../../context/UserContext";
 import TimeTracker from "../../utils/TimeTracker";
 import { IoCalendarClearOutline, IoLocationOutline } from "react-icons/io5";
 import { LiaRupeeSignSolid } from "react-icons/lia";
 import useJobHooks from "../../hooks/jobHooks";
 import { useSelector } from "react-redux";
-// import ButtonGroup from "@mui/material/ButtonGroup";
-// import Button from "@mui/material/Button";
 import adminService from "../../services/adminService";
 import { IoIosSend } from "react-icons/io";
 import { io } from "socket.io-client";
@@ -20,33 +15,33 @@ function SingleJobs() {
   const navigate = useNavigate();
   const { fetchAllJobs, fetchAJob, applyJob, fetchAllApprovedJobs } = useJobHooks();
   const job = useSelector((state) => state.job.job);
-  console.log("job", job);
+  console.log('job',job);
   const userDetails = useSelector((state) => state.user.userDetails);
   const { id, userType } = useParams();
   const [isAlreadyApplied, setIsAlreadyApplied] = useState(false);
   const [socket, setSocket] = useState(null);
-  const [applied, setApplied] = useState(false);
+
+  console.log("userDetails", userDetails._id);
+  console.log("jobId", job._id);
 
   useEffect(() => {
     fetchAJob(id);
-    fetchAllApprovedJobs();
+    // fetchAllApprovedJobs();
     if (userType === "jobseeker") fetchAllJobs(true);
-  }, []);
+  }, [id, userType]);
 
   useEffect(() => {
-    // Check if the user has already applied for this job
-    // if (userDetails && userDetails.appliedJobs) {
-    //   const hasApplied = userDetails.appliedJobs.some(
-    //     (appliedJob) => appliedJob.jobId === job._id
-    //   );
-    //   setIsAlreadyApplied(hasApplied);
-    // }
+    if (userDetails && job && userDetails.appliedJobs) {
+      const hasApplied = userDetails.appliedJobs.some(
+        (appliedJob) => appliedJob.jobId === job._id
+      );
+      setIsAlreadyApplied(hasApplied);
+    }
   }, [userDetails, job]);
 
   useEffect(() => {
     const newSocket = io("http://localhost:5000");
     setSocket(newSocket);
-    console.log("useEffect");
     return () => {
       if (newSocket) {
         newSocket.disconnect();
@@ -55,15 +50,10 @@ function SingleJobs() {
   }, []);
 
   const appliedHandler = () => {
-
     console.log("apply for this job", job._id);
-    // applyJob(job._id);
-    // socket
     const selectedUserId = job.postedBy._id;
     const currentUserId = userDetails._id;
     const senderDetails = { userType, currentUserId };
-    console.log('socket', socket);
-    console.log("currentUserId", currentUserId);
     socket.emit("join", senderDetails);
     const messageData = {
       sender: currentUserId,
@@ -90,15 +80,22 @@ function SingleJobs() {
     navigate(`/jobseeker/chat/${job.postedBy._id}`);
   };
 
+  if (!job || !userDetails) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <h2>Loading...</h2>
+      </div>
+    );
+  }
+
   return (
     <>
       <Navbar />
       <section className="lg:py-24 py-12 dark:bg-dark-secondary-100 dark:text-secondary-100">
         <div className="container mx-auto max-w-4xl">
-          {/* job card */}
           <div className="jobs-card flex flex-col items-center pb-4 gap-6">
             <div className="card-body border-b sm:flex w-full p-6">
-              <div className="comp-logo ">
+              <div className="comp-logo">
                 <img
                   src={job.postedBy && job.postedBy.profileImgUrl}
                   alt=""
@@ -127,10 +124,6 @@ function SingleJobs() {
                   </div>
                   <div className="text-secondary-200 flex flex-row gap-3">
                     <span>{job.company}</span>
-                    <span className="text-secondary-300 dark:text-secondary-100">
-                      4.5 ⭐
-                    </span>
-                    <span>(131 Reviews)</span>
                   </div>
                 </div>
                 <div className="">
@@ -166,11 +159,10 @@ function SingleJobs() {
               <p className="text-secondary-200 dark:text-secondary-100">
                 Job Applicants:{" "}
                 <span className="text-secondary-300 dark:text-secondary-100">
-                  {job.appliedUsers && job.appliedUsers.length}
+                  {job.appliedUsers ? job.appliedUsers.length : 0}
                 </span>
               </p>
             </div>
-            {/* text */}
             <div className="space-y-3">
               <h2 className="text-secondary-300 text-xl font-semibold dark:text-secondary-100">
                 Job description
@@ -187,7 +179,6 @@ function SingleJobs() {
                 {job.department || "null"}
               </p>
             </div>
-            {/* list */}
             <div className="space-y-3 ">
               <h2 className="text-secondary-300 text-xl dark:text-secondary-100 font-semibold">
                 Responsibilities
@@ -232,6 +223,7 @@ function SingleJobs() {
                 </li>
               </ul>
             </div>
+
             {userType == "jobseeker" ? (
               <div>
                 <button
@@ -258,30 +250,10 @@ function SingleJobs() {
                     Reject
                   </button>
                 </div>)
-
             )}
           </div>
         </div>
-        {userType == "recruiter" && <AppliedUsers user={job.appliedUsers} />}
-        {/* related jobs */}
-        {/* <div className='container mx-auto  max-w-4xl mt-12'>
-                    <h2 className='text-secondary-300 text-2xl font-semibold mb-6 ml-6'>Similar Jobs</h2>
-                    {allJobs.map((job, index) => (
-                        // <JobsCards key={index} logo='https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-brand-logo/job-list-logo-1.svg' company='Software Engineer (Web3/Crypto)' role='Featured Job' experience='1 - 5 years' salary='12k - 18k' location='Ahmedabad, Gujarat' />
-                        <JobsCards
-                            key={index}
-                            logo="https://codescandy.com/geeks-bootstrap-5/assets/images/job/job-brand-logo/job-list-logo-1.svg"
-                            title={job.title}
-                            type={job.type}
-                            company={job.company}
-                            salary={job.salary}
-                            location={job.location}
-                            id={job._id}
-                            period={job.period}
-                            timeAgo={TimeTracker(job.createdAt)}
-                        />
-                    ))}
-                </div> */}
+        {userType == "recruiter" &&  job.appliedUsers && <AppliedUsers user={job.appliedUsers} />}
       </section>
     </>
   );

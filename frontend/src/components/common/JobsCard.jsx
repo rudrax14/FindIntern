@@ -20,19 +20,10 @@ function JobsCards({
   timeAgo,
   setJobDeleted,
   appliedUsers,
-  employees = [
-    { name: "User 1", avatarUrl: "https://randomuser.me/api" },
-    { name: "User 2", avatarUrl: "https://randomuser.me/api" },
-    { name: "User 3", avatarUrl: "https://randomuser.me/api" },
-    { name: "User 3", avatarUrl: "https://randomuser.me/api" },
-    { name: "User 3", avatarUrl: "https://randomuser.me/api" },
-    { name: "User 3", avatarUrl: "https://randomuser.me/api" },
-  ], 
 }) {
   const navigate = useNavigate();
   const routerLocation = useLocation();
   const { userType } = useParams();
-
   const deleteHandler = async (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -63,15 +54,15 @@ function JobsCards({
       className="jobs-card flex flex-col items-center pb-4 gap-6 cursor-pointer"
     >
       <div className="card-body border w-full p-6 rounded-lg shadow-sm hover:shadow-md dark:bg-dark-secondary-400 dark:border-none transition-shadow duration-300">
-        <div className="flex items-start">
+        <div className="md:flex items-start">
           <img
             src={logo}
             alt="comp-logo"
-            className="border rounded-full w-14 h-14 mr-6"
+            className="border rounded-full w-14 h-14 mr-6 mb-4"
           />
           <div className="flex flex-col w-full gap-6">
             <div className="flex justify-between items-center">
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <h3 className="font-semibold text-lg dark:text-secondary-100">
                   {title || "null"}
                 </h3>
@@ -79,7 +70,7 @@ function JobsCards({
                   {type || "null"}
                 </span>
               </div>
-              {routerLocation.pathname === "/recruiter/profile" && (
+              {userType == 'recruiter' && (
                 <div className="flex space-x-4 text-secondary-100">
                   <a onClick={editHandler} className="hover:text-blue-500">
                     <FaPencilAlt />
@@ -92,21 +83,21 @@ function JobsCards({
             </div>
             <div className="text-secondary-200 flex flex-row items-center gap-3">
               <span className="text-sm">at {company}</span>
-              {employees.length > 0 && (
+              {appliedUsers.length > 0 && (
                 <AvatarGroup max={4} sx={{ '& .MuiAvatar-root': { width: 30, height: 30 } }}>
-                  {employees.map((employee, index) => (
+                  {appliedUsers.map((user, index) => (
                     <Avatar
                       key={index}
-                      alt={employee.name}
-                      src={employee.avatarUrl}
-                      title={employee.name} // Shows employee name on hover
+                      alt={user.userId.name}
+                      src={user.userId.profileImgUrl}
+                      title={user.userId.name}
                     />
                   ))}
                 </AvatarGroup>
               )}
             </div>
-            <div className="flex flex-col sm:flex-row justify-between text-secondary-200">
-              <div className="flex flex-row gap-4 text-sm">
+            <div className="flex flex-col sm:flex-row justify-between text-secondary-200 ">
+              <div className="flex flex-row gap-4 text-sm ">
                 <div className="flex items-center gap-1">
                   <IoCalendarClearOutline />
                   <span>{period || "null"}</span>
@@ -120,7 +111,7 @@ function JobsCards({
                   <span>{location || "null"}</span>
                 </div>
               </div>
-              <div className="text-sm">{timeAgo || "null"}</div>
+              <div className="text-sm text-end">{timeAgo || "null"}</div>
             </div>
           </div>
         </div>
