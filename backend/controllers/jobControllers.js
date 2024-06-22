@@ -24,10 +24,16 @@ exports.getAllJobs = catchAsync(async (req, res) => {
   }
   // Fetch all jobs
   const jobs = await Job.find(query)
-    .populate({
+    .populate([{
       path: "postedBy",
       select: "name profileImgUrl",
-    })
+    },
+    {
+      path: "appliedUsers.userId",
+      select: "name age education skills profileImgUrl"
+    }
+
+  ])
     .sort({ createdAt: -1 });
 
   res.status(200).json({
@@ -44,17 +50,22 @@ exports.getSingleJob = catchAsync(async (req, res, next) => {
   const jobId = req.params.jobId; // Replace with the actual job ID
 
   // Fetch the job by ID
-  const job = await Job.findById(jobId).populate({
+  const job = await Job.findById(jobId).populate([{
     path: "postedBy", // Assuming 'postedBy' is the field in the Job model that references another model
     select: "profileImgUrl", // Select the 'profileImgUrl' from the related model
-  });
+  },
+  {
+    path: "appliedUsers.userId",
+    select: "name age education skills profileImgUrl"
+  }
+]);
 
   if (!job) {
     next(new AppError("Job not found", 404));
   }
 
-  // await job.populate("profileImgUrl");
-
+  //await job.populate("profileImgUrl");
+  // populate name age education skills
   res.status(200).json({
     status: "Success",
     job,
