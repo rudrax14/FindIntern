@@ -32,7 +32,7 @@ exports.getAllJobs = catchAsync(async (req, res) => {
     },
     {
       path: "appliedUsers.userId",
-      select: "name age education skills profileImgUrl"
+      select: "name age education skills profileImgUrl "
     }
 
   ])
@@ -58,7 +58,7 @@ exports.getSingleJob = catchAsync(async (req, res, next) => {
   },
   {
     path: "appliedUsers.userId",
-    select: "name age education skills profileImgUrl"
+    select: "name age education skills profileImgUrl username email"
   }
 ]);
 

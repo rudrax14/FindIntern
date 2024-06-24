@@ -1,23 +1,23 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt')
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   name: {
     type: String,
-    required: true
+    required: true,
   },
   profileImgUrl: String,
   location: String,
@@ -25,43 +25,49 @@ const userSchema = new mongoose.Schema({
   experience: String,
   skills: [String],
   resumeURL: String,
-  savedJobs: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Job'
-  }],
-  appliedJobs: [{
-    jobId: {
+  savedJobs: [
+    {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Job'
+      ref: "Job",
     },
-    dateApplied: {
-      type: Date,
-      default: Date.now
-    }
-  }],
-  posts: [{
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
+  ],
+  appliedJobs: [
+    {
+      jobId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Job",
+      },
+      dateApplied: {
+        type: Date,
+        default: Date.now,
+      },
     },
-    createdAt: {
-      type: Date,
-      default: Date.now
-    }
-  }],
+  ],
+  posts: [
+    {
+      userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
   createdAt: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   updatedAt: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
-  resetPasswordToken:String,
-  resetPasswordExpires:Date
+  resetPasswordToken: String,
+  resetPasswordExpires: Date,
 });
-userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) {
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
     return next();
   }
 
@@ -69,8 +75,7 @@ userSchema.pre('save', async function (next) {
   this.password = hash;
 
   next();
-
-})
-const User = mongoose.model('User', userSchema);
+});
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;

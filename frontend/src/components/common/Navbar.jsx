@@ -54,7 +54,9 @@ function Navbar() {
 
   useEffect(() => {
     if (location.pathname === "/") return;
-    dispatch(fetchUserData(userType));
+    if (!userType == 'visit') {
+      dispatch(fetchUserData(userType));
+    }
   }, [userType, location.pathname, dispatch]);
 
   const isRecruiterPostJob = location.pathname === "/recruiter/post-a-job";

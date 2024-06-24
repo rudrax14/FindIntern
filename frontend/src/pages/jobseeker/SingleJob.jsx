@@ -15,14 +15,14 @@ function SingleJobs() {
   const navigate = useNavigate();
   const { fetchAllJobs, fetchAJob, applyJob, fetchAllApprovedJobs } = useJobHooks();
   const job = useSelector((state) => state.job.job);
-  console.log('job',job);
   const userDetails = useSelector((state) => state.user.userDetails);
   const { id, userType } = useParams();
   const [isAlreadyApplied, setIsAlreadyApplied] = useState(false);
   const [socket, setSocket] = useState(null);
-
+  
   console.log("userDetails", userDetails._id);
   console.log("jobId", job._id);
+  console.log('job', job);
 
   useEffect(() => {
     fetchAJob(id);
@@ -40,6 +40,7 @@ function SingleJobs() {
   }, [userDetails, job]);
 
   useEffect(() => {
+
     const newSocket = io("http://localhost:5000");
     setSocket(newSocket);
     return () => {
@@ -80,6 +81,7 @@ function SingleJobs() {
     navigate(`/jobseeker/chat/${job.postedBy._id}`);
   };
 
+
   if (!job || !userDetails) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -87,7 +89,6 @@ function SingleJobs() {
       </div>
     );
   }
-
   return (
     <>
       <Navbar />
@@ -253,7 +254,7 @@ function SingleJobs() {
             )}
           </div>
         </div>
-        {userType == "recruiter" &&  job.appliedUsers && <AppliedUsers user={job.appliedUsers} />}
+        {userType == "recruiter" && job.appliedUsers && <AppliedUsers user={job.appliedUsers} />}
       </section>
     </>
   );
