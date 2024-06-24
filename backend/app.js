@@ -34,7 +34,7 @@ const companyRouter = require('./routers/companyRouters');
 const jobRouter = require('./routers/jobRouters');
 const chatRouter = require('./routers/chatRouters')
 const adminRouter = require('./routers/adminRouters');
-
+const allRouter = require('./routers/Routers')
 
 const errorControllers = require('./controllers/errorControllers');
 const Message = require('./models/Message');
@@ -55,7 +55,7 @@ app.use("/api/v1/job", jobRouter);
 //companyRouter.use('/:companyId', jobRouter);
 app.use("/api/v1/chat",chatRouter)
 app.use("/api/v1/admin/", adminRouter);
-
+app.use("/api/v1/all",allRouter);
 
 //  app.use("/api/v1/jobseeker/company/:companyId/job/:jobId", userRouter, companyRouter, jobRouter);
 

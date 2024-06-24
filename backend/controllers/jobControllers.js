@@ -2,7 +2,9 @@ const Job = require("../models/Job");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/AppError");
 const Company = require("../models/Company");
-
+const mailSender = require("../utils/sendEmail");
+const User = require("../models/User");
+const mongoose = require('mongoose')
 const filterJobObject = (jobObj, attrs) => {
   const filteredObj = Object.keys(jobObj)
     .filter((attr) => !attrs.includes(attr))
@@ -176,9 +178,9 @@ exports.deleteJob = catchAsync(async (req, res) => {
 // router.delete('/jobs/:jobId', deleteJob);
 
 
-exports.toggleSelection = catchAsync(async (req, res, next) => {
+exports.changeSelectionStatus = catchAsync(async (req, res, next) => {
   const jobId = req.params.jobId; // Replace with the actual job ID
-  const { status } = req.body;
+  const { status,userId } = req.body;
   
   // Check if the user is the one who posted the job
   const job = await Job.findById(jobId);
@@ -187,19 +189,32 @@ exports.toggleSelection = catchAsync(async (req, res, next) => {
       new AppError("You don't have the permission to perform this action", 403)
     );
   }
+  const id = new mongoose.Types.ObjectId(userId);
+  const user = await User.findOne(id);
+  if(!user){
+    return next(
+      new AppError("User not found",404)
+    )
+  }
+  const email = user.email;
 
   if (status) {
-    // Set isSelected to true for all users who applied to the job
+    // Set isSelected to true to the specified user
     await Job.updateOne(
-      { _id: jobId },
-      { $set: { 'appliedUsers.$[].isSelected': true } }
+      { _id: jobId, 'appliedUsers.userId': userId },
+      { $set: { 'appliedUsers.$[elem].isSelected': true } },
+      { arrayFilters: [{ 'elem.userId': userId }] },
+    
     );
+    
+    await mailSender(email,"Application Response",`You have been selected for ${job.title}. Please reach out to the recuriter through messaging on FindIntern if you are interested.`)
 
     return res.status(200).json({
       status: "Success",
-      message: "All applicants have been selected",
+      message: "Applicant has been selected",
     });
   } else {
+    
     // Delete the job
     await Job.findByIdAndDelete(jobId);
 
@@ -209,6 +224,8 @@ exports.toggleSelection = catchAsync(async (req, res, next) => {
       $pull: { jobs: jobId },
       $set: { updatedAt: Date.now() },
     });
+
+    await mailSender(email,"Application Response",`You have not been selected for ${job.title}. All the best on your future applications. `)
 
     return res.status(200).json({
       status: "Success",
