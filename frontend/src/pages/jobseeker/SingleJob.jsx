@@ -254,7 +254,7 @@ function SingleJobs() {
             )}
           </div>
         </div>
-        {userType == "recruiter" && job.appliedUsers?.length > 0 && job.postedBy._id == userDetails._id && <AppliedUsers user={job.appliedUsers} />}
+        {userType == "recruiter" && job.appliedUsers?.length > 0 && job.postedBy._id == userDetails._id && <AppliedUsers user={job.appliedUsers} jobId={job._id} />}
       </section>
     </>
   );
