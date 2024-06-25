@@ -215,15 +215,17 @@ exports.changeSelectionStatus = catchAsync(async (req, res, next) => {
     });
   } else {
     
-    // Delete the job
-    await Job.findByIdAndDelete(jobId);
+    // Find the job by jobId and update it
+    await Job.updateOne(
+      { _id: jobId },
+      { $pull: { appliedUsers: { userId: userId } } }
+    );
 
-    // Remove the job ID from the associated company's jobs array
-    const companyId = job.postedBy;
-    await Company.findByIdAndUpdate(companyId, {
-      $pull: { jobs: jobId },
-      $set: { updatedAt: Date.now() },
-    });
+    // Find the user by userId and update it
+    await User.updateOne(
+      { _id: userId },
+      { $pull: { appliedJobs: { jobId: jobId } } }
+    );
 
     await mailSender(email,"Application Response",`You have not been selected for ${job.title}. All the best on your future applications. `)
 
