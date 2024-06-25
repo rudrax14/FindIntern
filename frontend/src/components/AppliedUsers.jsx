@@ -2,7 +2,7 @@ import React from 'react';
 import profileHooks from '../hooks/profileHooks';
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
-import { setUserDetails, setUserProfiles } from '../redux/Slice/userSlice';
+import { setUserProfiles } from '../redux/Slice/userSlice';
 
 function AppliedUsers({ user }) {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ function AppliedUsers({ user }) {
         console.log(data.data);
         const jobseeker = data.data.isCompany ? "company" : "jobseeker";
         dispatch(setUserProfiles(data.data));
-        navigate(`/visit/profile/${data.data._id}`);
+        navigate(`/visit/${data.data.username}/${data.data._id}`);
       } else {
         console.error("No data received from profile function");
       }

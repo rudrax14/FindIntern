@@ -41,9 +41,7 @@ function App() {
         <Route path="/onboarding/sign-in/:userType" element={<Login />} />
         <Route path="/onboarding/sign-up/:userType" element={<Signup />} />
         {/*profile */}
-        <Route path="/:userType/profile/:userId" element={<JobseekerProfile />} />
-        <Route path="/:userType/profile/:visit/:userId" element={<JobseekerProfile />} />
-        {/* <Route path="/:userType/profile/" element={<RecruiterProfile />} /> */}
+        <Route path="/:userType/:username/:profileId" element={<JobseekerProfile />} />
         {/* more-info */}
         <Route path="/:userType/more-info" element={<MoreInfo />} />
         {/* edit-info */}

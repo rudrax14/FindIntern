@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-function ProfileHeader() {
+function ProfileHeader({ userDetails }) {
 
-    const userDetails = useSelector((state) => state.user.userDetails);
+    // const userDetails = useSelector((state) => state.user.userDetails);
     const { userType } = useParams();
     const defaultImageUrl = 'https://res.cloudinary.com/dipv5sufo/image/upload/v1708846305/FindIntern/Assets/stock-profile.jpg';
     return (
@@ -21,7 +21,7 @@ function ProfileHeader() {
                         <div className="flex flex-col">
                             <div className='sm:flex items-center'>
                                 <h2 className='text-2xl font-semibold text-secondary-300 dark:text-secondary-100'>{userDetails.name || "null"}</h2>
-                                <span className='text-red-600 font-normal sm:ml-2 mt-1 h-fit bg-red-50 px-3 rounded-lg'>{userType || "null"}</span>
+                                {!userType == 'visit' && <span className='text-red-600 font-normal sm:ml-2 mt-1 h-fit bg-red-50 px-3 rounded-lg'>{userType || "null"}</span>}
                             </div>
                             <p className='text-secondary-200'>@{userDetails.username || "null"}</p>
                         </div>

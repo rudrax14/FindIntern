@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import logoName from "../../../public/logo.png";
-import logo from "../../../public/logo.svg"
+import logo from "../../../public/logo.svg";
 import { Twirl as Hamburger } from "hamburger-react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -54,7 +54,11 @@ function Navbar() {
 
   useEffect(() => {
     if (location.pathname === "/") return;
-    if (!userType == 'visit') {
+    if (
+      userType == "recruiter" ||
+      userType == "jobseeker" ||
+      userType == "admin"
+    ) {
       dispatch(fetchUserData(userType));
     }
   }, [userType, location.pathname, dispatch]);
@@ -77,7 +81,7 @@ function Navbar() {
               </h1>
             </div>
             <div className="flex gap-3 items-center">
-              {userDetails._id &&
+              {userDetails._id && (
                 <ul className="lg:flex gap-4 justify-between text-lg font-medium hidden text-secondary-300 dark:text-dark-secondary-300">
                   <Link
                     to={`/${userType}/all-jobs`}
@@ -109,7 +113,8 @@ function Navbar() {
                 >
                   Contact Us
                 </Link> */}
-                </ul>}
+                </ul>
+              )}
               {/* Theme Toggle Button */}
               <button
                 onClick={toggleTheme}

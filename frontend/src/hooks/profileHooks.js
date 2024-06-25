@@ -16,6 +16,7 @@ function profileHooks() {
           },
         }
       );
+      console.log("profile-hooks", response.data);
       return response.data;
     } catch (err) {
       console.log(err);

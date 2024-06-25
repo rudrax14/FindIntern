@@ -19,7 +19,7 @@ function SingleJobs() {
   const { id, userType } = useParams();
   const [isAlreadyApplied, setIsAlreadyApplied] = useState(false);
   const [socket, setSocket] = useState(null);
-  
+
   console.log("userDetails", userDetails._id);
   console.log("jobId", job._id);
   console.log('job', job);
@@ -254,7 +254,7 @@ function SingleJobs() {
             )}
           </div>
         </div>
-        {userType == "recruiter" && job.appliedUsers && <AppliedUsers user={job.appliedUsers} />}
+        {userType == "recruiter" && job.appliedUsers?.length > 0 && job.postedBy._id == userDetails._id && <AppliedUsers user={job.appliedUsers} />}
       </section>
     </>
   );
