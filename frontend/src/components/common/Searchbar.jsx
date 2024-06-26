@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaSistrix } from "react-icons/fa";
 import { IoLocationOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 // Sample suggestions
 const jobTitleSuggestions = [
@@ -24,6 +25,8 @@ function Searchbar() {
     const [filteredLocations, setFilteredLocations] = useState([]);
     const [showJobTitleSuggestions, setShowJobTitleSuggestions] = useState(false);
     const [showLocationSuggestions, setShowLocationSuggestions] = useState(false);
+
+    const navigate = useNavigate();
 
     const onJobTitleChange = (e) => {
         const value = e.target.value;
@@ -57,9 +60,14 @@ function Searchbar() {
         setShowLocationSuggestions(false);
     };
 
+    const onSearch = (e) => {
+        e.preventDefault();
+        navigate(`/search?jobTitle=${jobTitle}&location=${location}`);
+    };
+
     return (
         <form
-            action=""
+            onSubmit={onSearch}
             className="flex flex-col gap-4 py-4 px-6 items-center w-full rounded-lg bg-white dark:bg-secondary-500 md:flex-row md:rounded-full md:px-4 md:h-14 md:w-min md:justify-between md:items-center dark:border-secondary-200 dark:border"
         >
             <div className="relative w-full md:w-auto flex-1">
@@ -117,7 +125,7 @@ function Searchbar() {
                 )}
             </div>
             <div className="flex w-full md:w-auto">
-                <button className="bg-primary-200 hover:bg-primary-300 w-full md:w-auto text-white px-12 py-2 rounded-full font-medium">
+                <button type="submit" className="bg-primary-200 hover:bg-primary-300 w-full md:w-auto text-white px-12 py-2 rounded-full font-medium">
                     Search
                 </button>
             </div>

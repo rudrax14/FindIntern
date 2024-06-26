@@ -10,6 +10,7 @@ import adminService from "../../services/adminService";
 import { IoIosSend } from "react-icons/io";
 import { io } from "socket.io-client";
 import AppliedUsers from "../../components/AppliedUsers";
+import toast from "react-hot-toast";
 
 function SingleJobs() {
   const navigate = useNavigate();
@@ -20,11 +21,21 @@ function SingleJobs() {
   const [isAlreadyApplied, setIsAlreadyApplied] = useState(false);
   const [socket, setSocket] = useState(null);
 
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   useEffect(() => {
     fetchAJob(id);
     if (userType === "jobseeker") fetchAllJobs(true);
+    scrollToTop();
   }, [id, userType]);
 
+  // Check if user has already applied for the job
   useEffect(() => {
     if (userDetails && job && userDetails.appliedJobs) {
       const hasApplied = userDetails.appliedJobs.some(
@@ -34,6 +45,7 @@ function SingleJobs() {
     }
   }, [userDetails, job]);
 
+  // Socket connection
   useEffect(() => {
     const newSocket = io("http://localhost:5000");
     setSocket(newSocket);
@@ -44,6 +56,7 @@ function SingleJobs() {
     };
   }, []);
 
+  // Job Applied handlers & Send Socket message
   const appliedHandler = () => {
     applyJob(job._id);
     const selectedUserId = job.postedBy._id;
@@ -60,18 +73,28 @@ function SingleJobs() {
     navigate(`/${userType}/chat/`);
   };
 
+  // Admin approve & reject handlers
   const approveHandler = () => {
+
     adminService.approveJob(job._id);
+    fetchAllJobs()
+    toast.success("Job Approved");
+    navigate(`/${userType}/dashboard`);
   };
 
   const rejectHandler = () => {
     adminService.rejectJob(job._id);
+    fetchAllJobs()
+    toast.success("Job Rejected");
+    navigate(`/${userType}/dashboard`);
   };
 
+  // Send redirect message handler
   const sendHandler = () => {
     navigate(`/jobseeker/chat/${job.postedBy._id}`);
   };
 
+  // Loading state
   if (!job || !userDetails) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -105,14 +128,14 @@ function SingleJobs() {
                         {job.type || "null"}
                       </span>
                     </div>
-                    <div>
+                    {userType != 'recruiter' && <div>
                       <span
                         className="text-2xl hover:cursor-pointer"
                         onClick={sendHandler}
                       >
                         <IoIosSend />
                       </span>
-                    </div>
+                    </div>}
                   </div>
                   <div className="text-secondary-200 flex flex-row gap-3">
                     <span>{job.company}</span>
@@ -171,25 +194,28 @@ function SingleJobs() {
                 {job.department || "null"}
               </p>
             </div>
-            <div className="space-y-3 ">
+            <div className="space-y-3">
               <h2 className="text-secondary-300 text-xl dark:text-secondary-100 font-semibold">
                 Responsibilities
               </h2>
               <ul className="text-secondary-200 pl-8">
                 <li className="list-disc">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elitì
+                  Collaborate with team members to design and implement new features.
                 </li>
                 <li className="list-disc">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elitì
+                  Maintain and improve existing codebase to ensure optimal performance.
                 </li>
                 <li className="list-disc">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elitì
+                  Participate in code reviews to maintain code quality and share knowledge.
                 </li>
                 <li className="list-disc">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elitì
+                  Write comprehensive documentation for new and existing features.
                 </li>
                 <li className="list-disc">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elitì
+                  Troubleshoot and resolve issues reported by users and stakeholders.
+                </li>
+                <li className="list-disc">
+                  Stay updated with the latest industry trends and technologies.
                 </li>
               </ul>
             </div>
@@ -199,53 +225,60 @@ function SingleJobs() {
               </h2>
               <ul className="text-secondary-200 pl-8">
                 <li className="list-disc">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elitì
+                  Proven experience in the relevant field with a strong portfolio of work.
                 </li>
                 <li className="list-disc">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elitì
+                  Excellent problem-solving skills and attention to detail.
                 </li>
                 <li className="list-disc">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elitì
+                  Strong communication and teamwork abilities.
                 </li>
                 <li className="list-disc">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elitì
+                  Ability to manage multiple tasks and meet deadlines.
                 </li>
                 <li className="list-disc">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elitì
+                  Proficiency in relevant software/tools/technologies.
+                </li>
+                <li className="list-disc">
+                  A proactive and self-motivated approach to work.
                 </li>
               </ul>
             </div>
 
-            {userType === "jobseeker" ? (
-              <div>
-                <button
-                  onClick={appliedHandler}
-                  className="bg-primary-200 hide hover:bg-primary-400 text-white rounded-md w-full py-2 font-medium"
-                  disabled={isAlreadyApplied}
-                >
-                  {isAlreadyApplied ? "Already Applied" : "Apply For This Job"}
-                </button>
-              </div>
-            ) : (
-              userType === "admin" && (
-                <div className="flex gap-12 justify-between">
+
+            <section className="Handler">
+              {userType === "jobseeker" ? (
+                <div>
                   <button
-                    onClick={approveHandler}
-                    className="bg-green-400 hide hover:bg-green-500 text-white rounded-md w-full py-2 font-medium"
+                    onClick={appliedHandler}
+                    className="bg-primary-200 hide hover:bg-primary-400 text-white rounded-md w-full py-2 font-medium"
+                    disabled={isAlreadyApplied}
                   >
-                    Approve
-                  </button>
-                  <button
-                    onClick={rejectHandler}
-                    className="bg-red-400 hide hover:bg-red-500 text-white rounded-md w-full py-2 font-medium"
-                  >
-                    Reject
+                    {isAlreadyApplied ? "Already Applied" : "Apply For This Job"}
                   </button>
                 </div>
-              )
-            )}
+              ) : (
+                userType === "admin" && (
+                  <div className="flex gap-12 justify-between">
+                    <button
+                      onClick={approveHandler}
+                      className="bg-green-400 hide hover:bg-green-500 text-white rounded-md w-full py-2 font-medium"
+                    >
+                      Approve
+                    </button>
+                    <button
+                      onClick={rejectHandler}
+                      className="bg-red-400 hide hover:bg-red-500 text-white rounded-md w-full py-2 font-medium"
+                    >
+                      Reject
+                    </button>
+                  </div>
+                )
+              )}
+            </section>
           </div>
         </div>
+        {/* // Applied Users cards */}
         {userType === "recruiter" && job.appliedUsers?.length > 0 && job.postedBy._id === userDetails._id && (
           <AppliedUsers user={job.appliedUsers} jobId={job._id} />
         )}

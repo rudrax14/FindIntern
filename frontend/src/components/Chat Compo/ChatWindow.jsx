@@ -99,7 +99,7 @@ const ChatWindow = ({ conversation, onBack }) => {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-900" ref={chatWindowRef}>
+      <div className="flex-1 md:overflow-y-auto  bg-gray-50 dark:bg-gray-900" ref={chatWindowRef}>
         <div className="p-4 space-y-4">
           {messages.length == 0 ? (
             <div className="text-white text-center ">No message here</div>
@@ -123,14 +123,14 @@ const ChatWindow = ({ conversation, onBack }) => {
         </div>
       </div>
 
-      <div className="p-4 bg-gray-100 sticky bottom-0 dark:bg-gray-700 flex items-center rounded-b-lg z-10">
+      <div className="p-4 bg-gray-100 fixed bottom-0 w-[92%] md:sticky md:w-auto md:bottom-auto dark:bg-gray-700 flex items-center rounded-b-lg z-10">
         <input
           type="text"
           placeholder="Type your message..."
           value={message}
           className="flex-1 p-2 rounded-l-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 placeholder-gray-500 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
           onChange={(e) => {
-            setMessage(e.target.value)
+            setMessage(e.target.value);
           }}
           onKeyDown={(e) => {
             if (e.key === "Enter") {

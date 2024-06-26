@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/common/Navbar";
 import ChatWindow from "../../components/Chat Compo/ChatWindow";
 import ConversationList from "../../components/Chat Compo/ConversationList";
@@ -6,6 +6,15 @@ import ConversationList from "../../components/Chat Compo/ConversationList";
 function Chat() {
   const [selectedConversation, setSelectedConversation] = useState(null);
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+  useEffect(() => {
+    scrollToTop();
+  }, []);
   return (
     <>
       <Navbar />

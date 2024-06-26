@@ -4,11 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUserProfiles } from "../redux/Slice/userSlice";
 import axios from "axios";
+import useJobHooks from "../hooks/jobHooks";
 
 function AppliedUsers({ user, jobId }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { profile } = profileHooks();
+  const { fetchAJob } = useJobHooks();
+
 
   const clickHandler = async (profileId, username) => {
     console.log("Selected", profileId, username);
@@ -30,16 +33,21 @@ function AppliedUsers({ user, jobId }) {
     console.log("Selected", jobId, userId);
     const jwtToken = localStorage.getItem("userToken");
     axios
-      .patch(`http://localhost:5000/api/v1/job/select-reject/${jobId}`, {
-        selected: true,
-        userId: userId,
-      }, {
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
+      .patch(
+        `http://localhost:5000/api/v1/job/select-reject/${jobId}`,
+        {
+          selected: true,
+          userId: userId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
         }
-      })
+      )
       .then((res) => {
         console.log(res.data);
+        fetchAJob(jobId);
       })
       .catch((err) => {
         console.log(err);
@@ -50,16 +58,21 @@ function AppliedUsers({ user, jobId }) {
     console.log("Rejected", jobId, userId);
     const jwtToken = localStorage.getItem("userToken");
     axios
-      .patch(`http://localhost:5000/api/v1/job/select-reject/${jobId}`, {
-        selected: false,
-        userId: userId,
-      }, {
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
+      .patch(
+        `http://localhost:5000/api/v1/job/select-reject/${jobId}`,
+        {
+          selected: false,
+          userId: userId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
         }
-      })
+      )
       .then((res) => {
         console.log(res.data);
+        fetchAJob(jobId);
       })
       .catch((err) => {
         console.log(err);

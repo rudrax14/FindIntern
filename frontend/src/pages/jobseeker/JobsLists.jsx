@@ -6,12 +6,27 @@ import TimeTracker from "../../utils/TimeTracker";
 import { useSelector } from "react-redux";
 import useJobHooks from "../../hooks/jobHooks";
 import FilterComponent from "../../components/common/FilterComponent";
+import { useLocation } from "react-router-dom";
+
 function JobsLists() {
     const allJobs = useSelector((state) => state.job.allJobs);
     const { fetchAllJobs } = useJobHooks();
+    const location = useLocation();
+
     useEffect(() => {
         fetchAllJobs(true);
     }, []);
+
+    const searchParams = new URLSearchParams(location.search);
+    const filterCity = searchParams.getAll('city');
+    const filterPeriod = searchParams.getAll('period');
+
+    const filteredJobs = allJobs.filter(job => {
+        const matchesCity = filterCity.length === 0 || filterCity.includes(job.location);
+        const matchesPeriod = filterPeriod.length === 0 || filterPeriod.includes(job.period);
+        return matchesCity && matchesPeriod;
+    });
+
     return (
         <>
             <Navbar />
@@ -30,31 +45,33 @@ function JobsLists() {
                     </div>
                 </div>
             </section>
-            <section className="py-7 dark:bg-secondary-500 dark:text-secondary-100">
+            <section className="py-7  dark:text-secondary-100">
                 <div className="container mx-auto max-w-[1320px]">
                     <div className="md:grid grid-cols-4 gap-3 lg:space-y-0 space-y-6">
-                        {/* compo todo */}
-
                         <FilterComponent />
-
-                        {/* job card fetch  */}
                         <div className="col-span-3">
-                            <div className=" rounded-lg h-full mx-4">
-                                {allJobs.map((job, index) => (
-                                    <JobsCards
-                                        key={index}
-                                        logo={job.postedBy.profileImgUrl}
-                                        title={job.title}
-                                        type={job.type}
-                                        company={job.company}
-                                        salary={job.salary}
-                                        location={job.location}
-                                        id={job._id}
-                                        period={job.period}
-                                        timeAgo={TimeTracker(job.createdAt)}
-                                        appliedUsers={job.appliedUsers}
-                                    />
-                                ))}
+                            <div className="rounded-lg h-full mx-4">
+                                {filteredJobs.length > 0 ? (
+                                    filteredJobs.map((job, index) => (
+                                        <JobsCards
+                                            key={index}
+                                            logo={job.postedBy.profileImgUrl}
+                                            title={job.title}
+                                            type={job.type}
+                                            company={job.company}
+                                            salary={job.salary}
+                                            location={job.location}
+                                            id={job._id}
+                                            period={job.period}
+                                            timeAgo={TimeTracker(job.createdAt)}
+                                            appliedUsers={job.appliedUsers}
+                                        />
+                                    ))
+                                ) : (
+                                    <div className="text-center text-secondary-300 dark:text-secondary-100">
+                                        No Jobs Found
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

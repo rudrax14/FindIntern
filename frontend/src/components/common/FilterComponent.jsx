@@ -76,28 +76,6 @@ const FilterComponent = () => {
                             ))}
                         </div>
                     </div>
-                    {/* <div className="card-body p-5 space-y-3 border-b">
-                        <div className="text-secondary-300 font-semibold dark:text-secondary-100">Period</div>
-                        <div className="flex w-full">
-                            <Box sx={{ width: 300 }}>
-                                <Slider
-                                    aria-label="Always visible"
-                                    defaultValue={6}
-                                    getAriaValueText={valuetext}
-                                    step={1}
-                                    min={1}
-                                    max={12}
-                                    sx={{ color: "#754ffe" }}
-                                    valueLabelDisplay="on"
-                                    valueLabelFormat={valuetext}
-                                />
-                                <div className="flex justify-between dark:text-secondary-100">
-                                    <span>1 Month</span>
-                                    <span>12 Months</span>
-                                </div>
-                            </Box>
-                        </div>
-                    </div> */}
                 </form>
             </div>
         </>

@@ -7,6 +7,7 @@ import jobService from "../../services/jobService";
 import { toast } from "react-hot-toast";
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
+import { useSelector } from "react-redux";
 
 function JobsCards({
   logo,
@@ -20,10 +21,11 @@ function JobsCards({
   timeAgo,
   setJobDeleted,
   appliedUsers,
+  postedBy,
 }) {
   const navigate = useNavigate();
-  const routerLocation = useLocation();
   const { userType } = useParams();
+  const userDetails = useSelector((state) => state.user.userDetails);
   const deleteHandler = async (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -32,7 +34,7 @@ function JobsCards({
       try {
         await jobService.deleteJob(id);
         toast.success("Job deleted successfully");
-        setJobDeleted((prev) => !prev); // Toggle jobDeleted state to trigger useEffect
+        setJobDeleted((prev) => !prev);
       } catch (err) {
         console.error(err);
         toast.error("Failed to delete job");
@@ -45,6 +47,7 @@ function JobsCards({
     e.stopPropagation();
     navigate(`/recruiter/edit-a-job/${id}`);
   };
+
 
   return (
     <div
@@ -70,7 +73,7 @@ function JobsCards({
                   {type || "null"}
                 </span>
               </div>
-              {userType == 'recruiter' && (
+              {userType == 'recruiter' && userDetails._id == postedBy?._id && (
                 <div className={`flex space-x-4 text-secondary-100`}>
                   <a onClick={editHandler} className="hover:text-blue-500">
                     <FaPencilAlt />
