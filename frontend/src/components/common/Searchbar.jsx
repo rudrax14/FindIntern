@@ -62,7 +62,7 @@ function Searchbar() {
 
     const onSearch = (e) => {
         e.preventDefault();
-        navigate(`/search?jobTitle=${jobTitle}&location=${location}`);
+        // navigate(`/search?jobTitle=${jobTitle}&location=${location}`);
     };
 
     return (

@@ -20,11 +20,15 @@ function JobsLists() {
     const searchParams = new URLSearchParams(location.search);
     const filterCity = searchParams.getAll('city');
     const filterPeriod = searchParams.getAll('period');
+    const searchJobTitle = searchParams.get('jobTitle') || '';
+    const searchLocation = searchParams.get('location') || '';
 
     const filteredJobs = allJobs.filter(job => {
         const matchesCity = filterCity.length === 0 || filterCity.includes(job.location);
         const matchesPeriod = filterPeriod.length === 0 || filterPeriod.includes(job.period);
-        return matchesCity && matchesPeriod;
+        const matchesJobTitle = searchJobTitle === '' || job.title.toLowerCase().includes(searchJobTitle.toLowerCase());
+        const matchesLocation = searchLocation === '' || job.location.toLowerCase().includes(searchLocation.toLowerCase());
+        return matchesCity && matchesPeriod && matchesJobTitle && matchesLocation;
     });
 
     return (
@@ -36,7 +40,8 @@ function JobsLists() {
                         <div className="">
                             <h1 className="text-secondary-300 font-bold text-4xl dark:text-secondary-100">
                                 Showing jobs for '
-                                <span className="text-primary-200">it manager</span>, India
+                                <span className="text-primary-200">{searchJobTitle || 'all jobs'}</span>
+                                , {searchLocation || 'all locations'}
                             </h1>
                         </div>
                         <div className="">
