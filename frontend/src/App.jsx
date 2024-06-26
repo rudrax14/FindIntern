@@ -65,7 +65,7 @@ function App() {
         />
         {/* chat */}
         <Route path="/:userType/chat/:receiverId" element={<Chat />} />
-        <Route path="/:userType/chat/" element={<Chat />} />
+        <Route path="/:userType/chat" element={<Chat />} />
         {/* feed */}
         <Route path="/:userType/feed" element={<Feed />} />
         {/* not found */}

@@ -13,20 +13,15 @@ import AppliedUsers from "../../components/AppliedUsers";
 
 function SingleJobs() {
   const navigate = useNavigate();
-  const { fetchAllJobs, fetchAJob, applyJob, fetchAllApprovedJobs } = useJobHooks();
+  const { fetchAllJobs, fetchAJob, applyJob } = useJobHooks();
   const job = useSelector((state) => state.job.job);
   const userDetails = useSelector((state) => state.user.userDetails);
   const { id, userType } = useParams();
   const [isAlreadyApplied, setIsAlreadyApplied] = useState(false);
   const [socket, setSocket] = useState(null);
 
-  console.log("userDetails", userDetails._id);
-  console.log("jobId", job._id);
-  console.log('job', job);
-
   useEffect(() => {
     fetchAJob(id);
-    // fetchAllApprovedJobs();
     if (userType === "jobseeker") fetchAllJobs(true);
   }, [id, userType]);
 
@@ -40,7 +35,6 @@ function SingleJobs() {
   }, [userDetails, job]);
 
   useEffect(() => {
-
     const newSocket = io("http://localhost:5000");
     setSocket(newSocket);
     return () => {
@@ -51,7 +45,7 @@ function SingleJobs() {
   }, []);
 
   const appliedHandler = () => {
-    console.log("apply for this job", job._id);
+    applyJob(job._id);
     const selectedUserId = job.postedBy._id;
     const currentUserId = userDetails._id;
     const senderDetails = { userType, currentUserId };
@@ -67,20 +61,16 @@ function SingleJobs() {
   };
 
   const approveHandler = () => {
-    console.log("approve job", job._id);
     adminService.approveJob(job._id);
   };
 
-  const rejectHander = () => {
-    console.log("reject job", job._id);
+  const rejectHandler = () => {
     adminService.rejectJob(job._id);
   };
 
   const sendHandler = () => {
-    console.log("send-message", job.postedBy);
     navigate(`/jobseeker/chat/${job.postedBy._id}`);
   };
-
 
   if (!job || !userDetails) {
     return (
@@ -89,6 +79,7 @@ function SingleJobs() {
       </div>
     );
   }
+
   return (
     <>
       <Navbar />
@@ -225,7 +216,7 @@ function SingleJobs() {
               </ul>
             </div>
 
-            {userType == "jobseeker" ? (
+            {userType === "jobseeker" ? (
               <div>
                 <button
                   onClick={appliedHandler}
@@ -236,7 +227,7 @@ function SingleJobs() {
                 </button>
               </div>
             ) : (
-              userType == "admin" && (
+              userType === "admin" && (
                 <div className="flex gap-12 justify-between">
                   <button
                     onClick={approveHandler}
@@ -245,16 +236,19 @@ function SingleJobs() {
                     Approve
                   </button>
                   <button
-                    onClick={rejectHander}
+                    onClick={rejectHandler}
                     className="bg-red-400 hide hover:bg-red-500 text-white rounded-md w-full py-2 font-medium"
                   >
                     Reject
                   </button>
-                </div>)
+                </div>
+              )
             )}
           </div>
         </div>
-        {userType == "recruiter" && job.appliedUsers?.length > 0 && job.postedBy._id == userDetails._id && <AppliedUsers user={job.appliedUsers} jobId={job._id} />}
+        {userType === "recruiter" && job.appliedUsers?.length > 0 && job.postedBy._id === userDetails._id && (
+          <AppliedUsers user={job.appliedUsers} jobId={job._id} />
+        )}
       </section>
     </>
   );
