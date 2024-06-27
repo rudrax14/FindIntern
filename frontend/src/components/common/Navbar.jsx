@@ -234,12 +234,12 @@ function Navbar() {
             >
               Home
             </Link>
-            <Link
+            {/* <Link
               to={`/${userType}/category`}
               className="hover:text-primary-200 hover:cursor-pointer"
             >
               Categories
-            </Link>
+            </Link> */}
             <Link
               to={`/${userType}/chat/`}
               className="hover:text-primary-200 hover:cursor-pointer"

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaSistrix } from "react-icons/fa";
 import { IoLocationOutline } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 // Sample suggestions
 const jobTitleSuggestions = [
@@ -27,6 +27,7 @@ function Searchbar() {
     const [showLocationSuggestions, setShowLocationSuggestions] = useState(false);
 
     const navigate = useNavigate();
+    const locationState = useLocation();
 
     const onJobTitleChange = (e) => {
         const value = e.target.value;
@@ -62,7 +63,18 @@ function Searchbar() {
 
     const onSearch = (e) => {
         e.preventDefault();
-        // navigate(`/search?jobTitle=${jobTitle}&location=${location}`);
+        const searchParams = new URLSearchParams(locationState.search);
+        if (jobTitle) {
+            searchParams.set('jobTitle', jobTitle);
+        } else {
+            searchParams.delete('jobTitle');
+        }
+        if (location) {
+            searchParams.set('location', location);
+        } else {
+            searchParams.delete('location');
+        }
+        navigate(`${locationState.pathname}?${searchParams.toString()}`);
     };
 
     return (
