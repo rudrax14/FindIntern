@@ -76,8 +76,8 @@ function StartupPage() {
         </div>
       </section>
       {/* top-comp */}
-      <section className="top-comp dark:bg-dark-secondary-500">
-        <div className="container bg-white mx-auto py-12 dark:bg-dark-secondary-500">
+      <section className="top-comp bg-white dark:bg-dark-secondary-500">
+        <div className="container  mx-auto py-12 dark:bg-dark-secondary-500">
           <div className="flex flex-row flex-wrap text-center gap-12 justify-center">
             <img
               src="https://codescandy.com/geeks-bootstrap-5/assets/images/brand/gray-logo-airbnb.svg"
@@ -103,7 +103,7 @@ function StartupPage() {
         </div>
       </section>
       {/* companies */}
-      <section className="company-list pt-20 dark:bg-dark-secondary-500">
+      <section className="company-list pt-20 bg-white dark:bg-dark-secondary-500">
         <div className="container mx-auto max-w-4xl">
           <div className="text-center pb-6">
             <span className="text-primary-200 text-base font-semibold uppercase tracking-widest">

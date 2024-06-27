@@ -31,7 +31,7 @@ function ProfileCards({ userType}) {
     }, [userType, jobDeleted]);
     return (
         <section>
-            <div className="container mx-auto max-w-7xl rounded-lg bg-white mt-6 dark:bg-dark-secondary-100 dark:border dark:border-secondary-200">
+            <div className="container mx-auto max-w-7xl rounded-lg shadow-lg bg-white mt-6 dark:bg-dark-secondary-100 dark:border dark:border-secondary-200">
                 <h3 className="text-2xl font-semibold text-secondary-300 dark:text-secondary-100 px-6 py-6">
                     {userType === "jobseeker"
                         ? "Your Applied Jobs"

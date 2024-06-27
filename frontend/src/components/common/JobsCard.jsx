@@ -74,7 +74,7 @@ function JobsCards({
                 </span>
               </div>
               {userType == 'recruiter' && userDetails._id == postedBy?._id && (
-                <div className={`flex space-x-4 text-secondary-100`}>
+                <div className={`flex space-x-4 dark:text-secondary-100 text-secondary-200`}>
                   <a onClick={editHandler} className="hover:text-blue-500">
                     <FaPencilAlt />
                   </a>

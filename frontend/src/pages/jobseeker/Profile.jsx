@@ -43,7 +43,7 @@ function User() {
             <section className="bg-secondary-100 dark:text-secondary-100 py-12 px-3 dark:bg-dark-secondary-500">
                 <ProfileHeader userDetails={userDetails} userType={userType} />
                 <ProfileDetails userDetails={userDetails} userType={userType} />
-                {profileId === userDetails._id && !userType == 'visit' || 'profile' && <ProfileCards userType={userType} />}
+                {userType == 'visit' && profileId === userDetails._id || 'profile' && <ProfileCards userType={userType} />}
             </section>
         </>
     );

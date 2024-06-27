@@ -50,7 +50,7 @@ function JobsLists() {
                     </div>
                 </div>
             </section>
-            <section className="py-7  dark:text-secondary-100">
+            <section className="py-7 bg-white  dark:text-secondary-100">
                 <div className="container mx-auto max-w-[1320px]">
                     <div className="md:grid grid-cols-4 gap-3 lg:space-y-0 space-y-6">
                         <FilterComponent />

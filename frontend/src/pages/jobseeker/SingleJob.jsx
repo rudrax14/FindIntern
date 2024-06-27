@@ -106,7 +106,7 @@ function SingleJobs() {
   return (
     <>
       <Navbar />
-      <section className="lg:py-24 py-12 dark:bg-dark-secondary-100 dark:text-secondary-100">
+      <section className="lg:py-24 py-12 bg-white dark:bg-dark-secondary-100 dark:text-secondary-100">
         <div className="container mx-auto max-w-4xl">
           <div className="jobs-card flex flex-col items-center pb-4 gap-6">
             <div className="card-body border-b sm:flex w-full p-6">
