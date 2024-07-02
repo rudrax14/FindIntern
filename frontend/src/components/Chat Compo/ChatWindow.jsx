@@ -33,7 +33,7 @@ const ChatWindow = ({ conversation, onBack }) => {
           setLoading(false);
         });
 
-      const backendUrl = "http://localhost:5000";
+      const backendUrl = import.meta.env.VITE_SOCKET_URL || "http://localhost:5000";
       const newSocket = io(backendUrl, {
         transports: ['websocket', 'polling'],
         secure: true,
