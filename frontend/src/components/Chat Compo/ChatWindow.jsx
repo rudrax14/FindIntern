@@ -19,49 +19,32 @@ const ChatWindow = ({ conversation, onBack }) => {
       const receiverRole = userType === "jobseeker" ? "recruiter" : "jobseeker";
       axios
         .get(
-          `${process.env.REACT_APP_BACKEND_URL}/chat/history?senderType=${userType}&senderId=${currentUserId}&receiverType=${receiverRole}&receiverId=${selectedUserId}`
+          `${import.meta.env.VITE_BACKEND_URL}/chat/history?senderType=${userType}&senderId=${currentUserId}&receiverType=${receiverRole}&receiverId=${selectedUserId}`
         )
         .then((response) => {
-          console.log("Chat history response:", response.data);
-          if (Array.isArray(response.data)) {
-            setMessages(response.data);
-          } else {
-            console.error("Expected an array but got:", response.data);
-          }
+          console.log(response.data);
+          setMessages(response.data);
           scrollToBottom();
         })
         .catch((error) => console.error("Error fetching chat history:", error));
 
-      const newSocket = io(`${process.env.REACT_APP_BACKEND_URL}`, {
-        transports: ["websocket", "polling"],
+      const backendUrl = "https://find-intern-backend.vercel.app" || "http://localhost:5000";
+      const newSocket = io(backendUrl, {
+        transports: ['websocket', 'polling'],
         secure: true,
       });
-
-      newSocket.on("connect", () => {
-        console.log("Connected to socket server");
-        const senderDetails = { userType, currentUserId };
-        newSocket.emit("join", senderDetails);
-      });
+      console.log(newSocket);
+      setSocket(newSocket);
+      const senderDetails = { userType, currentUserId };
+      newSocket.emit("join", senderDetails);
 
       newSocket.on("receiveMessage", (message) => {
         setMessages((prevMessages) => [...prevMessages, message]);
         scrollToBottom();
       });
 
-      newSocket.on("connect_error", (error) => {
-        console.error("Socket connection error:", error);
-      });
-
-      newSocket.on("disconnect", () => {
-        console.log("Disconnected from socket server");
-      });
-
-      setSocket(newSocket);
-
       return () => {
-        if (newSocket) {
-          newSocket.disconnect();
-        }
+        newSocket.disconnect();
       };
     }
   }, [selectedUserId, currentUserId]);
@@ -77,12 +60,13 @@ const ChatWindow = ({ conversation, onBack }) => {
   };
 
   const sendMessage = (messageText) => {
+    // console.log(messageText);
     if (socket) {
       const messageData = {
         sender: currentUserId,
         receiver: selectedUserId,
         message: messageText,
-        timestamp: new Date().toISOString(),
+        timestamp: new Date().toISOString(), // Use ISO string for proper timestamp
         role: userType,
       };
       if (messageText.trim() === "") return;
@@ -119,10 +103,10 @@ const ChatWindow = ({ conversation, onBack }) => {
         </div>
       </div>
 
-      <div className="flex-1 md:overflow-y-auto bg-gray-50 dark:bg-gray-900" ref={chatWindowRef}>
+      <div className="flex-1 md:overflow-y-auto  bg-gray-50 dark:bg-gray-900" ref={chatWindowRef}>
         <div className="p-4 space-y-4">
-          {messages.length === 0 ? (
-            <div className="text-white text-center">No message here</div>
+          {messages.length == 0 ? (
+            <div className="text-white text-center ">No message here</div>
           ) : (
             messages.map((message, index) => (
               <div
@@ -149,7 +133,9 @@ const ChatWindow = ({ conversation, onBack }) => {
           placeholder="Type your message..."
           value={message}
           className="flex-1 p-2 rounded-l-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 placeholder-gray-500 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          onChange={(e) => setMessage(e.target.value)}
+          onChange={(e) => {
+            setMessage(e.target.value);
+          }}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               sendMessage(message);
@@ -158,7 +144,9 @@ const ChatWindow = ({ conversation, onBack }) => {
         />
         <button
           className="bg-blue-500 text-white p-2 rounded-r-lg hover:bg-blue-600 transition duration-200"
-          onClick={() => sendMessage(message)}
+          onClick={() => {
+            sendMessage(message);
+          }}
         >
           Send
         </button>
