@@ -11,7 +11,7 @@ function AdminProvider({ children }) {
         return () => {
             console.log("context-admin-AdminReject", id);
             const jwtToken = localStorage.getItem("userToken");
-            axios.patch(`http://localhost:5000/api/v1/admin/disapprove/${id}`, {
+            axios.patch(`${import.meta.env.VITE_BACKEND_URL}/admin/disapprove/${id}`, {
                 headers: {
                     Authorization: `Bearer ${jwtToken}`,
                 }
@@ -29,7 +29,7 @@ function AdminProvider({ children }) {
         return () => {
             console.log("context-admin-AdminApprove", id);
             const jwtToken = localStorage.getItem("userToken");
-            axios.patch(`http://localhost:5000/api/v1/admin/approve/${id}`, {
+            axios.patch(`${import.meta.env.VITE_BACKEND_URL}/admin/approve/${id}`, {
                 headers: {
                     Authorization: `Bearer ${jwtToken}`,
                 }

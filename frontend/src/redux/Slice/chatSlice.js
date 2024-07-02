@@ -5,6 +5,7 @@ export const userChatSlice = createSlice({
   initialState: {
     userList: [],
     chat: {},
+    loading: true,
   },
   reducers: {
     setChat: (state, action) => {
@@ -13,8 +14,11 @@ export const userChatSlice = createSlice({
     setUserList: (state, action) => {
       state.userList = action.payload;
     },
+    setLoading: (state, action) => {
+      state.loading = action.payload;
+    },
   },
 });
 
-export const { setChat, setUserList } = userChatSlice.actions;
+export const { setChat, setUserList, setLoading } = userChatSlice.actions;
 export default userChatSlice.reducer;

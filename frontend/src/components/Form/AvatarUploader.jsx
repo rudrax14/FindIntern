@@ -31,7 +31,7 @@ const AvatarUploader = ({ profile }) => {
         const formData = new FormData();
         formData.append('imageFile', selectedFile); // Used 'imageFile' as the key
 
-        axios.post(`http://localhost:5000/api/v1/${userType}/profile/image/upload`, formData, {
+        axios.post(`${import.meta.env.VITE_BACKEND_URL}/${userType}/profile/image/upload`, formData, {
             headers: {
                 Authorization: `Bearer ${jwtToken}`,
             }

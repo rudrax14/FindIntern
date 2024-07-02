@@ -11,6 +11,7 @@ import { IoIosSend } from "react-icons/io";
 import { io } from "socket.io-client";
 import AppliedUsers from "../../components/AppliedUsers";
 import toast from "react-hot-toast";
+import Spinner from "../../components/Spinner";
 
 function SingleJobs() {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ function SingleJobs() {
   const { id, userType } = useParams();
   const [isAlreadyApplied, setIsAlreadyApplied] = useState(false);
   const [socket, setSocket] = useState(null);
+  const spinner = useSelector((state) => state.job.loading);
 
 
   const scrollToTop = () => {
@@ -95,11 +97,9 @@ function SingleJobs() {
   };
 
   // Loading state
-  if (!job || !userDetails) {
+  if (!job || !userDetails && !spinner) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <h2>Loading...</h2>
-      </div>
+      <Spinner />
     );
   }
 

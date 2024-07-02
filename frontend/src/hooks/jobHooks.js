@@ -31,7 +31,7 @@ function useJobHooks() {
     const jwtToken = localStorage.getItem("userToken");
     dispatch(setLoading(true));
     axios
-      .get(`http://localhost:5000/api/v1/jobseeker/getAllAppliedJobs`, {
+      .get(`${import.meta.env.VITE_BACKEND_URL}/jobseeker/getAllAppliedJobs`, {
         headers: {
           Authorization: `Bearer ${jwtToken}`,
         },
@@ -72,7 +72,7 @@ function useJobHooks() {
     const jwtToken = localStorage.getItem("userToken");
     dispatch(setLoading(true));
     axios
-      .get(`http://localhost:5000/api/v1/job`, {
+      .get(`${import.meta.env.VITE_BACKEND_URL}/job`, {
         headers: {
           Authorization: `Bearer ${jwtToken}`,
         },
@@ -109,7 +109,7 @@ function useJobHooks() {
     const jwtToken = localStorage.getItem("userToken");
     dispatch(setLoading(true));
     axios
-      .get(`http://localhost:5000/api/v1/recruiter/getAllPostedJobs`, {
+      .get(`${import.meta.env.VITE_BACKEND_URL}/recruiter/getAllPostedJobs`, {
         headers: {
           Authorization: `Bearer ${jwtToken}`,
         },
@@ -152,7 +152,7 @@ function useJobHooks() {
   const deleteJob = async (jobId) => {
     try {
       const jwtToken = localStorage.getItem("userToken");
-      await axios.delete(`http://localhost:5000/api/v1/job/${jobId}`, {
+      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/job/${jobId}`, {
         headers: {
           Authorization: `Bearer ${jwtToken}`,
         },
@@ -171,7 +171,7 @@ function useJobHooks() {
       const jwtToken = localStorage.getItem("userToken");
       await axios
         .patch(
-          `http://localhost:5000/api/v1/jobseeker/apply/${jobId}`,
+          `${import.meta.env.VITE_BACKEND_URL}/jobseeker/apply/${jobId}`,
           {},
           {
             headers: {

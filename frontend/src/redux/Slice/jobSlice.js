@@ -6,7 +6,7 @@ const jobSlice = createSlice({
     job: {},
     allJobs: [],
     userChatList: [],
-    loading: false,
+    loading: true,
     error: null,
   },
   reducers: {

@@ -20,7 +20,7 @@ function UpdatePassword() {
 
     function submitHandler(e) {
         e.preventDefault();
-        axios.post('http://localhost:5000/api/v1/auth/resetPassword', { ...formData, role: userType, token: token })
+        axios.post(`${import.meta.env.VITE_BACKEND_URL}/auth/resetPassword`, { ...formData, role: userType, token: token })
             .then((response) => {
                 console.log(response)
                 toast.success('Password Updated')

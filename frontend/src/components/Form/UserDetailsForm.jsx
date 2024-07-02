@@ -55,7 +55,7 @@ function UserDetailsForm() {
         e.preventDefault();
         const accountData = { ...formData };
         const jwtToken = localStorage.getItem("userToken");
-        axios.patch(`http://localhost:5000/api/v1/${userType}/profile`, accountData, {
+        axios.patch(`${import.meta.env.VITE_BACKEND_URL}/${userType}/profile`, accountData, {
             headers: {
                 Authorization: `Bearer ${jwtToken}`,
             }

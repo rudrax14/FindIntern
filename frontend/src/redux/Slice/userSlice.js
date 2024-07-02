@@ -8,7 +8,7 @@ export const fetchUserData = createAsyncThunk(
     try {
       const jwtToken = localStorage.getItem("userToken");
       const response = await axios.get(
-        `http://localhost:5000/api/v1/${userType}/profile`,
+        `${import.meta.env.VITE_BACKEND_URL}/${userType}/profile`,
         {
           headers: {
             Authorization: `Bearer ${jwtToken}`,
@@ -31,7 +31,7 @@ const userSlice = createSlice({
     userMode: "sign-in",
     userDetails: {},
     userProfiles: {},
-    loading: false,
+    loading: true,
     error: null,
   },
   reducers: {
@@ -46,6 +46,9 @@ const userSlice = createSlice({
     },
     setUserProfiles: (state, action) => {
       state.userProfiles = action.payload;
+    },
+    setLoading: (state, action) => {
+      state.loading = action.payload;
     },
     clearUserDetails: (state) => {
       state.userDetails = {};
@@ -80,6 +83,7 @@ export const {
   updateProfileImage,
   setUserDetails,
   setUserProfiles,
+  setLoading,
 } = userSlice.actions;
 
 export default userSlice.reducer;

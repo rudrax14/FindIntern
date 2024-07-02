@@ -13,6 +13,7 @@ import { ThemeContext } from "../../context/ThemeContext"; // Import ThemeContex
 import { FaSun, FaMoon } from "react-icons/fa"; // Import icons
 import authService from "../../services/authService";
 import { toast } from "react-hot-toast";
+import Spinner from "../Spinner";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ function Navbar() {
 
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.user.userDetails);
+  const spinner = useSelector((state) => state.user.loading);
 
   const { theme, toggleTheme } = useContext(ThemeContext); // Use ThemeContext
 
@@ -66,6 +68,12 @@ function Navbar() {
   const isRecruiterPostJob = location.pathname === "/recruiter/post-a-job";
   const defaultImageUrl =
     "https://res.cloudinary.com/dipv5sufo/image/upload/v1708846305/FindIntern/Assets/stock-profile.jpg";
+
+
+  if (spinner) {
+    return <Spinner />;
+  }
+
   return (
     <>
       <nav className="sticky top-0 bg-white z-20 dark:bg-secondary-300">
@@ -95,12 +103,12 @@ function Navbar() {
                 >
                   Jobs
                 </Link> */}
-                  <Link
+                  {/* <Link
                     to={`/${userType}/category`}
                     className="hover:text-primary-200 hover:cursor-pointer"
                   >
                     Categories
-                  </Link>
+                  </Link> */}
                   <Link
                     to={`/${userType}/chat/`}
                     className="hover:text-primary-200 hover:cursor-pointer"

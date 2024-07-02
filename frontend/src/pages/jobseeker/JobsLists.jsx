@@ -7,9 +7,12 @@ import { useSelector } from "react-redux";
 import useJobHooks from "../../hooks/jobHooks";
 import FilterComponent from "../../components/common/FilterComponent";
 import { useLocation } from "react-router-dom";
+import Spinner from "../../components/Spinner";
 
 function JobsLists() {
+
     const allJobs = useSelector((state) => state.job.allJobs);
+    const spinner = useSelector((state) => state.job.loading);
     const { fetchAllJobs } = useJobHooks();
     const location = useLocation();
 
@@ -31,58 +34,67 @@ function JobsLists() {
         return matchesCity && matchesPeriod && matchesJobTitle && matchesLocation;
     });
 
+
     return (
         <>
-            <Navbar />
-            <section className="bg-secondary-100 dark:bg-dark-secondary-100">
-                <div className="lg:px-28 px-6 lg:block flex justify-center py-12 container ">
-                    <div className="lg:w-4/6 flex flex-col gap-8 ">
-                        <div className="">
-                            <h1 className="text-secondary-300 font-bold text-4xl dark:text-secondary-100">
-                                Showing jobs for '
-                                <span className="text-primary-200">{searchJobTitle || 'all jobs'}</span>
-                                , {searchLocation || 'all locations'}
-                            </h1>
-                        </div>
-                        <div className="">
-                            <Searchbar />
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section className="py-7 bg-white  dark:text-secondary-100">
-                <div className="container mx-auto max-w-[1320px]">
-                    <div className="md:grid grid-cols-4 gap-3 lg:space-y-0 space-y-6">
-                        <FilterComponent />
-                        <div className="col-span-3">
-                            <div className="rounded-lg h-full mx-4">
-                                {filteredJobs.length > 0 ? (
-                                    filteredJobs.map((job, index) => (
-                                        <JobsCards
-                                            key={index}
-                                            logo={job.postedBy.profileImgUrl}
-                                            title={job.title}
-                                            type={job.type}
-                                            company={job.company}
-                                            salary={job.salary}
-                                            location={job.location}
-                                            id={job._id}
-                                            period={job.period}
-                                            timeAgo={TimeTracker(job.createdAt)}
-                                            appliedUsers={job.appliedUsers}
-                                        />
-                                    ))
-                                ) : (
-                                    <div className="text-center text-secondary-300 dark:text-secondary-100">
-                                        No Jobs Found
-                                    </div>
-                                )}
+
+            {spinner ? (
+                <Spinner />
+            ) : (
+                <>
+                    <Navbar />
+                    <section className="bg-secondary-100 dark:bg-dark-secondary-100">
+                        <div className="lg:px-28 px-6 lg:block flex justify-center py-12 container ">
+                            <div className="lg:w-4/6 flex flex-col gap-8 ">
+                                <div className="">
+                                    <h1 className="text-secondary-300 font-bold text-4xl dark:text-secondary-100">
+                                        Showing jobs for '
+                                        <span className="text-primary-200">{searchJobTitle || 'all jobs'}</span>
+                                        , {searchLocation || 'all locations'}
+                                    </h1>
+                                </div>
+                                <div className="">
+                                    <Searchbar />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </section>
+                    </section>
+                    <section className="py-7 bg-white dark:bg-dark-secondary-500 dark:text-secondary-100">
+                        <div className="container mx-auto max-w-[1320px]">
+                            <div className="md:grid grid-cols-4 gap-3 lg:space-y-0 space-y-6">
+                                <FilterComponent />
+                                <div className="col-span-3">
+                                    <div className="rounded-lg h-full mx-4">
+                                        {filteredJobs.length > 0 ? (
+                                            filteredJobs.map((job, index) => (
+                                                <JobsCards
+                                                    key={index}
+                                                    logo={job.postedBy.profileImgUrl}
+                                                    title={job.title}
+                                                    type={job.type}
+                                                    company={job.company}
+                                                    salary={job.salary}
+                                                    location={job.location}
+                                                    id={job._id}
+                                                    period={job.period}
+                                                    timeAgo={TimeTracker(job.createdAt)}
+                                                    appliedUsers={job.appliedUsers}
+                                                />
+                                            ))
+                                        ) : (
+                                            <div className="text-center text-secondary-300 dark:text-secondary-100">
+                                                No Jobs Found
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </>
+            )}
         </>
+
     );
 }
 

@@ -5,7 +5,7 @@ function profileHooks() {
   const profile = async (profileId, username) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/v1/all/profile/${profileId}?username=${username}`,
+        `${import.meta.env.VITE_BACKEND_URL}/all/profile/${profileId}?username=${username}`,
 
         {
           username: username,

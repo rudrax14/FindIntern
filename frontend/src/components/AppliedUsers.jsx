@@ -34,7 +34,7 @@ function AppliedUsers({ user, jobId }) {
     const jwtToken = localStorage.getItem("userToken");
     axios
       .patch(
-        `http://localhost:5000/api/v1/job/select-reject/${jobId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/job/select-reject/${jobId}`,
         {
           status: true,
           userId: userId,
@@ -59,7 +59,7 @@ function AppliedUsers({ user, jobId }) {
     const jwtToken = localStorage.getItem("userToken");
     axios
       .patch(
-        `http://localhost:5000/api/v1/job/select-reject/${jobId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/job/select-reject/${jobId}`,
         {
           status: false,
           userId: userId,
