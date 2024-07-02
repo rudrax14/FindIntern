@@ -22,15 +22,18 @@ const ChatWindow = ({ conversation, onBack }) => {
           `${process.env.REACT_APP_BACKEND_URL}/chat/history?senderType=${userType}&senderId=${currentUserId}&receiverType=${receiverRole}&receiverId=${selectedUserId}`
         )
         .then((response) => {
-          console.log(response.data);
-          setMessages(response.data);
+          console.log("Chat history response:", response.data);
+          if (Array.isArray(response.data)) {
+            setMessages(response.data);
+          } else {
+            console.error("Expected an array but got:", response.data);
+          }
           scrollToBottom();
         })
         .catch((error) => console.error("Error fetching chat history:", error));
 
-      const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
-      const newSocket = io(backendUrl, {
-        transports: ['websocket', 'polling'],
+      const newSocket = io(`${process.env.REACT_APP_BACKEND_URL}`, {
+        transports: ["websocket", "polling"],
         secure: true,
       });
 
