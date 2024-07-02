@@ -49,7 +49,7 @@ function SingleJobs() {
 
   // Socket connection
   useEffect(() => {
-    const newSocket = io(`${import.meta.env.VITE_BACKEND_URL}`);
+    const newSocket = io(`${import.meta.env.VITE_BACKEND_URL}/api/v1`);
     setSocket(newSocket);
     return () => {
       if (newSocket) {

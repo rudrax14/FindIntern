@@ -19,7 +19,7 @@ const ChatWindow = ({ conversation, onBack }) => {
       const receiverRole = userType === "jobseeker" ? "recruiter" : "jobseeker";
       axios
         .get(
-          `${import.meta.env.VITE_BACKEND_URL}chat/history?senderType=${userType}&senderId=${currentUserId}&receiverType=${receiverRole}&receiverId=${selectedUserId}`
+          `${import.meta.env.VITE_BACKEND_URL}/api/v1/chat/history?senderType=${userType}&senderId=${currentUserId}&receiverType=${receiverRole}&receiverId=${selectedUserId}`
         )
         .then((response) => {
           console.log(response.data);
@@ -28,7 +28,7 @@ const ChatWindow = ({ conversation, onBack }) => {
         })
         .catch((error) => console.error("Error fetching chat history:", error));
 
-      const newSocket = io(`${import.meta.env.VITE_BACKEND_URL}`);
+      const newSocket = io(`${import.meta.env.VITE_BACKEND_URL}/api/v1`);
       console.log(newSocket);
       setSocket(newSocket);
       const senderDetails = { userType, currentUserId };
