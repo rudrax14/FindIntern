@@ -70,7 +70,7 @@ function Navbar() {
     "https://res.cloudinary.com/dipv5sufo/image/upload/v1708846305/FindIntern/Assets/stock-profile.jpg";
 
 
-  if (spinner) {
+  if (!location.pathname === "/") {
     return <Spinner />;
   }
 
