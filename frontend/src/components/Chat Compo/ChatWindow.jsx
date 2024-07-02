@@ -80,8 +80,8 @@ const ChatWindow = ({ conversation, onBack }) => {
   };
 
   return (
-    <div className="flex flex-1 flex-col h-full">
-      <div className="p-4 bg-gray-100 dark:bg-gray-700 flex items-center sticky top-0 shadow rounded-t-lg z-10">
+    <div className="flex flex-1 flex-col h-full sm:static fixed w-[96%] sm:w-[100%] top-14">
+      <div className="p-4 w-[96%] sm:w-full bg-gray-100 dark:bg-gray-700 flex items-center sticky top-0 shadow rounded-t-lg z-10">
         <button
           className="sm:hidden mr-4 text-gray-600 dark:text-gray-300"
           onClick={onBack}
@@ -105,7 +105,7 @@ const ChatWindow = ({ conversation, onBack }) => {
         </div>
       </div>
 
-      <div className="flex-1 md:overflow-y-auto bg-gray-50 dark:bg-gray-900" ref={chatWindowRef}>
+      <div className="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-900 pb-32 md:pb-0" ref={chatWindowRef}>
         {loading ? (
           <Loader />
         ) : (
@@ -133,7 +133,7 @@ const ChatWindow = ({ conversation, onBack }) => {
         )}
       </div>
 
-      <div className="p-4 bg-gray-100 fixed bottom-0 w-[92%] md:sticky md:w-auto md:bottom-auto dark:bg-gray-700 flex items-center rounded-b-lg z-10">
+      <div className="p-4 bg-gray-100 w-[93%] fixed bottom-0 sm:w-[92%] md:sticky md:w-auto md:bottom-auto dark:bg-gray-700 flex items-center rounded-b-lg z-10">
         <input
           type="text"
           placeholder="Type your message..."

@@ -76,7 +76,7 @@ function Navbar() {
 
   return (
     <>
-      <nav className="sticky top-0 bg-white z-20 dark:bg-secondary-300">
+      <nav className="sm:sticky fixed top-0 w-full bg-white z-20 dark:bg-secondary-300">
         <div className="flex h-14 shadow-md px-2">
           <div className="container xl:px-24 flex justify-between items-center">
             <div
