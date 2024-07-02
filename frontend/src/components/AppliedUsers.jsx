@@ -36,7 +36,7 @@ function AppliedUsers({ user, jobId }) {
       .patch(
         `http://localhost:5000/api/v1/job/select-reject/${jobId}`,
         {
-          selected: true,
+          status: true,
           userId: userId,
         },
         {
@@ -61,7 +61,7 @@ function AppliedUsers({ user, jobId }) {
       .patch(
         `http://localhost:5000/api/v1/job/select-reject/${jobId}`,
         {
-          selected: false,
+          status: false,
           userId: userId,
         },
         {
