@@ -49,7 +49,7 @@ function SingleJobs() {
 
   // Socket connection
   useEffect(() => {
-    const newSocket = io(`${import.meta.env.VITE_BACKEND_URL}/api/v1`);
+    const newSocket = io("https://find-intern-backend.vercel.app");
     setSocket(newSocket);
     return () => {
       if (newSocket) {
