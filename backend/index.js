@@ -7,28 +7,34 @@ const cors = require("cors");
 const app = express();
 const server = http.createServer(app);
 const socketio = require("socket.io");
+
+const allowedOrigins = [process.env.FRONTEND_URL, "http://localhost:4000"];
+
 const io = socketio(server, {
   cors: {
-    origin: process.env.FRONTEND_URL,
+    origin: allowedOrigins,
     methods: ["GET", "POST"],
     credentials: true,
   },
 });
+
 connectDB();
-// file upload methord // server pe upload karna hai
+
 const fileUpload = require("express-fileupload");
-// app.use(fileUpload());
 app.use(
   fileUpload({
     useTempFiles: true,
     tempFileDir: "/tmp/",
   })
 );
+
 const cloudinary = require("./cloudinary");
 cloudinary.cloudinaryConnect();
+
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    origin: allowedOrigins,
+    credentials: true,
   })
 );
 
@@ -42,7 +48,6 @@ const allRouter = require("./routers/Routers");
 
 const errorControllers = require("./controllers/errorControllers");
 const Message = require("./models/Message");
-// const setupSocket = require('./utils/setupSocket');
 
 app.use(express.json());
 
@@ -50,20 +55,19 @@ app.use("/api/v1/auth/", authRouter);
 app.use("/api/v1/jobseeker/", userRouter);
 app.use("/api/v1/recruiter/", companyRouter);
 app.use("/api/v1/job", jobRouter);
-//companyRouter.use('/:companyId', jobRouter);
 app.use("/api/v1/chat", chatRouter);
 app.use("/api/v1/admin/", adminRouter);
 app.use("/api/v1/all", allRouter);
+
 app.get("/", (req, res) => {
   console.log("Hello this is findintern-backend");
   res.send("Hello this is findintern-backend");
 });
-//  app.use("/api/v1/jobseeker/company/:companyId/job/:jobId", userRouter, companyRouter, jobRouter);
 
 app.use(errorControllers);
 
 server.listen(5000, () => {
-  console.log("Listening");
+  console.log("Listening on http://localhost:5000");
 });
 
 io.on("connection", (socket) => {
