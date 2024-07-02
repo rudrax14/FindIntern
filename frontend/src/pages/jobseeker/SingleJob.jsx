@@ -49,7 +49,7 @@ function SingleJobs() {
 
   // Socket connection
   useEffect(() => {
-    const newSocket = io("http://localhost:5000");
+    const newSocket = io(`${import.meta.env.VITE_BACKEND_URL}`);
     setSocket(newSocket);
     return () => {
       if (newSocket) {

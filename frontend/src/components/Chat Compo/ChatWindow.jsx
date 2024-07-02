@@ -28,7 +28,7 @@ const ChatWindow = ({ conversation, onBack }) => {
         })
         .catch((error) => console.error("Error fetching chat history:", error));
 
-      const newSocket = io("http://localhost:5000");
+      const newSocket = io(`${import.meta.env.VITE_BACKEND_URL}`);
       console.log(newSocket);
       setSocket(newSocket);
       const senderDetails = { userType, currentUserId };
