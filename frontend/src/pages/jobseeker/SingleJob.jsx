@@ -49,7 +49,11 @@ function SingleJobs() {
 
   // Socket connection
   useEffect(() => {
-    const newSocket = io("https://find-intern-backend.vercel.app");
+    const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+    const newSocket = io(backendUrl, {
+      transports: ['websocket', 'polling'],
+      secure: true,
+    });
     setSocket(newSocket);
     return () => {
       if (newSocket) {
@@ -57,6 +61,7 @@ function SingleJobs() {
       }
     };
   }, []);
+  
 
   // Job Applied handlers & Send Socket message
   const appliedHandler = () => {
