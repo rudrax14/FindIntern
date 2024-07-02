@@ -54,7 +54,10 @@ app.use("/api/v1/job", jobRouter);
 app.use("/api/v1/chat", chatRouter);
 app.use("/api/v1/admin/", adminRouter);
 app.use("/api/v1/all", allRouter);
-
+app.get("/", (req, res) => {
+  console.log("Hello this is findintern-backend");
+  res.send("Hello this is findintern-backend");
+});
 //  app.use("/api/v1/jobseeker/company/:companyId/job/:jobId", userRouter, companyRouter, jobRouter);
 
 app.use(errorControllers);
