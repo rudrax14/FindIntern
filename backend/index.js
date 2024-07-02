@@ -96,7 +96,10 @@ io.on("connection", (socket) => {
     });
     await newMessage.save();
 
-    io.to(`${receiver.type}:${receiver.id}`).emit("receiveMessage", newMessage);
+    io.to(`${receiverObj.type}:${receiverObj.id}`).emit(
+      "receiveMessage",
+      newMessage
+    );
   });
 
   socket.on("disconnect", () => {

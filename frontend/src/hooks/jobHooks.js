@@ -6,7 +6,7 @@ import {
   setLoading,
   setError,
   setUserChatList,
-} from "../redux/Slice/jobSlice"; // adjust the path as necessary
+} from "../redux/Slice/jobSlice";
 import jobService from "../services/jobService";
 import { setUserList } from "../redux/Slice/chatSlice";
 

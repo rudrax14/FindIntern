@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import io from "socket.io-client";
 import { timeAgo } from "../../utils/TimeTracker";
+import Loader from "../Spinner";
 
 const ChatWindow = ({ conversation, onBack }) => {
   const { userType, receiverId } = useParams();
@@ -12,6 +13,7 @@ const ChatWindow = ({ conversation, onBack }) => {
   const [socket, setSocket] = useState(null);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(true);
   const chatWindowRef = useRef(null);
 
   useEffect(() => {
@@ -22,18 +24,20 @@ const ChatWindow = ({ conversation, onBack }) => {
           `${import.meta.env.VITE_BACKEND_URL}/chat/history?senderType=${userType}&senderId=${currentUserId}&receiverType=${receiverRole}&receiverId=${selectedUserId}`
         )
         .then((response) => {
-          console.log(response.data);
           setMessages(response.data);
+          setLoading(false);
           scrollToBottom();
         })
-        .catch((error) => console.error("Error fetching chat history:", error));
+        .catch((error) => {
+          console.error("Error fetching chat history:", error);
+          setLoading(false);
+        });
 
-      const backendUrl = "https://find-intern-backend.vercel.app" || "http://localhost:5000";
+      const backendUrl = "http://localhost:5000";
       const newSocket = io(backendUrl, {
         transports: ['websocket', 'polling'],
         secure: true,
       });
-      console.log(newSocket);
       setSocket(newSocket);
       const senderDetails = { userType, currentUserId };
       newSocket.emit("join", senderDetails);
@@ -60,16 +64,14 @@ const ChatWindow = ({ conversation, onBack }) => {
   };
 
   const sendMessage = (messageText) => {
-    // console.log(messageText);
-    if (socket) {
+    if (socket && messageText.trim() !== "") {
       const messageData = {
         sender: currentUserId,
         receiver: selectedUserId,
         message: messageText,
-        timestamp: new Date().toISOString(), // Use ISO string for proper timestamp
+        timestamp: new Date().toISOString(),
         role: userType,
       };
-      if (messageText.trim() === "") return;
       socket.emit("sendMessage", messageData);
       setMessages((prevMessages) => [...prevMessages, messageData]);
       setMessage("");
@@ -103,28 +105,32 @@ const ChatWindow = ({ conversation, onBack }) => {
         </div>
       </div>
 
-      <div className="flex-1 md:overflow-y-auto  bg-gray-50 dark:bg-gray-900" ref={chatWindowRef}>
-        <div className="p-4 space-y-4">
-          {messages.length == 0 ? (
-            <div className="text-white text-center ">No message here</div>
-          ) : (
-            messages.map((message, index) => (
-              <div
-                key={index}
-                className={`flex ${message.receiver.id === currentUserId ? "justify-start" : "justify-end"}`}
-              >
+      <div className="flex-1 md:overflow-y-auto bg-gray-50 dark:bg-gray-900" ref={chatWindowRef}>
+        {loading ? (
+          <Loader />
+        ) : (
+          <div className="p-4 space-y-4">
+            {messages.length === 0 ? (
+              <div className="text-white text-center">No message here</div>
+            ) : (
+              messages.map((message, index) => (
                 <div
-                  className={`p-4 rounded-lg max-w-xs ${message.receiver.id === currentUserId ? "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300" : "bg-blue-500 text-white"}`}
+                  key={index}
+                  className={`flex ${message.receiver.id === currentUserId ? "justify-start" : "justify-end"}`}
                 >
-                  <p>{message.message}</p>
-                  <p className="text-sm text-gray-200 dark:text-gray-300 mt-2 text-end">
-                    {timeAgo(message.timestamp)}
-                  </p>
+                  <div
+                    className={`p-4 rounded-lg max-w-xs ${message.receiver.id === currentUserId ? "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300" : "bg-blue-500 text-white"}`}
+                  >
+                    <p>{message.message}</p>
+                    <p className="text-sm text-gray-200 dark:text-gray-300 mt-2 text-end">
+                      {timeAgo(message.timestamp)}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))
-          )}
-        </div>
+              ))
+            )}
+          </div>
+        )}
       </div>
 
       <div className="p-4 bg-gray-100 fixed bottom-0 w-[92%] md:sticky md:w-auto md:bottom-auto dark:bg-gray-700 flex items-center rounded-b-lg z-10">
@@ -133,9 +139,7 @@ const ChatWindow = ({ conversation, onBack }) => {
           placeholder="Type your message..."
           value={message}
           className="flex-1 p-2 rounded-l-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 placeholder-gray-500 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          onChange={(e) => {
-            setMessage(e.target.value);
-          }}
+          onChange={(e) => setMessage(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               sendMessage(message);
@@ -144,9 +148,7 @@ const ChatWindow = ({ conversation, onBack }) => {
         />
         <button
           className="bg-blue-500 text-white p-2 rounded-r-lg hover:bg-blue-600 transition duration-200"
-          onClick={() => {
-            sendMessage(message);
-          }}
+          onClick={() => sendMessage(message)}
         >
           Send
         </button>
