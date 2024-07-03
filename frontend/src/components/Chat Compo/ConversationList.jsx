@@ -2,27 +2,20 @@ import React, { useEffect, useState } from "react";
 import useJobHooks from "../../hooks/jobHooks";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import Loader from "../Spinner";
 
 const defaultAvatar = "https://via.placeholder.com/40";
 
 const ConversationList = ({ onSelectConversation }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [loading, setLoading] = useState(true);
   const { userType } = useParams();
   const { fetchAllAppliedJobs, fetchAllCompanyJobs } = useJobHooks();
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      if (userType === "jobseeker") {
-        await fetchAllAppliedJobs();
-      } else {
-        await fetchAllCompanyJobs();
-      }
-      setLoading(false);
-    };
-    fetchData();
+    if (userType === "jobseeker") {
+      fetchAllAppliedJobs();
+    } else {
+      fetchAllCompanyJobs();
+    }
   }, [userType]);
 
   const userChatList = useSelector((state) => state.userChat.userList);
@@ -43,9 +36,7 @@ const ConversationList = ({ onSelectConversation }) => {
         />
       </div>
       <div className="flex-1 overflow-y-auto">
-        {loading ? (
-          <Loader />
-        ) : userChatList.length > 0 ? (
+        {userChatList.length > 0 ? (
           userChatList.map((chat, i) => (
             <div
               key={i}
@@ -76,7 +67,9 @@ const ConversationList = ({ onSelectConversation }) => {
             </div>
           ))
         ) : (
-          <h1 className="text-center text-2xl my-4">No conversations found</h1>
+          <h1 className="text-center text-2xl my-4">
+            No conversations found
+          </h1>
         )}
       </div>
     </div>

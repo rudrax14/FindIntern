@@ -31,7 +31,7 @@ const userSlice = createSlice({
     userMode: "sign-in",
     userDetails: {},
     userProfiles: {},
-    loading: true,
+    loading: false,
     error: null,
   },
   reducers: {

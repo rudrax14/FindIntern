@@ -1,8 +1,17 @@
 import React from 'react';
 import LoginForm from '../../components/Form/LoginForm';
 import { Link, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import Spinner from '../../components/Spinner';
 function Login() {
     const { userType } = useParams();
+    const loading = useSelector((state) => state.user.loading);
+
+
+    if (loading) {
+        return <Spinner />
+    }
+
     return (
         <>
             <div className='flex items-center justify-center h-screen bg-secondary-100 p-5 dark:bg-dark-secondary-500'>

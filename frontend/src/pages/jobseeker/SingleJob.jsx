@@ -11,7 +11,6 @@ import { IoIosSend } from "react-icons/io";
 import { io } from "socket.io-client";
 import AppliedUsers from "../../components/AppliedUsers";
 import toast from "react-hot-toast";
-import Spinner from "../../components/Spinner";
 
 function SingleJobs() {
   const navigate = useNavigate();
@@ -21,7 +20,7 @@ function SingleJobs() {
   const { id, userType } = useParams();
   const [isAlreadyApplied, setIsAlreadyApplied] = useState(false);
   const [socket, setSocket] = useState(null);
-  const [loading, setLoading] = useState(true);
+
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -31,17 +30,12 @@ function SingleJobs() {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      await fetchAJob(id);
-      if (userType === "jobseeker") await fetchAllJobs(true);
-      setLoading(false);
-      scrollToTop();
-    };
-
-    fetchData();
+    fetchAJob(id);
+    if (userType === "jobseeker") fetchAllJobs(true);
+    scrollToTop();
   }, [id, userType]);
 
+  // Check if user has already applied for the job
   useEffect(() => {
     if (userDetails && job && userDetails.appliedJobs) {
       const hasApplied = userDetails.appliedJobs.some(
@@ -51,12 +45,9 @@ function SingleJobs() {
     }
   }, [userDetails, job]);
 
+  // Socket connection
   useEffect(() => {
-    const backendUrl = import.meta.env.VITE_SOCKET_URL || "http://localhost:5000";
-    const newSocket = io(backendUrl, {
-      transports: ['websocket', 'polling'],
-      secure: true,
-    });
+    const newSocket = io(import.meta.env.VITE_BACKEND_URL || "http://localhost:5000");
     setSocket(newSocket);
     return () => {
       if (newSocket) {
@@ -65,6 +56,7 @@ function SingleJobs() {
     };
   }, []);
 
+  // Job Applied handlers & Send Socket message
   const appliedHandler = () => {
     applyJob(job._id);
     const selectedUserId = job.postedBy._id;
@@ -81,30 +73,34 @@ function SingleJobs() {
     navigate(`/${userType}/chat/`);
   };
 
+  // Admin approve & reject handlers
   const approveHandler = () => {
+
     adminService.approveJob(job._id);
-    fetchAllJobs();
+    fetchAllJobs()
     toast.success("Job Approved");
     navigate(`/${userType}/dashboard`);
   };
 
   const rejectHandler = () => {
     adminService.rejectJob(job._id);
-    fetchAllJobs();
+    fetchAllJobs()
     toast.success("Job Rejected");
     navigate(`/${userType}/dashboard`);
   };
 
+  // Send redirect message handler
   const sendHandler = () => {
     navigate(`/jobseeker/chat/${job.postedBy._id}`);
   };
 
-  if (loading) {
-    return <Spinner />;
-  }
-
+  // Loading state
   if (!job || !userDetails) {
-    return <Spinner />;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <h2>Loading...</h2>
+      </div>
+    );
   }
 
   return (
@@ -249,6 +245,7 @@ function SingleJobs() {
               </ul>
             </div>
 
+
             <section className="Handler">
               {userType === "jobseeker" ? (
                 <div>
@@ -281,6 +278,7 @@ function SingleJobs() {
             </section>
           </div>
         </div>
+        {/* // Applied Users cards */}
         {userType === "recruiter" && job.appliedUsers?.length > 0 && job.postedBy._id === userDetails._id && (
           <AppliedUsers user={job.appliedUsers} jobId={job._id} />
         )}
