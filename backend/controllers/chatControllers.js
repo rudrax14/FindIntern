@@ -5,7 +5,7 @@ const populateMessage = require("../utils/populateMessage");
 exports.getChatHistory = catchAsync(async (req, res) => {
     
       let { senderType, senderId, receiverType, receiverId } = req.query;
-      console.log(req.query)
+      // console.log(req.query)
       senderType = senderType === "jobseeker"?"User":"Company";
       receiverType = receiverType === "jobseeker"?"User":"Company";
       let messages = await Message.find({
@@ -14,7 +14,7 @@ exports.getChatHistory = catchAsync(async (req, res) => {
           { 'sender.id': receiverId, 'sender.type': receiverType, 'receiver.id': senderId, 'receiver.type': senderType }
         ]
       }).sort({ timestamp: 1 }); // Sort messages by timestamp
-      console.log(messages)
+      // console.log(messages)
       // Populate messages
       messages = await Promise.all(messages.map(populateMessage));
   

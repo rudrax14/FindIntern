@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { updateProfileImage } from '../../redux/Slice/userSlice'; // Ensure the correct path to userSlice
 
 const AvatarUploader = ({ profile }) => {
@@ -29,7 +29,7 @@ const AvatarUploader = ({ profile }) => {
     const handleUpdate = () => {
         const jwtToken = localStorage.getItem("userToken");
         const formData = new FormData();
-        formData.append('imageFile', selectedFile); // Used 'imageFile' as the key
+        formData.append('imageFile', selectedFile);
 
         axios.post(`${import.meta.env.VITE_BACKEND_URL}/${userType}/profile/image/upload`, formData, {
             headers: {
@@ -37,7 +37,7 @@ const AvatarUploader = ({ profile }) => {
             }
         })
             .then((response) => {
-                const newImageUrl = response.data.imageUrl; // Assuming the response contains the new image URL
+                const newImageUrl = response.data.imageUrl;
                 dispatch(updateProfileImage(newImageUrl));
             })
             .catch((err) => {
@@ -48,7 +48,9 @@ const AvatarUploader = ({ profile }) => {
     const handleDelete = () => {
         setImageUrl(profile);
     };
+
     const defaultImageUrl = 'https://res.cloudinary.com/dipv5sufo/image/upload/v1708846305/FindIntern/Assets/stock-profile.jpg';
+
     return (
         <div className="profile xl:flex md:justify-between space-y-6 items-center w-full">
             <div className='xl:flex items-center gap-4'>
@@ -66,7 +68,7 @@ const AvatarUploader = ({ profile }) => {
                 <label htmlFor="avatar-upload" className='border border-secondary-200 hover:bg-secondary-200 hover:text-white text-secondary-200 rounded-md font-medium flex justify-center items-center w-20 h-10'>Select File</label>
                 <input type="file" id="avatar-upload" className='hidden' onChange={handleFileChange} />
                 <button onClick={handleUpdate} className='border border-secondary-200 hover:bg-secondary-200 hover:text-white text-secondary-200 rounded-md font-medium px-2 py-1 w-20 h-10'>Update</button>
-                <button onClick={handleDelete} className='border border-red-500  hover:bg-red-500 hover:text-white text-red-500 rounded-md font-medium px-2 py-1 w-20 h-10'>Delete</button>
+                <button onClick={handleDelete} className='border border-red-500 hover:bg-red-500 hover:text-white text-red-500 rounded-md font-medium px-2 py-1 w-20 h-10'>Delete</button>
             </div>
         </div>
     );

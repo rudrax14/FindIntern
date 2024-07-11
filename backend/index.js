@@ -66,21 +66,20 @@ app.get("/", (req, res) => {
 
 app.use(errorControllers);
 
-server.listen(5000, () => {
-  console.log("Listening on http://localhost:5000");
-});
 
+
+
+// Socket.IO
 io.on("connection", (socket) => {
-  console.log("New client connected");
+  console.log(`New ${socket.id} connected`);
 
-  socket.on("join", ({ currentUserId, userType }) => {
-    socket.join(`${userType}:${currentUserId}`);
-    console.log(`User joined: ${userType}:${currentUserId}`);
+  socket.on("join", ({ roomId }) => {
+    socket.join(roomId);
+    console.log(`User joined room: ${roomId}`);
   });
 
   socket.on("sendMessage", async (data) => {
     const { sender, receiver, message, role } = data;
-    console.log(message);
     const senderObj = {
       id: sender,
       type: role === "jobseeker" ? "User" : "Company",
@@ -96,13 +95,20 @@ io.on("connection", (socket) => {
     });
     await newMessage.save();
 
-    io.to(`${receiverObj.type}:${receiverObj.id}`).emit(
-      "receiveMessage",
-      newMessage
-    );
+    const roomId = [sender, receiver].sort().join("_");
+    io.to(roomId).emit("receiveMessage", newMessage);
   });
 
-  socket.on("disconnect", () => {
-    console.log("Client disconnected");
+  socket.on("leave", ({ roomId }) => {
+    socket.leave(roomId);
+    console.log(`User left room: ${roomId}`);
   });
+
+  socket.on('disconnect', () => {
+    console.log(`Socket ${socket.id} disconnected`);
+  });
+});
+
+server.listen(5000, () => {
+  console.log("Listening on http://localhost:5000");
 });

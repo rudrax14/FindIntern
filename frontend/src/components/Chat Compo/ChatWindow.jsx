@@ -9,41 +9,60 @@ const ChatWindow = ({ conversation, onBack }) => {
   const { userType, receiverId } = useParams();
   const selectedUserId = receiverId;
   const currentUserId = useSelector((state) => state.user.userDetails._id);
-  const [socket, setSocket] = useState(null);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const chatWindowRef = useRef(null);
+  const socketRef = useRef(null);
+
+  const generateRoomId = (userId1, userId2) => {
+    return [userId1, userId2].sort().join("_");
+  };
 
   useEffect(() => {
-    if (selectedUserId) {
+    const fetchChatHistory = async () => {
       const receiverRole = userType === "jobseeker" ? "recruiter" : "jobseeker";
-      axios
-        .get(
+      try {
+        const response = await axios.get(
           `${import.meta.env.VITE_BACKEND_URL}/chat/history?senderType=${userType}&senderId=${currentUserId}&receiverType=${receiverRole}&receiverId=${selectedUserId}`
-        )
-        .then((response) => {
-          console.log(response.data);
-          setMessages(response.data);
-          scrollToBottom();
-        })
-        .catch((error) => console.error("Error fetching chat history:", error));
+        );
+        setMessages(response.data);
+        scrollToBottom();
+      } catch (error) {
+        console.error("Error fetching chat history:", error);
+      }
+    };
 
-      const newSocket = io(import.meta.env.VITE_SOCKET_URL || "http://localhost:5000");
-      console.log(newSocket);
-      setSocket(newSocket);
-      const senderDetails = { userType, currentUserId };
-      newSocket.emit("join", senderDetails);
+    if (selectedUserId) {
+      fetchChatHistory();
 
-      newSocket.on("receiveMessage", (message) => {
+      if (!socketRef.current) {
+        socketRef.current = io(import.meta.env.VITE_SOCKET_URL || "http://localhost:5000");
+      }
+
+      const socket = socketRef.current;
+      const roomId = generateRoomId(currentUserId, selectedUserId);
+      socket.emit("join", { roomId });
+
+      socket.on("receiveMessage", (message) => {
         setMessages((prevMessages) => [...prevMessages, message]);
         scrollToBottom();
       });
 
       return () => {
-        newSocket.disconnect();
+        socket.off("receiveMessage");
+        socket.emit("leave", { roomId });
       };
     }
-  }, [selectedUserId, currentUserId]);
+  }, [selectedUserId, userType, currentUserId]);
+
+  useEffect(() => {
+    return () => {
+      if (socketRef.current) {
+        socketRef.current.disconnect();
+        socketRef.current = null;
+      }
+    };
+  }, []);
 
   useEffect(() => {
     scrollToBottom();
@@ -56,21 +75,24 @@ const ChatWindow = ({ conversation, onBack }) => {
   };
 
   const sendMessage = (messageText) => {
-    // console.log(messageText);
-    if (socket) {
+    if (socketRef.current && messageText.trim() !== "") {
       const messageData = {
         sender: currentUserId,
         receiver: selectedUserId,
         message: messageText,
-        timestamp: new Date().toISOString(), // Use ISO string for proper timestamp
+        timestamp: new Date().toISOString(),
         role: userType,
       };
-      if (messageText.trim() === "") return;
-      socket.emit("sendMessage", messageData);
-      setMessages((prevMessages) => [...prevMessages, messageData]);
+      socketRef.current.emit("sendMessage", messageData);
+      // setMessages((prevMessages) => [...prevMessages, messageData]);
       setMessage("");
       scrollToBottom();
     }
+  };
+
+  const handleSendMessage = (e) => {
+    e.preventDefault();
+    sendMessage(message);
   };
 
   return (
@@ -99,10 +121,10 @@ const ChatWindow = ({ conversation, onBack }) => {
         </div>
       </div>
 
-      <div className="flex-1 md:overflow-y-auto  bg-gray-50 dark:bg-gray-900" ref={chatWindowRef}>
+      <div className="flex-1 md:overflow-y-auto bg-gray-50 dark:bg-gray-900" ref={chatWindowRef}>
         <div className="p-4 space-y-4">
-          {messages.length == 0 ? (
-            <div className="text-white text-center ">No message here</div>
+          {messages.length === 0 ? (
+            <div className="text-white text-center">No message here</div>
           ) : (
             messages.map((message, index) => (
               <div
@@ -123,7 +145,7 @@ const ChatWindow = ({ conversation, onBack }) => {
         </div>
       </div>
 
-      <div className="p-4 bg-gray-100 fixed bottom-0 w-[92%] md:sticky md:w-auto md:bottom-auto dark:bg-gray-700 flex items-center rounded-b-lg z-10">
+      <form className="p-4 bg-gray-100 fixed bottom-0 w-[92%] md:sticky md:w-auto md:bottom-auto dark:bg-gray-700 flex items-center rounded-b-lg z-10" onSubmit={handleSendMessage}>
         <input
           type="text"
           placeholder="Type your message..."
@@ -132,21 +154,14 @@ const ChatWindow = ({ conversation, onBack }) => {
           onChange={(e) => {
             setMessage(e.target.value);
           }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              sendMessage(message);
-            }
-          }}
         />
         <button
+          type="submit"
           className="bg-blue-500 text-white p-2 rounded-r-lg hover:bg-blue-600 transition duration-200"
-          onClick={() => {
-            sendMessage(message);
-          }}
         >
           Send
         </button>
-      </div>
+      </form>
     </div>
   );
 };

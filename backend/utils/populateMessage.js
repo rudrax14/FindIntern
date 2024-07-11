@@ -3,7 +3,7 @@ const User = require('../models/User');
 const Company = require('../models/Company');
 
 const populateMessage = async (message) => {
-  console.log(message)
+  // console.log(message)
   if (message.sender.type === "User") {
     message.sender.id = await User.findById(message.sender.id);
   } else {

@@ -90,7 +90,7 @@ function Navbar() {
             </div>
             <div className="flex gap-3 items-center">
               {userDetails._id && (
-                <ul className="lg:flex gap-4 justify-between text-lg font-medium hidden text-secondary-300 dark:text-dark-secondary-300">
+                <ul className="sm:flex gap-4 justify-between text-lg font-medium hidden text-secondary-300 dark:text-dark-secondary-300">
                   <Link
                     to={`/${userType}/all-jobs`}
                     className="hover:text-primary-200 hover:cursor-pointer"
