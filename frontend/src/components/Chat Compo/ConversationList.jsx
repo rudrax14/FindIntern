@@ -25,7 +25,7 @@ const ConversationList = ({ onSelectConversation }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-1 flex-col h-full w-full sm:w-1/3 rounded-lg border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
+    <div className="flex flex-1 flex-col h-full w-full lg:w-1/3 rounded-lg border-r sm:mt-0 mt-20 border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
       <div className="p-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 sticky top-0 z-10">
         <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300">
           Conversations

@@ -5,6 +5,7 @@ import axios from "axios";
 import io from "socket.io-client";
 import { timeAgo } from "../../utils/TimeTracker";
 const defaultAvatar = "https://via.placeholder.com/40";
+import { IoMdArrowRoundBack } from "react-icons/io";
 const ChatWindow = ({ conversation, onBack }) => {
   const { userType, receiverId } = useParams();
   const selectedUserId = receiverId;
@@ -97,12 +98,12 @@ const ChatWindow = ({ conversation, onBack }) => {
 
   return (
     <div className="flex flex-1 flex-col h-full">
-      <div className="p-4 bg-gray-100 dark:bg-gray-700 flex items-center sticky top-0 shadow rounded-t-lg z-10">
+      <div className="p-4 bg-gray-100 dark:bg-gray-700 flex items-center sticky top-14 shadow rounded-t-lg z-10">
         <button
-          className="sm:hidden mr-4 text-gray-600 dark:text-gray-300"
+          className="lg:hidden mr-4 text-gray-600 dark:text-gray-300"
           onClick={onBack}
         >
-          Back
+          <IoMdArrowRoundBack />
         </button>
         <div className="flex items-center flex-1">
           <img
@@ -124,12 +125,12 @@ const ChatWindow = ({ conversation, onBack }) => {
       <div className="flex-1 sm:overflow-y-auto bg-gray-50 dark:bg-gray-900" ref={chatWindowRef}>
         <div className="p-4 space-y-4">
           {messages.length === 0 ? (
-            <div className="text-white text-center">No message here</div>
+            <div className="text-white text-center overflow-y-clip h-screen mt-10 lg:mt-0">No message here</div>
           ) : (
             messages.map((message, index) => (
               <div
                 key={index}
-                className={`flex ${message.receiver.id === currentUserId ? "justify-start" : "justify-end"}`}
+                className={`flex mt-10 lg:mt-0 ${message.receiver.id === currentUserId ? "justify-start" : "justify-end"}`}
               >
                 <div
                   className={`p-4 rounded-lg max-w-xs ${message.receiver.id === currentUserId ? "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300" : "bg-blue-500 text-white"}`}
@@ -145,23 +146,25 @@ const ChatWindow = ({ conversation, onBack }) => {
         </div>
       </div>
       {/* p-4 bg-gray-100 dark:bg-gray-700 flex items-center sticky top-0 shadow rounded-t-lg z-10 */}
-      <form className="p-4 bg-gray-100 fixed bottom-0 w-[92%] md:sticky md:w-auto md:bottom-auto dark:bg-gray-700 flex items-center rounded-b-lg z-10" onSubmit={handleSendMessage}>
-        <input
-          type="text"
-          placeholder="Type your message..."
-          value={message}
-          className="flex-1 p-2 rounded-l-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 placeholder-gray-500 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          onChange={(e) => {
-            setMessage(e.target.value);
-          }}
-        />
-        <button
-          type="submit"
-          className="bg-blue-500 text-white p-2 rounded-r-lg hover:bg-blue-600 transition duration-200"
-        >
-          Send
-        </button>
-      </form>
+      <div className="w-full sticky bottom-0">
+        <form className="p-4 bg-gray-100  md:sticky md:w-auto md:bottom-auto dark:bg-gray-700 flex items-center rounded-b-lg z-10" onSubmit={handleSendMessage}>
+          <input
+            type="text"
+            placeholder="Type your message..."
+            value={message}
+            className="flex-1 p-2 rounded-l-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 placeholder-gray-500 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            onChange={(e) => {
+              setMessage(e.target.value);
+            }}
+          />
+          <button
+            type="submit"
+            className="bg-blue-500 text-white p-2 rounded-r-lg hover:bg-blue-600 transition duration-200"
+          >
+            Send
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
