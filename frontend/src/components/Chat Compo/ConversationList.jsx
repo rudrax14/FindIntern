@@ -9,12 +9,15 @@ const ConversationList = ({ onSelectConversation }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const { userType } = useParams();
   const { fetchAllAppliedJobs, fetchAllCompanyJobs } = useJobHooks();
+  const [loader, setLoader] = useState(true);
 
   useEffect(() => {
     if (userType === "jobseeker") {
       fetchAllAppliedJobs();
     } else {
+
       fetchAllCompanyJobs();
+
     }
   }, [userType]);
 
@@ -37,6 +40,7 @@ const ConversationList = ({ onSelectConversation }) => {
       </div>
       <div className="flex-1 overflow-y-auto">
         {userChatList.length > 0 ? (
+
           userChatList.map((chat, i) => (
             <div
               key={i}

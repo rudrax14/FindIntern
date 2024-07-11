@@ -19,7 +19,6 @@ function SingleJobs() {
   const userDetails = useSelector((state) => state.user.userDetails);
   const { id, userType } = useParams();
   const [isAlreadyApplied, setIsAlreadyApplied] = useState(false);
-  const [socket, setSocket] = useState(null);
 
 
   const scrollToTop = () => {
@@ -47,13 +46,7 @@ function SingleJobs() {
 
   // Socket connection
   useEffect(() => {
-    const newSocket = io(import.meta.env.VITE_BACKEND_URL || "http://localhost:5000");
-    setSocket(newSocket);
-    return () => {
-      if (newSocket) {
-        newSocket.disconnect();
-      }
-    };
+    
   }, []);
 
   // Job Applied handlers & Send Socket message
@@ -62,6 +55,7 @@ function SingleJobs() {
     const selectedUserId = job.postedBy._id;
     const currentUserId = userDetails._id;
     const senderDetails = { userType, currentUserId };
+    const socket = io("http://localhost:5000");
     socket.emit("join", senderDetails);
     const messageData = {
       sender: currentUserId,

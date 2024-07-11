@@ -18,11 +18,11 @@ function Chat() {
   return (
     <>
       <Navbar />
-      <div className="container  sm:p-4 mx-auto flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 px-4 h-[calc(100vh-64px)]">
-        <div className={`sm:w-1/3 ${selectedConversation ? "hidden sm:flex" : "flex"} w-full`}>
+      <div className="container sm:p-4 mx-auto flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 px-4 h-[calc(100vh-64px)]">
+        <div className={`sm:w-1/3 ${selectedConversation ? "hidden lg:flex" : "flex"} w-full`}>
           <ConversationList onSelectConversation={setSelectedConversation} />
         </div>
-        <div className={`sm:w-2/3 ${selectedConversation ? "flex " : "hidden sm:flex "} w-full relative `}>
+        <div className={`lg:w-2/3 ${selectedConversation ? "flex " : "hidden :flex "} w-full relative `}>
           {selectedConversation ? (
             <ChatWindow
               conversation={selectedConversation}

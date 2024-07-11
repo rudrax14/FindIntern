@@ -1,16 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import profileHooks from "../hooks/profileHooks";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUserProfiles } from "../redux/Slice/userSlice";
 import axios from "axios";
 import useJobHooks from "../hooks/jobHooks";
+import Spinner from "./Spinner";
 
 function AppliedUsers({ user, jobId }) {
+  const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { profile } = profileHooks();
   const { fetchAJob } = useJobHooks();
+  const [loader, setLoader] = useState(false);
+
 
 
   const clickHandler = async (profileId, username) => {
@@ -30,6 +34,7 @@ function AppliedUsers({ user, jobId }) {
   };
 
   const selectHandler = (jobId, userId) => {
+    setLoader(true);
     console.log("Selected", jobId, userId);
     const jwtToken = localStorage.getItem("userToken");
     axios
@@ -47,14 +52,17 @@ function AppliedUsers({ user, jobId }) {
       )
       .then((res) => {
         console.log(res.data);
-        fetchAJob(jobId);
+        fetchAJob(id);
+        setLoader(false);
       })
       .catch((err) => {
+        setLoader(false);
         console.log(err);
       });
   };
 
   const rejectHandler = (jobId, userId) => {
+    setLoader(true);
     console.log("Rejected", jobId, userId);
     const jwtToken = localStorage.getItem("userToken");
     axios
@@ -72,12 +80,18 @@ function AppliedUsers({ user, jobId }) {
       )
       .then((res) => {
         console.log(res.data);
-        fetchAJob(jobId);
+        fetchAJob(id);
+        setLoader(false);
       })
       .catch((err) => {
         console.log(err);
+        setLoader(false);
       });
   };
+
+  if (loader) {
+    return (<Spinner />)
+  }
 
   return (
     <div className="container max-w-4xl mx-auto rounded-lg bg-white mt-6 p-8 shadow-lg dark:bg-dark-secondary-100 dark:border dark:border-secondary-200">
@@ -85,7 +99,7 @@ function AppliedUsers({ user, jobId }) {
         Applied Users
       </h3>
       <div className="container mx-auto mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {user.length > 0 &&
+        {user.length > 0 ? (
           user.map((user, index) => (
             <div
               key={index}
@@ -132,8 +146,14 @@ function AppliedUsers({ user, jobId }) {
                 </div>
               </div>
             </div>
-          ))}
+          ))
+        ) : (
+          <div className="bg-white">
+            No users applied yet
+          </div>
+        )}
       </div>
+
     </div>
   );
 }

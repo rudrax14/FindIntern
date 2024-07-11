@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import io from "socket.io-client";
 import { timeAgo } from "../../utils/TimeTracker";
-
+const defaultAvatar = "https://via.placeholder.com/40";
 const ChatWindow = ({ conversation, onBack }) => {
   const { userType, receiverId } = useParams();
   const selectedUserId = receiverId;
@@ -121,7 +121,7 @@ const ChatWindow = ({ conversation, onBack }) => {
         </div>
       </div>
 
-      <div className="flex-1 md:overflow-y-auto bg-gray-50 dark:bg-gray-900" ref={chatWindowRef}>
+      <div className="flex-1 sm:overflow-y-auto bg-gray-50 dark:bg-gray-900" ref={chatWindowRef}>
         <div className="p-4 space-y-4">
           {messages.length === 0 ? (
             <div className="text-white text-center">No message here</div>
@@ -144,7 +144,7 @@ const ChatWindow = ({ conversation, onBack }) => {
           )}
         </div>
       </div>
-
+      {/* p-4 bg-gray-100 dark:bg-gray-700 flex items-center sticky top-0 shadow rounded-t-lg z-10 */}
       <form className="p-4 bg-gray-100 fixed bottom-0 w-[92%] md:sticky md:w-auto md:bottom-auto dark:bg-gray-700 flex items-center rounded-b-lg z-10" onSubmit={handleSendMessage}>
         <input
           type="text"
