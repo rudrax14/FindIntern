@@ -37,9 +37,9 @@ exports.updateUserProfile = catchAsync(async (req, res, next) => {
 
   const userObj = filterUserObject(req.body, [
     "password",
-    "fullName",
-    "username",
-    "email",
+    
+    "username"
+    
   ]);
   query["$set"] = {
     updatedAt: Date.now(),
@@ -63,6 +63,11 @@ exports.applyJob = catchAsync(async (req, res, next) => {
 
   // Assuming you have the authenticated user available in req.user
   const userId = req.user.id;
+
+  // Check if the role is jobseeker
+  if(req.user.role != "jobseeker"){
+    return next(new AppError("You are not allowed to perform this action",401));
+  } 
 
   // Check if the user has already applied for this job
   const alreadyApplied = await User.findOne({
